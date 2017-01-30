@@ -3,15 +3,21 @@
  */
 import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = new Group();
+        Group root = new Group();
+        Button jesus=new Button("Jesus");
+        jesus.setTranslateX(10);
+        jesus.setTranslateY(30);
+
+        root.getChildren().add(jesus);
+
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
