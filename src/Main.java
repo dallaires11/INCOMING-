@@ -7,9 +7,13 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+<<<<<<< HEAD
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+=======
+import javafx.scene.control.Button;
+>>>>>>> 1a59931339dfb66237e73ea13c17d2cc212b193d
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -22,6 +26,7 @@ public class Main extends Application{
     ArrayList<Projectile> projectiles=new ArrayList<>();
 
     @Override
+<<<<<<< HEAD
     public void start(Stage primaryStage){
         Group root = new Group();
         Rectangle catapulte=new Rectangle(60,40, Color.DARKOLIVEGREEN);
@@ -64,6 +69,18 @@ public class Main extends Application{
         });
         primaryStage.setTitle("INCOMING!!!");
         primaryStage.setScene(jeu);
+=======
+    public void start(Stage primaryStage) throws Exception{
+        Group root = new Group();
+        Button jesus=new Button("Jesus");
+        jesus.setTranslateX(10);
+        jesus.setTranslateY(30);
+
+        root.getChildren().add(jesus);
+
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root, 300, 275));
+>>>>>>> 1a59931339dfb66237e73ea13c17d2cc212b193d
         primaryStage.show();
     }
 
