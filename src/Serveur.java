@@ -6,6 +6,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.awt.event.KeyListener;
 import java.io.*;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -17,11 +18,11 @@ import java.util.Scanner;
  */
 public class Serveur {
     static ServerSocket serveur;
-    Socket slave;
     BufferedReader in;
     PrintWriter out;
     DataOutputStream out2;
     boolean connect = false;
+    Physique moteur=new Physique();
 
     public static void main(String[] args) {
         try {
@@ -37,26 +38,31 @@ public class Serveur {
 }
 class Communi implements Runnable{
     ServerSocket serverSocket;
-    Socket socket;
     Thread t1;
+    Timeline mouvment;
+    Physique physique;
+
 
     Communi(ServerSocket s){
         serverSocket = s;
+        mouvment = new Timeline(new KeyFrame(javafx.util.Duration.millis(15),event ->{
+            physique.effectuerMouvement();
+        }));
 
     }
 
 
+
+
     public void run() {
-        try {
-            while(true){
+        while(true){
+            mouvment.play();
+            System.out.println("Un zéro veut se connecter  ");
 
-                socket = serverSocket.accept();
-                System.out.println("Un zéro veut se connecter  ");
+            t1 = new Thread(new Message(physique));
+            t1.start();
 
-                t1 = new Thread(new Message(socket));
-                t1.start();
-
-            }
+        }
 
             /*slave = serveur.accept();
             System.out.println("Un zéro s'est connecté !");
@@ -74,49 +80,53 @@ class Communi implements Runnable{
             serveur.close();
             slave.close();*/
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
 
 class Message extends Thread {
-    Socket socket;
+    private DatagramSocket slave;
     PrintWriter out;
     DataOutputStream out1;
     DataInputStream in;
     Scanner sc;
     int x=0;
+    private Physique physique;
 
-    Timeline temps;
-
-    Message(Socket socket){
-        this.socket=socket;
+    Message(Physique physique) {
+        this.physique=physique;
     }
 
 
     public void run() {
         try {
-            sc=new Scanner(System.in);
-            out=new PrintWriter(socket.getOutputStream());
-            out1=new DataOutputStream(socket.getOutputStream());
-            in=new DataInputStream(socket.getInputStream());//Callse differente
+            //sc=new Scanner(System.in);
+            //out=new PrintWriter(socket.getOutputStream());
+            //out1=new DataOutputStream(socket.getOutputStream());
+            //in=new DataInputStream(socket.getInputStream());//Callse differente
             int message;
             int recu;
 
         while (true){
+
+
+            slave.send(physique.info());
+
+            /*if(in.readBoolean())
+                physique.addProjectile();*/
+
+
             //message=sc.nextInt();
             //out.println(" Serveur:"+message);
             //out1.writeInt(x);
             //out.flush();
             //out1.flush();
             //x++;
-            in.readInt();
+            //in.readInt();
             /*if(recu>0) {
                 System.out.println("Recu");
                 System.out.println(recu);
             }*/
-            this.sleep(3);
+            this.sleep(10);
         }
         } catch (IOException e) {
             e.printStackTrace();

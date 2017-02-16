@@ -35,8 +35,8 @@ public class Main extends Application{
             if (!projectiles.isEmpty()) {
                 for (int y = 0; y < projectiles.size(); y++) {
                     projectiles.get(y).accelerer();
-                    projectiles.get(y).setTranslateX(projectiles.get(y).getX());
-                    projectiles.get(y).setTranslateY(projectiles.get(y).getY());
+                    //projectiles.get(y).setTranslateX(projectiles.get(y).getX());
+                    //projectiles.get(y).setTranslateY(projectiles.get(y).getY());
                 }
             }
             //System.out.println("T");
@@ -57,7 +57,7 @@ public class Main extends Application{
                     root.getChildren().remove(1);
                 }*/
                 projectiles.add(new Projectile(x));
-                root.getChildren().add(projectiles.get(proj));
+                //root.getChildren().add(projectiles.get(proj));
                 //projectiles.get(proj).setTranslateX(40);
                 //projectiles.get(proj).setTranslateY(450);
                 proj++;
