@@ -1,23 +1,78 @@
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-
-import java.awt.event.KeyListener;
-import java.io.*;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.time.Duration;
-import java.util.Scanner;
-
 /**
  * Created by Chroon on 2017-02-06.
  */
+import java.io.*;
+import java.net.*;
+import java.nio.ByteBuffer;
+
 public class Serveur {
-    static ServerSocket serveur;
+
+    public static void main(String[] args) {
+        ServerSocket srv = null;
+        Physique physique;
+        Thread reception;
+
+
+        try {
+            srv = new ServerSocket(81);
+
+            System.out.println(InetAddress.getLocalHost());
+
+            physique = new Physique();
+            physique.start();
+
+            physique.addProjectile(20);
+
+            while (true) {
+                Socket s = srv.accept();
+
+                System.out.println("Hola");
+                physique.AjouterUnVoyeur(s);
+                //eception = new Thread(new Reception(physique));
+                //reception.start();
+
+                System.out.println(s.getInetAddress());
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class Reception implements Runnable{
+    MulticastSocket multiSocket;
+    Physique physique;
+    Reception(Physique physique) throws IOException {
+        this.physique=physique;
+        System.out.println("Test");
+        multiSocket=new MulticastSocket(4440);
+        multiSocket.joinGroup(InetAddress.getByName("224.0.5.0"));
+
+    }
+
+    @Override
+    public void run() {
+        try {
+        byte[] buff = new byte[1024];
+        DatagramPacket dp = new DatagramPacket(buff, buff.length);
+            multiSocket.receive(dp);
+            ByteBuffer pourLire = ByteBuffer.wrap(buff);
+
+            for(int i = 0; i < 1; ++i) {
+                int puissance = pourLire.getInt();
+                System.out.println(puissance);
+                physique.addProjectile(puissance);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+    /*static ServerSocket serveur;
     BufferedReader in;
     PrintWriter out;
     DataOutputStream out2;
@@ -78,7 +133,7 @@ class Communi implements Runnable{
             char t='a';
 
             serveur.close();
-            slave.close();*/
+            slave.close();
 
     }
 }
@@ -125,7 +180,7 @@ class Message extends Thread {
             /*if(recu>0) {
                 System.out.println("Recu");
                 System.out.println(recu);
-            }*/
+            }
             this.sleep(10);
         }
         } catch (IOException e) {
@@ -135,4 +190,4 @@ class Message extends Thread {
         }
     }
 
-}
+}*/

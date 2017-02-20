@@ -1,66 +1,100 @@
+/**
+ * Created by Chroon on 2017-02-15.
+ */
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
-/**
- * Created by Chroon on 2017-02-15.
- */
-public class Physique {
+class Physique extends Thread{
     private ArrayList<Projectile> projectiles=new ArrayList<>();
+    private ArrayList<Socket> lesCeuzeQuiRegardeL;
+    private ArrayList<DataOutputStream> pourParlerAuxClients;
     private ByteBuffer b;
-    private int nbProjectile;
-    DatagramSocket essai;
+    private int nbProjectile,taille;
+    private DatagramSocket essai;
     DatagramPacket packet;
-    InetAddress adresse;
+    private InetAddress adresse;
 
-    public Physique (){
-        System.out.print("test");
-        nbProjectile=0;
+    Physique(){
+        taille=0;
+        lesCeuzeQuiRegardeL = new ArrayList<>();
+        pourParlerAuxClients = new ArrayList<>();
         try {
-            adresse=InetAddress.getLocalHost();
-            essai=new DatagramSocket(81);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (SocketException e) {
+            adresse=InetAddress.getByName("224.0.5.0");
+            essai=new DatagramSocket(4444);
+        } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
         }
     }
 
-    public void addProjectile(int puissance){
+    void AjouterUnVoyeur(Socket _v){
+        taille += 800;
+
+        try{
+            DataOutputStream dos = new DataOutputStream(_v.getOutputStream());
+            ByteBuffer b = ByteBuffer.allocate(4);
+
+            b.putInt(taille);
+
+            pourParlerAuxClients.add(dos);
+            dos.flush();
+
+            dos.write(b.array());
+            dos.flush();
+        }
+        catch(IOException ignored){
+
+        }
+
+        lesCeuzeQuiRegardeL.add(_v);
+    }
+
+    void addProjectile(int puissance){
         projectiles.add(projectiles.size(),new Projectile(puissance));
         nbProjectile++;
     }
 
-    public void effectuerMouvement(){
-        projectiles.forEach(Projectile::accelerer);
-        int tailleBuffer = 1+nbProjectile*4;
-        b= ByteBuffer.allocate(tailleBuffer*4);
-        b.putInt(nbProjectile);
-        byte[] aEnvoyer;
-
-        for(int w=0;w<nbProjectile;w++){
-            Projectile temp = projectiles.get(w);
-
-            b.putFloat(temp.y);
-            b.putFloat(temp.x);
-        }
-        b.putFloat(2f);
-
-        aEnvoyer=b.array();
-
-        packet = new DatagramPacket(aEnvoyer,aEnvoyer.length,adresse,81);
-
+    @Override
+    public void run() {
         try {
-            essai.send(packet);
-        } catch (IOException e) {
-            e.printStackTrace();
+            while (true) {
+                int nbVoyeur = lesCeuzeQuiRegardeL.size();
+
+                if (nbVoyeur > 0) {
+                    nbProjectile = projectiles.size();
+
+                    int tailleBuffer = 1 + nbProjectile * 4;
+
+                    ByteBuffer b = ByteBuffer.allocate(tailleBuffer * 4);
+
+                    b.putInt(nbProjectile);
+
+                    byte[] aEnvoyer;
+
+                    for (int nb = 0; nb < nbProjectile; nb++) {
+
+                        projectiles.get(nb).accelerer();
+
+                        Projectile tmp = projectiles.get(nb);
+
+                        b.putDouble(tmp.getX());
+                        b.putDouble(tmp.getY());
+
+                    }
+
+                    aEnvoyer = b.array();
+
+                    DatagramPacket paquet = new DatagramPacket(aEnvoyer, aEnvoyer.length, adresse, 4444);
+
+                    essai.send(paquet);
+
+                }
+                sleep(15);
+            }
+        } catch (IOException | InterruptedException ioex) {
+            ioex.printStackTrace();
         }
-
     }
-
-    public DatagramPacket info(){
-        return packet;
-    }
-
 }

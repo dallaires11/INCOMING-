@@ -1,10 +1,3 @@
-import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-
 public class Projectile{
     int angle,masse;
     float x,y,force,vX,vY;
@@ -58,12 +51,10 @@ public class Projectile{
 
 
 
-
     public double getX(){
         return x;
     }
     public double getY(){
         return y;
     }
-
 }
