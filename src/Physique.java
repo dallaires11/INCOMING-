@@ -88,10 +88,11 @@ class Physique extends Thread{
 
                     DatagramPacket paquet = new DatagramPacket(aEnvoyer, aEnvoyer.length, adresse, 4444);
 
-                    essai.send(paquet);
+                    if(projectiles.size()!=0)
+                        essai.send(paquet);
 
                 }
-                sleep(15);
+                sleep(30);
             }
         } catch (IOException | InterruptedException ioex) {
             ioex.printStackTrace();

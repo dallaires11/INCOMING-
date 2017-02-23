@@ -21,15 +21,15 @@ public class Serveur {
             physique = new Physique();
             physique.start();
 
-            physique.addProjectile(20);
+            //physique.addProjectile(60);
 
             while (true) {
                 Socket s = srv.accept();
 
                 System.out.println("Hola");
                 physique.AjouterUnVoyeur(s);
-                //eception = new Thread(new Reception(physique));
-                //reception.start();
+                reception = new Thread(new Reception(physique));
+                reception.start();
 
                 System.out.println(s.getInetAddress());
             }
@@ -41,33 +41,41 @@ public class Serveur {
     }
 }
 
-class Reception implements Runnable{
+class Reception implements Runnable {
     MulticastSocket multiSocket;
     Physique physique;
-    Reception(Physique physique) throws IOException {
-        this.physique=physique;
-        System.out.println("Test");
-        multiSocket=new MulticastSocket(4440);
-        multiSocket.joinGroup(InetAddress.getByName("224.0.5.0"));
+    DatagramPacket reçu;
+    byte[] aDecrypter;
+    ByteBuffer decrypteur;
 
+    Reception(Physique physique) throws IOException {
+        this.physique = physique;
+        System.out.println("Test");
+        multiSocket = new MulticastSocket(4445);
+        multiSocket.joinGroup(InetAddress.getByName("224.0.6.0"));
+        //aDecrypter = new byte[1];
+        //decrypteur = ByteBuffer.wrap(aDecrypter);
+        //reçu = new DatagramPacket(aDecrypter, aDecrypter.length);
     }
 
     @Override
     public void run() {
-        try {
-        byte[] buff = new byte[1024];
-        DatagramPacket dp = new DatagramPacket(buff, buff.length);
-            multiSocket.receive(dp);
-            ByteBuffer pourLire = ByteBuffer.wrap(buff);
+        while(true) {
+            try {
+                byte[] buff = new byte[64];
+                DatagramPacket dp = new DatagramPacket(buff, buff.length);
+                multiSocket.receive(dp);
+                ByteBuffer pourLire = ByteBuffer.wrap(buff);
 
-            for(int i = 0; i < 1; ++i) {
-                int puissance = pourLire.getInt();
-                System.out.println(puissance);
-                physique.addProjectile(puissance);
+                for (int i = 0; i < 1; ++i) {
+                    int puissance = pourLire.getInt();
+                    System.out.println(puissance);
+                    physique.addProjectile(puissance);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }
