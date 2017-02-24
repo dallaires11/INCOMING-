@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller extends Thread{
-    MulticastSocket client;
+    MulticastSocket clientReceive;
+    DatagramSocket clientSend;
     Socket clientN;
     String adresse;
 
@@ -37,37 +38,40 @@ public class Controller extends Thread{
     public Controller(ArrayList<Circle> projectiles, Group cercles) {
         System.out.println("What's up");
         this.projectiles = projectiles;
-        this.adresse = adresse;
         this.cercles = cercles;
     }
 
     public void run(String adresse) {
         try {
-            adresseINET = InetAddress.getByName(adresse);
-            clientN = new Socket(adresseINET, 81);
-            client = new MulticastSocket(4444);
-            client.joinGroup(InetAddress.getByName("224.0.5.0"));
+            adresseINET = Inet4Address.getByName("localhost");
+            clientN = new Socket(adresseINET, 9012);
+
+            clientReceive = new MulticastSocket(4444);
+            clientSend = new MulticastSocket(4445);
+
+            clientReceive.joinGroup(InetAddress.getByName("224.0.6.0"));
 
             System.out.println("connected");
 
-            while (clientN.isConnected()) {
-                client.receive(dataReceive);
+            sleep(15);
 
-                int nombreDeProjectiles = buffer.getInt();
+            /*clientReceive.receive(dataReceive);
+
+            int nombreDeProjectiles = buffer.getInt();
+            System.out.println(nombreDeProjectiles);
+
+            if (nombreDeProjectiles != 0) {
 
                 for (int i = 0; i < nombreDeProjectiles; i++) {
-                    if(i == projectiles.size()){
+                    if (i > projectiles.size()) {
                         projectiles.add(new Projectile());
                         cercles.getChildren().add(projectiles.get(i));
                     }
                     projectiles.get(i).setTranslateX(buffer.getDouble());
                     projectiles.get(i).setTranslateY(buffer.getDouble());
                 }
-
                 buffer.clear();
-
-                sleep(15);
-            }
+            }*/
 
         } catch (UnknownHostException c) {
             System.out.println("Unknown Host Exception");
@@ -89,12 +93,13 @@ public class Controller extends Thread{
 
     public void sendLancer() {
             try {
+                bufferSend = ByteBuffer.allocate(64);
                 bufferSend.putInt(x);
                 System.out.println(x);
                 byteSend = bufferSend.array();
 
-                dataSend = new DatagramPacket(byteSend, byteSend.length, adresseINET, 4445);
-                client.send(dataSend);
+                dataSend = new DatagramPacket(byteSend, byteSend.length, InetAddress.getByName("224.0.6.0"), 4445);
+                clientSend.send(dataSend);
 
                 x = 0;
                 bufferSend.clear();
