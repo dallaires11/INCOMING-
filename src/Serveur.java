@@ -1,6 +1,9 @@
 /**
  * Created by Chroon on 2017-02-06.
  */
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+
 import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
@@ -14,7 +17,7 @@ public class Serveur {
 
 
         try {
-            srv = new ServerSocket(81);
+            srv = new ServerSocket(9012);
 
             System.out.println(InetAddress.getLocalHost());
 
@@ -66,6 +69,7 @@ class Reception implements Runnable {
                 DatagramPacket dp = new DatagramPacket(buff, buff.length);
                 multiSocket.receive(dp);
                 ByteBuffer pourLire = ByteBuffer.wrap(buff);
+                //physique.start();
 
                 for (int i = 0; i < 1; ++i) {
                     int puissance = pourLire.getInt();
@@ -108,7 +112,7 @@ class Communi implements Runnable{
 
     Communi(ServerSocket s){
         serverSocket = s;
-        mouvment = new Timeline(new KeyFrame(javafx.util.Duration.millis(15),event ->{
+        mouvment = new Timeline(new KeyFrame(javafx.util.Duration.millis(15), event ->{
             physique.effectuerMouvement();
         }));
 

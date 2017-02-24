@@ -22,9 +22,11 @@ class Physique extends Thread{
         lesCeuzeQuiRegardeL = new ArrayList<>();
         pourParlerAuxClients = new ArrayList<>();
         try {
-            adresse=InetAddress.getByName("224.0.5.0");
-            essai=new DatagramSocket(4444);
+            adresse=InetAddress.getByName("224.0.6.0");
+            essai = new MulticastSocket(4445);
         } catch (UnknownHostException | SocketException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -60,10 +62,11 @@ class Physique extends Thread{
     public void run() {
         try {
             while (true) {
+
                 int nbVoyeur = lesCeuzeQuiRegardeL.size();
 
                 if (nbVoyeur > 0) {
-                    nbProjectile = projectiles.size();
+                    //nbProjectile = projectiles.size();
 
                     int tailleBuffer = 1 + nbProjectile * 4;
 
