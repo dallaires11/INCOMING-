@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller extends Thread{
-    MulticastSocket clientReceive;
-    DatagramSocket clientSend;
+    MulticastSocket client;
+    //DatagramSocket clientSend;
     Socket clientN;
     String adresse;
 
@@ -46,10 +46,11 @@ public class Controller extends Thread{
             adresseINET = Inet4Address.getByName(adresse);
             clientN = new Socket(adresseINET, 9012);
 
-            clientReceive = new MulticastSocket(4444);
-            clientSend = new MulticastSocket(4445);
+            client = new MulticastSocket(4444);
 
-            clientReceive.joinGroup(InetAddress.getByName("224.0.6.0"));
+
+            client.joinGroup(InetAddress.getByName("224.0.6.0"));
+
 
             System.out.println("connected");
 
@@ -98,8 +99,8 @@ public class Controller extends Thread{
                 System.out.println(x);
                 byteSend = bufferSend.array();
 
-                dataSend = new DatagramPacket(byteSend, byteSend.length, InetAddress.getByName("224.0.6.0"), 4445);
-                clientSend.send(dataSend);
+                dataSend = new DatagramPacket(byteSend, byteSend.length, InetAddress.getByName("224.0.6.0"), 4444);
+                client.send(dataSend);
 
                 x = 0;
                 bufferSend.clear();
