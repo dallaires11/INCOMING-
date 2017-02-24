@@ -43,7 +43,7 @@ public class Controller extends Thread{
 
     public void run(String adresse) {
         try {
-            adresseINET = Inet4Address.getByName("localhost");
+            adresseINET = Inet4Address.getByName(adresse);
             clientN = new Socket(adresseINET, 9012);
 
             clientReceive = new MulticastSocket(4444);
