@@ -66,7 +66,6 @@ class Physique extends Thread{
                 int nbVoyeur = lesCeuzeQuiRegardeL.size();
 
                 if (nbVoyeur > 0) {
-                    //nbProjectile = projectiles.size();
 
                     int tailleBuffer = 1 + nbProjectile * 4;
 
@@ -77,19 +76,17 @@ class Physique extends Thread{
                     byte[] aEnvoyer;
 
                     for (int nb = 0; nb < nbProjectile; nb++) {
-
                         projectiles.get(nb).accelerer();
 
                         Projectile tmp = projectiles.get(nb);
 
                         b.putDouble(tmp.getX());
                         b.putDouble(tmp.getY());
-
                     }
 
                     aEnvoyer = b.array();
 
-                    DatagramPacket paquet = new DatagramPacket(aEnvoyer, aEnvoyer.length, adresse, 4444);
+                    DatagramPacket paquet = new DatagramPacket(aEnvoyer, aEnvoyer.length, adresse, 4445);
 
                     if(projectiles.size()!=0)
                         essai.send(paquet);
