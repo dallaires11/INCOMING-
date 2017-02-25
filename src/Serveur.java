@@ -1,6 +1,3 @@
-/**
- * Created by Chroon on 2017-02-06.
- */
 import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
@@ -18,16 +15,16 @@ public class Serveur {
             System.out.println(InetAddress.getLocalHost());
 
             physique = new Physique();
-            //physique.start();
+            physique.start();
+
+            reception = new Thread(new Reception(physique));
+            reception.start();
 
             while (true) {
                 Socket s = srv.accept();
 
                 System.out.println("Hola");
                 physique.AjouterUnVoyeur(s);
-
-                reception = new Thread(new Reception(physique));
-                reception.start();
 
                 System.out.println(s.getInetAddress());
             }
@@ -55,10 +52,8 @@ class Reception implements Runnable {
 
                 byte[] buff = new byte[64];
                 DatagramPacket dp = new DatagramPacket(buff, buff.length);
-                System.out.println("test2");
 
                 multiSocket.receive(dp);
-                System.out.println("test3");
                 ByteBuffer pourLire = ByteBuffer.wrap(buff);
 
                 for (int i = 0; i < 1; ++i) {

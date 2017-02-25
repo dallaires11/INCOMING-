@@ -1,6 +1,3 @@
-/**
- * Created by Chroon on 2017-02-15.
- */
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
@@ -12,18 +9,20 @@ class Physique extends Thread{
     private ArrayList<Socket> lesCeuzeQuiRegardeL;
     private ArrayList<DataOutputStream> pourParlerAuxClients;
     private ByteBuffer b;
-    private int nbProjectile,taille;
-    private DatagramSocket essai;
+    private int nbProjectile,taille, nbVoyeur;
+    private MulticastSocket essai;
     DatagramPacket packet;
     private InetAddress adresse;
 
     Physique(){
         taille=0;
+        nbVoyeur = 0;
         lesCeuzeQuiRegardeL = new ArrayList<>();
         pourParlerAuxClients = new ArrayList<>();
         try {
             adresse=InetAddress.getByName("224.0.6.0");
             essai = new MulticastSocket(4445);
+            essai.joinGroup(InetAddress.getByName("224.0.6.0"));
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -32,30 +31,13 @@ class Physique extends Thread{
     }
 
     void AjouterUnVoyeur(Socket _v){
-        taille += 800;
-
-        try{
-            DataOutputStream dos = new DataOutputStream(_v.getOutputStream());
-            ByteBuffer b = ByteBuffer.allocate(4);
-
-            b.putInt(taille);
-
-            pourParlerAuxClients.add(dos);
-            dos.flush();
-
-            dos.write(b.array());
-            dos.flush();
-        }
-        catch(IOException ignored){
-
-        }
-
         lesCeuzeQuiRegardeL.add(_v);
     }
 
     void addProjectile(int puissance){
-        projectiles.add(projectiles.size(),new Projectile(puissance));
-        nbProjectile++;
+        System.out.println("addpro : " + puissance);
+        projectiles.add(new Projectile(puissance));
+        System.out.println("projectiles.size" + projectiles.size());
     }
 
     @Override
@@ -63,17 +45,18 @@ class Physique extends Thread{
         try {
             while (true) {
 
-                int nbVoyeur = lesCeuzeQuiRegardeL.size();
+                nbVoyeur = lesCeuzeQuiRegardeL.size();
 
                 if (nbVoyeur > 0) {
 
+                    nbProjectile = projectiles.size();
                     int tailleBuffer = 1 + nbProjectile * 4;
 
                     ByteBuffer b = ByteBuffer.allocate(tailleBuffer * 4);
 
                     b.putInt(nbProjectile);
 
-                    byte[] aEnvoyer;
+
 
                     for (int nb = 0; nb < nbProjectile; nb++) {
                         projectiles.get(nb).accelerer();
@@ -83,7 +66,7 @@ class Physique extends Thread{
                         b.putDouble(tmp.getX());
                         b.putDouble(tmp.getY());
                     }
-
+                    byte[] aEnvoyer;
                     aEnvoyer = b.array();
 
                     DatagramPacket paquet = new DatagramPacket(aEnvoyer, aEnvoyer.length, adresse, 4445);
