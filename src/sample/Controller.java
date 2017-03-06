@@ -1,18 +1,10 @@
 package sample;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Controller{
     MulticastSocket client;
@@ -83,5 +75,3 @@ public class Controller{
 
 
  }
-
-

@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,12 +22,12 @@ import java.util.ArrayList;
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
-public class Main extends Application {
+public class Main extends Application implements Rooter{
+    Group root=new Group();
+    ArrayList<Circle> projectiles=new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Group root = new Group();
-        Group proj = new Group();
         ScenePrototype scene = new ScenePrototype(root, 1200, 600);
 
         Button bouton = new Button("connect");
@@ -37,16 +38,10 @@ public class Main extends Application {
         bouton.setTranslateX(15);
 
         Reception reception = new Reception();
+        reception.setInterface(this);
 
         Controller c = new Controller(root);
-        Timeline display = new Timeline(new KeyFrame(new Duration(15), eventT ->{
-            if (reception.getCercles().size() > proj.getChildren().size()){
-                for (int i = 0; i < reception.getCercles().size(); i++){
-                    root.getChildren().add(reception.getCercles().get(i));
-                    System.out.println("timeline" + i);
-                }
-            }
-        }));
+
 
         bouton.setOnAction(event -> {
             c.connect(scene.getAdresse());
@@ -54,7 +49,6 @@ public class Main extends Application {
 
             root.getChildren().clear();
 
-            display.playFromStart();
             reception.start();
         });
 
@@ -76,6 +70,20 @@ public class Main extends Application {
                 c.sendLancer();
             }
         });
+    }
+
+    public void received(double x,double y,int pos){
+        if (pos>=projectiles.size()){
+            Projectile tmp=new Projectile();
+            projectiles.add(tmp);
+            root.getChildren().add(tmp);
+        }
+
+        projectiles.get(pos).setTranslateX(x);
+        projectiles.get(pos).setTranslateY(y);
+
+
+
     }
 
 

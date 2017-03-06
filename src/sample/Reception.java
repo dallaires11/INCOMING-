@@ -1,6 +1,6 @@
 package sample;
 
-import javafx.scene.Group;
+import javafx.application.Platform;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
@@ -10,21 +10,16 @@ import java.net.MulticastSocket;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
-/**
- * Created by Vincent on 2017-02-25.
- */
 public class Reception extends Thread{
-
     ArrayList<Circle> projectiles;
     MulticastSocket socket;
+    Rooter rooter;
 
     byte[] byteReceive;
     ByteBuffer buffer;
     DatagramPacket dataReceive;
 
     public Reception(){
-        this.projectiles = new ArrayList<Circle>();
-
         byteReceive = new byte[1024];
         buffer = ByteBuffer.wrap(byteReceive);
         dataReceive = new DatagramPacket(byteReceive, byteReceive.length);
@@ -45,24 +40,31 @@ public class Reception extends Thread{
                 if (nombreDeProjectiles != 0) {
 
                     for (int i = 0; i < nombreDeProjectiles; i++) {
-                        if (i >= projectiles.size()) {
-                            System.out.println("add");
-                            Projectile tmp = new Projectile();
-                            projectiles.add(tmp);
-                        }
-                        projectiles.get(i).setTranslateX(buffer.getDouble());
-                        projectiles.get(i).setTranslateY(buffer.getDouble());
-                        System.out.println("nice");
+                        final double x=buffer.getDouble();
+                        final double y=buffer.getDouble();
+                        final int u=i;
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                rooter.received(x,y,u);
+                            }
+                        });
                     }
                     buffer.clear();
                 }
+
+                sleep(15);
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void setSocket(MulticastSocket socket){
+    void setInterface(Rooter input){
+        rooter=input;
+    }
+
+    void setSocket(MulticastSocket socket){
         this.socket = socket;
     }
 
