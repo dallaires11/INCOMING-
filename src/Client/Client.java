@@ -6,19 +6,15 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
-import static java.lang.Thread.sleep;
-
-public class Main extends Application implements Rooter{
-    Group root=new Group();
-    ArrayList<Circle> projectiles=new ArrayList<>();
+public class Client extends Application implements Rooter{
+    private Group root=new Group();
+    private ArrayList<Circle> projectiles=new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         ScenePrototype scene = new ScenePrototype(root, 1200, 600);
-
         Button bouton = new Button("connect");
 
         root.getChildren().add(bouton);
@@ -31,7 +27,6 @@ public class Main extends Application implements Rooter{
 
         Controller c = new Controller(root);
 
-
         bouton.setOnAction(event -> {
             c.connect(scene.getAdresse());
             reception.setSocket(c.getSocket());
@@ -40,9 +35,6 @@ public class Main extends Application implements Rooter{
 
             reception.start();
         });
-
-
-
 
         primaryStage.setTitle("Scene");
         primaryStage.setScene(scene.getScene());
@@ -70,13 +62,10 @@ public class Main extends Application implements Rooter{
 
         projectiles.get(pos).setTranslateX(x);
         projectiles.get(pos).setTranslateY(y);
-
-
-
     }
-
 
     public static void main(String[] args) {
         launch(args);
     }
+
 }

@@ -1,26 +1,21 @@
 package Client;
 
 import javafx.application.Platform;
-import javafx.scene.shape.Circle;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 
-public class Reception extends Thread{
-    ArrayList<Circle> projectiles;
-    MulticastSocket socket;
-    Rooter rooter;
+class Reception extends Thread{
+    private MulticastSocket socket;
+    private Rooter rooter;
 
-    byte[] byteReceive;
-    ByteBuffer buffer;
-    DatagramPacket dataReceive;
+    private ByteBuffer buffer;
+    private DatagramPacket dataReceive;
 
-    public Reception(){
-        byteReceive = new byte[1024];
+    Reception(){
+        byte[] byteReceive = new byte[1024];
         buffer = ByteBuffer.wrap(byteReceive);
         dataReceive = new DatagramPacket(byteReceive, byteReceive.length);
     }
@@ -43,12 +38,7 @@ public class Reception extends Thread{
                         final double x=buffer.getDouble();
                         final double y=buffer.getDouble();
                         final int u=i;
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                rooter.received(x,y,u);
-                            }
-                        });
+                        Platform.runLater(() -> rooter.received(x,y,u));
                     }
                     buffer.clear();
                 }
@@ -66,10 +56,6 @@ public class Reception extends Thread{
 
     void setSocket(MulticastSocket socket){
         this.socket = socket;
-    }
-
-    public ArrayList<Circle> getCercles(){
-        return this.projectiles;
     }
 
 }

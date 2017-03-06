@@ -7,24 +7,24 @@ import java.net.*;
 import java.nio.ByteBuffer;
 
 public class Controller{
-    MulticastSocket client;
-    Socket clientN;
-    String adresse;
-    int x = 0;
+    private MulticastSocket client;
+    private Socket clientN;
+    private String adresse;
+    private int x = 0;
 
-    byte[] byteSend = new byte[1];
-    ByteBuffer bufferSend = ByteBuffer.wrap(byteSend);
-    DatagramPacket dataSend;
-    InetAddress adresseINET;
+    private byte[] byteSend = new byte[1];
+    private ByteBuffer bufferSend = ByteBuffer.wrap(byteSend);
+    private DatagramPacket dataSend;
+    private InetAddress adresseINET;
 
     Reception reception;
 
 
 
-    public Controller(Group root) {
+    Controller(Group root) {
     }
 
-    public void connect(String adresse) {
+    void connect(String adresse) {
         try {
             adresseINET = Inet4Address.getByName("localhost");
             clientN = new Socket(adresseINET, 9012);
@@ -48,12 +48,12 @@ public class Controller{
 
     }
 
-    public void lancer() {
+    void lancer() {
         x++;
     }
 
 
-    public void sendLancer() {
+    void sendLancer() {
             try {
                 bufferSend = ByteBuffer.allocate(64);
                 bufferSend.putInt(x);
@@ -69,9 +69,7 @@ public class Controller{
             }
     }
 
-    public MulticastSocket getSocket(){
+    MulticastSocket getSocket(){
         return this.client;
     }
-
-
  }
