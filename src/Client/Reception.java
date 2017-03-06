@@ -1,4 +1,4 @@
-package sample;
+package Client;
 
 import javafx.application.Platform;
 import javafx.scene.shape.Circle;

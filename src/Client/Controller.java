@@ -1,4 +1,4 @@
-package sample;
+package Client;
 
 import javafx.scene.Group;
 

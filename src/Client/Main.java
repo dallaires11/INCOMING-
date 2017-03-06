@@ -1,25 +1,14 @@
-package sample;
+package Client;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.TilePane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.net.DatagramPacket;
 import java.util.ArrayList;
 
-import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
 public class Main extends Application implements Rooter{
