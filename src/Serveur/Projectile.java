@@ -1,3 +1,5 @@
+package Serveur;
+
 class Projectile{
     int angle,masse;
     float x,y,force,vX,vY;
