@@ -6,11 +6,11 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.nio.ByteBuffer;
 
-class Reception implements Runnable {
+class ReceptionPr implements Runnable {
     private MulticastSocket multiSocket;
-    private Physique physique;
+    private PhysiquePr physique;
 
-    Reception(Physique physique) throws IOException {
+    ReceptionPr(PhysiquePr physique) throws IOException {
         this.physique = physique;
         multiSocket = new MulticastSocket(4444);
         multiSocket.joinGroup(InetAddress.getByName("224.0.6.0"));

@@ -8,13 +8,13 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
-public class Client extends Application implements Rooter{
+public class ClientPr extends Application implements RooterPr {
     private Group root=new Group();
     private ArrayList<Circle> projectiles=new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        ScenePrototype scene = new ScenePrototype(root, 1200, 600);
+        ScenePrototypePr scene = new ScenePrototypePr(root, 1200, 600);
         Button bouton = new Button("connect");
 
         root.getChildren().add(bouton);
@@ -22,10 +22,10 @@ public class Client extends Application implements Rooter{
         bouton.setTranslateY(40);
         bouton.setTranslateX(15);
 
-        Reception reception = new Reception();
+        ReceptionPr reception = new ReceptionPr();
         reception.setInterface(this);
 
-        Controller c = new Controller(root);
+        ControllerPr c = new ControllerPr(root);
 
         bouton.setOnAction(event -> {
             c.connect(scene.getAdresse());
@@ -55,7 +55,7 @@ public class Client extends Application implements Rooter{
 
     public void received(double x,double y,int pos){
         if (pos>=projectiles.size()){
-            Projectile tmp=new Projectile();
+            ProjectilePr tmp=new ProjectilePr();
             projectiles.add(tmp);
             root.getChildren().add(tmp);
         }

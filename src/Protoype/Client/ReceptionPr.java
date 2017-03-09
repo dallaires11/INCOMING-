@@ -7,14 +7,14 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.nio.ByteBuffer;
 
-class Reception extends Thread{
+class ReceptionPr extends Thread{
     private MulticastSocket socket;
-    private Rooter rooter;
+    private RooterPr rooter;
 
     private ByteBuffer buffer;
     private DatagramPacket dataReceive;
 
-    Reception(){
+    ReceptionPr(){
         byte[] byteReceive = new byte[1024];
         buffer = ByteBuffer.wrap(byteReceive);
         dataReceive = new DatagramPacket(byteReceive, byteReceive.length);
@@ -50,7 +50,7 @@ class Reception extends Thread{
         }
     }
 
-    void setInterface(Rooter input){
+    void setInterface(RooterPr input){
         rooter=input;
     }
 

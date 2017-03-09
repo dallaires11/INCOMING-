@@ -2,9 +2,9 @@ package Protoype.Client;
 
 import javafx.scene.shape.Circle;
 
-public class Projectile extends Circle{
+public class ProjectilePr extends Circle{
 
-    Projectile(){
+    ProjectilePr(){
         this.setRadius(10);
     }
 }

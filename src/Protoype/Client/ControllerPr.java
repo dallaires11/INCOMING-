@@ -6,7 +6,7 @@ import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
 
-public class Controller{
+public class ControllerPr {
     private MulticastSocket client;
     private Socket clientN;
     private String adresse;
@@ -17,11 +17,11 @@ public class Controller{
     private DatagramPacket dataSend;
     private InetAddress adresseINET;
 
-    Reception reception;
+    ReceptionPr reception;
 
 
 
-    Controller(Group root) {
+    ControllerPr(Group root) {
     }
 
     void connect(String adresse) {

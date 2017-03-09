@@ -5,13 +5,13 @@ import java.net.*;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
-class Physique extends Thread{
-    private ArrayList<Projectile> projectiles=new ArrayList<>();
+class PhysiquePr extends Thread{
+    private ArrayList<ProjectilePr> projectiles=new ArrayList<>();
     private int nbVoyeur;
     private MulticastSocket envoyeur;
     private InetAddress adresse;
 
-    Physique(){
+    PhysiquePr(){
         nbVoyeur = 0;
         try {
 
@@ -26,7 +26,7 @@ class Physique extends Thread{
 
     void addProjectile(int puissance){
         System.out.println("addpro : " + puissance);
-        projectiles.add(new Projectile(puissance));
+        projectiles.add(new ProjectilePr(puissance));
         System.out.println("projectiles.size" + projectiles.size());
     }
 
@@ -46,7 +46,7 @@ class Physique extends Thread{
                 for (int nb = 0; nb < nbProjectile; nb++) {
                     projectiles.get(nb).accelerer();
 
-                    Projectile tmp = projectiles.get(nb);
+                    ProjectilePr tmp = projectiles.get(nb);
 
                     b.putDouble(tmp.getX());
                     b.putDouble(tmp.getY());

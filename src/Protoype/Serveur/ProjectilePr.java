@@ -1,10 +1,10 @@
 package Protoype.Serveur;
 
-class Projectile{
+class ProjectilePr {
     private int angle,masse;
     private float x,y,force,vX,vY;
 
-    Projectile(int puissance){
+    ProjectilePr(int puissance){
         x=45;
         angle=45;
         y=450;

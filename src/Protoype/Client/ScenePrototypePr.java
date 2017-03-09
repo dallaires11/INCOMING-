@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 
-public class ScenePrototype{
+public class ScenePrototypePr {
 
     private Scene scene;
     Label adresse;
@@ -14,7 +14,7 @@ public class ScenePrototype{
 
     HBox hBox;
 
-    public ScenePrototype(Group root, int x, int y){
+    public ScenePrototypePr(Group root, int x, int y){
         scene = new Scene (root, x, y);
 
         adresse = new Label("Adresse : ");

@@ -1,5 +1,5 @@
 package Protoype.Client;
 
-public interface Rooter {
+public interface RooterPr {
     void received(double x, double y, int pos);
 }

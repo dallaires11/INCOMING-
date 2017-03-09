@@ -2,13 +2,12 @@ package Protoype.Serveur;
 
 import java.io.*;
 import java.net.*;
-import java.nio.ByteBuffer;
 
-public class Serveur {
+public class ServeurPr {
 
     public static void main(String[] args) {
         ServerSocket serveur;
-        Physique physique;
+        PhysiquePr physique;
         Thread reception;
 
         try {
@@ -17,10 +16,10 @@ public class Serveur {
 
             System.out.println(InetAddress.getLocalHost());
 
-            physique = new Physique();
+            physique = new PhysiquePr();
             physique.start();
 
-            reception = new Thread(new Reception(physique));
+            reception = new Thread(new ReceptionPr(physique));
             reception.start();
 
             while (true) {
