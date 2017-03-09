@@ -1,4 +1,4 @@
-package Serveur;
+package Protoype.Serveur;
 
 class Projectile{
     private int angle,masse;

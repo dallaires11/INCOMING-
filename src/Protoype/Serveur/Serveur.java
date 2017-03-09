@@ -1,4 +1,4 @@
-package Serveur;
+package Protoype.Serveur;
 
 import java.io.*;
 import java.net.*;

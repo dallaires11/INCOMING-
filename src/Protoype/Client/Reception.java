@@ -1,4 +1,4 @@
-package Client;
+package Protoype.Client;
 
 import javafx.application.Platform;
 import java.io.IOException;
