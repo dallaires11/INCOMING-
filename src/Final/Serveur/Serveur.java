@@ -22,7 +22,7 @@ public class Serveur {
 
             System.out.println(InetAddress.getLocalHost()+" en ligne");
 
-            while (true) {
+            while (clients<6) {
                 Socket s = serveur.accept();
                 System.out.println("\nUn client s'est connecté: "+clients);
                 System.out.println(s.getInetAddress());
