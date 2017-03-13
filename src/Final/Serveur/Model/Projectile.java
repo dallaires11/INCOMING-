@@ -26,7 +26,13 @@ public class Projectile {
     }
 
     private void setPositionInitial(int joueur){
+        if(joueur==1){
+            System.out.println("re");
+        }
 
+        else if(joueur==2){
+            System.out.println("re");
+        }
     }
 
     private void bouger(){
