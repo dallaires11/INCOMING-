@@ -1,6 +1,5 @@
 package Final.Serveur.Controller;
 
-import Final.Serveur.Interface.PhysiqueOut;
 import Final.Serveur.Model.Projectile;
 import Final.Serveur.Model.Tableaux;
 
@@ -9,10 +8,11 @@ import java.nio.ByteBuffer;
 
 public class Physique extends Thread{
     Tableaux tableaux;
-    PhysiqueOut out;
+    Emission emission;
 
-    public Physique(){
+    public Physique(Emission emission){
         tableaux = new Tableaux();
+        this.emission = emission;
     }
 
     public void run() {
@@ -40,7 +40,7 @@ public class Physique extends Thread{
                 aEnvoyer = b.array();
 
                 if(tableaux.getProjectiles().size()!=0)
-                    out.envoyer(aEnvoyer,aEnvoyer.length);
+                    emission.envoyer(aEnvoyer,aEnvoyer.length);
 
                 sleep(30);
             }
@@ -52,9 +52,5 @@ public class Physique extends Thread{
 
     public void addProjectile(){
         System.out.println("Pow");
-    }
-
-    public void setInterface(PhysiqueOut outSetting){
-        out=outSetting;
     }
 }

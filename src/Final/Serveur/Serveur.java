@@ -16,11 +16,9 @@ public class Serveur {
         Thread reception;
         Physique physique;
 
-        physique = new Physique();
         Emission emission = new Emission();
+        physique = new Physique(emission);
         reception = new Thread(new Reception(physique));
-
-        physique.setInterface(emission);
 
         try {
             serveur = new ServerSocket(9000);

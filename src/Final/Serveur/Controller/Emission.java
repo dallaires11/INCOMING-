@@ -1,13 +1,11 @@
 package Final.Serveur.Controller;
 
-import Final.Serveur.Interface.PhysiqueOut;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
-public class Emission implements PhysiqueOut{
+public class Emission{
     private MulticastSocket envoyeur;
     private InetAddress adresse;
 
