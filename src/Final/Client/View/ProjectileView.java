@@ -1,6 +1,7 @@
 package Final.Client.View;
 
 
+import Final.Serveur.Model.Projectile;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -17,6 +18,11 @@ public class ProjectileView extends Group{
     Line ligneX;
     Line ligneY;
     Line ligneCombinee;
+
+    public ProjectileView(){
+        Circle projectile = new Circle(10);
+
+    }
 
     public ProjectileView(int masse, int type){
         Circle projectile = new Circle();
@@ -35,16 +41,16 @@ public class ProjectileView extends Group{
     }
 
     public void setPosition(double x, double y){
+        double xBefore;
+        double yBefore;
+
+        xBefore = this.getTranslateX();
+        yBefore = this.getTranslateY();
+
         this.setTranslateX(x);
         this.setTranslateY(y);
-    }
 
-    public void setVitesse(double vX, double vY){
-        this.vX = vX;
-        this.vY = vY;
-
-        this.setPosition((x + vX),(y + vY));
-        this.setLabel(vX, vY);
+        this.setLabel((x - xBefore), (y - yBefore));
     }
 
     public void setLabel(double vX, double vY){

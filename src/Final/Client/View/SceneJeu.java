@@ -1,53 +1,43 @@
 package Final.Client.View;
 
-import Final.Client.Controller.Emetteur;
 import Final.Client.Controller.Passeur;
-import Final.Client.Controller.Reception;
 import javafx.scene.Group;
+import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
+import java.util.ArrayList;
 
-public class SceneJeu{
-    Emetteur emetteur;
+public class SceneJeu implements Passeur {
+    int positionClient;
+    Scene sceneFull;
+    Scene sceneLocal;
     Group root;
-    Scene scene;
-    Passeur passeur;
+    Group groupeProjectiles;
+    ParallelCamera camera;
+    ArrayList<ProjectileView> projectiles;
 
-    String adresse;
 
-    TextField textField;
+    public SceneJeu(int positionClient){
+        this.positionClient = positionClient;
+        groupeProjectiles = new Group();
+        root.getChildren().add(groupeProjectiles);
 
-    public SceneJeu(Group root, Emetteur emetteur, Reception reception){
-        this.root = root;
-        this.emetteur = emetteur;
+        camera.setTranslateX(1080 * positionClient);
+        camera.setTranslateY(1920 * positionClient);
 
-        scene = new Scene(root);
-        Button boutonConnect = new Button("Connect");
-        textField = new TextField("Adresse");
-        HBox hbox = new HBox(40, textField, boutonConnect);
-
-        boutonConnect.setOnAction(event -> {
-            adresse = textField.getText();
-            reception.connect(adresse);
-            this.emetteur.setSocket(reception.getSocket());
-            this.emetteur.setMulticastSocket(reception.getMulticastSocket());
-
-            root.getChildren().clear();
-
-        });
-
-        root.getChildren().add(hbox);
+        sceneFull = new Scene(root);
+        sceneLocal = sceneFull;
+        sceneLocal.setCamera(camera);
     }
 
-    public Scene getScene(){
-        return scene;
-    }
+    public void passe(int positionProjectile, double x, double y){
+        if (positionProjectile >= projectiles.size()){
+            ProjectileView temp = new ProjectileView();
+            projectiles.add(temp);
+            groupeProjectiles.getChildren().add(temp);
+        }
 
-    public void clearGroup(){
-        root.getChildren().clear();
+        projectiles.get(positionProjectile).setPosition(x, y);
     }
-
 }
