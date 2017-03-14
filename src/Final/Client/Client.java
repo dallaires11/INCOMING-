@@ -2,28 +2,30 @@ package Final.Client;
 
 import Final.Client.Controller.Emetteur;
 import Final.Client.Controller.Reception;
+import Final.Client.View.SceneJeu;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.stage.Stage;
 
-import java.net.MulticastSocket;
-import java.net.Socket;
+public class Client extends Application {
 
-/**
- * Created by Chroon on 2017-03-09.
- */
-public class Client {
+    public static void main (String[] args) {
+        launch(args);
+    }
 
-    public static void main(String[] args) {
+    @Override
+    public void start(Stage primaryStage){
         int positionClient;
-        Emetteur emetteur;
+        Emetteur emetteur = new Emetteur();
         Reception reception = new Reception();
+        SceneJeu sceneJeu;
+        Group root = new Group();
 
-        Socket socket;
-        MulticastSocket multicastSocket;
+        sceneJeu = new SceneJeu(root, emetteur, reception);
 
-        positionClient = reception.connect("192.168.1.100");
+        primaryStage.setScene(sceneJeu.getScene());
+        positionClient = reception.getPositionClient();
         System.out.println("position client  = " + positionClient);
-        socket = reception.getSocket();
-        multicastSocket = reception.getMulticastSocket();
 
-        emetteur = new Emetteur(socket, multicastSocket);
     }
 }

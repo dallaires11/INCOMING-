@@ -3,7 +3,6 @@ package Final.Client.Controller;
 import javafx.application.Platform;
 
 import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
@@ -12,6 +11,7 @@ import java.nio.ByteBuffer;
 
 public class Reception extends Thread{
     Passeur passeur;
+    int positionClient;
 
     String adresse;
     Socket socket;
@@ -24,8 +24,8 @@ public class Reception extends Thread{
 
     }
 
-    public int connect(String adresse){
-        int positionClient = -1;
+    public void connect(String adresse){
+
         try {
             socket = new Socket(InetAddress.getByName(adresse),9000);
             multicastSocket = new MulticastSocket();
@@ -39,7 +39,6 @@ public class Reception extends Thread{
         } catch (IOException e){
             System.out.println(e);
         }
-        return positionClient;
     }
 
     public void run(){
@@ -76,5 +75,9 @@ public class Reception extends Thread{
 
     public MulticastSocket getMulticastSocket(){
         return this.multicastSocket;
+    }
+
+    public int getPositionClient(){
+        return this.positionClient;
     }
 }

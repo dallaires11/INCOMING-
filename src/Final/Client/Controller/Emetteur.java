@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.net.*;
 import java.nio.ByteBuffer;
 
-/**
- * Created by Chroon on 2017-03-09.
- */
+
 public class Emetteur {
 
     Socket socket;
@@ -16,14 +14,11 @@ public class Emetteur {
 
     byte[] bytes = new byte[64];
     ByteBuffer bufferSend;
-    DatagramPacket packet;
 
-    public Emetteur(Socket socket, MulticastSocket multicastSocket){
-        this.socket = socket;
-        this.multicastSocket = multicastSocket;
+    public Emetteur(){
         lancer = 0;
 
-        bufferSend.wrap(bytes);
+        bufferSend = ByteBuffer.wrap(bytes);
     }
 
     public void chargerLancer(){
@@ -38,10 +33,16 @@ public class Emetteur {
             multicastSocket.send(datagramPacket);
 
             lancer = 0;
-        } catch (UnknownHostException u){
+        } catch (IOException u){
             System.out.println(u);
-        } catch (IOException io){
-            System.out.println(io);
         }
+    }
+
+    public void setSocket(Socket s){
+        this.socket = s;
+    }
+
+    public void setMulticastSocket(MulticastSocket m){
+        this.multicastSocket = m;
     }
 }
