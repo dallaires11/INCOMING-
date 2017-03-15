@@ -4,7 +4,7 @@ public class Projectile {
     private int masse,type;
     private float x,y,vitesseX,vitesseY;
 
-    Projectile(int puissance,int type,int joueur,int angle){
+    Projectile(int joueur,int puissance,int angle,int type){
         this.type=type;
         setMasse(type);
         setVitesseInitial(angle,puissance);

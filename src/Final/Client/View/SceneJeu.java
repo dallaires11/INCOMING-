@@ -1,10 +1,10 @@
 package Final.Client.View;
 
 import Final.Client.Controller.Passeur;
+
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
-import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 

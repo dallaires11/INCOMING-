@@ -14,4 +14,16 @@ public class Tableaux {
     public ArrayList<Projectile> getProjectiles(){
         return projectiles;
     }
+
+    public void addProjectile(int puissance,int type,int joueur,int angle){
+        projectiles.add(new Projectile(puissance,type,joueur,angle));
+    }
+
+    public void addCatapulte(int joueur){
+        catapultes.add(new Catapulte(joueur));
+    }
+
+    public ArrayList<Catapulte> getCatapultes(){
+        return catapultes;
+    }
 }

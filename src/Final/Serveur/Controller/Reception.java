@@ -25,6 +25,11 @@ public class Reception implements Runnable{
         try {
 
             while(true){
+                int puissanceTir=-1;
+                int joueur=-1;
+                int mouvement=-1;
+                int angle=-1;
+                int type=-1;
                 byte[] buff = new byte[64];
                 DatagramPacket dp = new DatagramPacket(buff,buff.length);
 
@@ -32,9 +37,20 @@ public class Reception implements Runnable{
                 ByteBuffer dechifreur = ByteBuffer.wrap(buff);
 
                 for (int i = 0; i < 1; ++i) {
-                    int puissanceTir = dechifreur.getInt();
-                    System.out.println(puissanceTir);
-                    physique.addProjectile();
+                    joueur = dechifreur.getInt();
+                    puissanceTir = dechifreur.getInt();
+                    angle = dechifreur.getInt();
+                    type = dechifreur.getInt();
+                    mouvement = dechifreur.getInt();
+
+                    System.out.println(joueur+" "+puissanceTir+" "+mouvement);
+                }
+
+                if (mouvement==0&&puissanceTir>-1){
+                    physique.addProjectile(joueur,puissanceTir,angle,type);
+                }
+                else if(mouvement !=0&&puissanceTir<0){
+                    physique.mouvementCatapulte(joueur,mouvement);
                 }
             }
 

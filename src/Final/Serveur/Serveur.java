@@ -36,6 +36,8 @@ public class Serveur {
                 Socket s = serveur.accept();
                 System.out.println("\nUn client s'est connecté: "+clients);
                 System.out.println(s.getInetAddress());
+                if (clients<2)
+                    physique.addCatapulte(clients);
                 s.getOutputStream().write(clients);
                 clients++;
             }
