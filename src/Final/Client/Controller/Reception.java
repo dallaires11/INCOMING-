@@ -12,8 +12,6 @@ import java.nio.ByteBuffer;
 public class Reception extends Thread{
     Passeur passeur;
     int positionClient;
-
-    String adresse;
     Socket socket;
     MulticastSocket multicastSocket;
 
@@ -27,7 +25,7 @@ public class Reception extends Thread{
     public void connect(String adresse){
 
         try {
-            socket = new Socket(InetAddress.getByName(adresse),9000);
+            socket = new Socket(InetAddress.getByName(adresse),9001);
             multicastSocket = new MulticastSocket();
             multicastSocket.joinGroup(InetAddress.getByName("224.0.6.0"));
 
@@ -46,14 +44,25 @@ public class Reception extends Thread{
             try {
                 multicastSocket.receive(new DatagramPacket(bytes, bytes.length));
 
-                int nombreDeProjectiles = buffer.getInt();
+                int nombreCatapulte = buffer.getInt();
 
-                if (nombreDeProjectiles != 0) {
+                for(int i = 0;i<nombreCatapulte;i++){
+                    int posCataX = buffer.getInt();
+                    int posCataY = buffer.getInt();
+                }
 
-                    for (int z = 0; z >= nombreDeProjectiles; z++) {
-                        final int position = z;
-                        final double x = buffer.getDouble();
-                        final double y = buffer.getDouble();
+                int nombreProjectile = buffer.getInt();
+
+                if (nombreProjectile != 0) {
+
+                    for (int z = 0; z < nombreProjectile; z++) {
+                        int position = z;
+                        double x = buffer.getDouble();
+                        double y = buffer.getDouble();
+                        float vitesseX = buffer.getFloat();
+                        float vitesseY = buffer.getFloat();
+                        int masse = buffer.getInt();
+                        int type = buffer.getInt();
 
                         Platform.runLater(() -> passeur.passe(position, x, y));
                     }

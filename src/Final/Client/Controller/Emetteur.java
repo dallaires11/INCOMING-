@@ -29,7 +29,11 @@ public class Emetteur {
             DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, InetAddress.getByName("224.0.6.0"), 9002);
 
             System.out.println("Force lancer : " + pLancer);
+            bufferSend.putInt(0);
             bufferSend.putInt(pLancer);
+            bufferSend.putInt(45);
+            bufferSend.putInt(1);
+            bufferSend.putInt(-1);
             multicastSocket.send(datagramPacket);
 
             pLancer = 0;

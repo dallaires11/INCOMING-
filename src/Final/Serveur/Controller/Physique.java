@@ -50,7 +50,6 @@ public class Physique extends Thread{
                     b.putFloat(tmp.getVitesseX());
                     b.putFloat(tmp.getVitesseY());
                     b.putInt(tmp.getMasse());
-                    b.putInt(tmp.getMasse());
                     b.putInt(tmp.getType());
                 }
 
