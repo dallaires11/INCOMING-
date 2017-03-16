@@ -1,10 +1,11 @@
 package Final.Serveur.Model;
 
 public class Catapulte {
-    private int x,y,mouvement;
+    private int x,y,mouvement,joueur;
 
     Catapulte(int joueur){
         y=450;
+        this.joueur=joueur;
         setPositionInitial(joueur);
         mouvement=0;
     }
@@ -30,7 +31,7 @@ public class Catapulte {
         return y;
     }
 
-    public void bouger(int joueur){
+    public void bouger(){
         if((x+mouvement)>(joueur * 1000)&&(x+mouvement)<1000+(joueur*1000))
             x=x+mouvement;
     }

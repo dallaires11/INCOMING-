@@ -25,32 +25,32 @@ public class Reception implements Runnable{
         try {
 
             while(true){
-                int puissanceTir=-1;
-                int joueur=-1;
-                int mouvement=-1;
-                int angle=-1;
-                int type=-1;
+                int typeRecu;
+                int puissanceTir;
+                int joueur;
+                int mouvement;
+                int angle;
+                int type;
                 byte[] buff = new byte[64];
                 DatagramPacket dp = new DatagramPacket(buff,buff.length);
 
                 recepteur.receive(dp);
                 ByteBuffer dechifreur = ByteBuffer.wrap(buff);
 
-                for (int i = 0; i < 1; ++i) {
+                typeRecu = dechifreur.getInt();
+
+                if(typeRecu==0){
+                    joueur = dechifreur.getInt();
+                    mouvement = dechifreur.getInt();
+                    physique.mouvementCatapulte(joueur,mouvement);
+                }
+
+                else  if(typeRecu==1){
                     joueur = dechifreur.getInt();
                     puissanceTir = dechifreur.getInt();
                     angle = dechifreur.getInt();
                     type = dechifreur.getInt();
-                    mouvement = dechifreur.getInt();
-
-                    System.out.println(joueur+" "+puissanceTir+" "+mouvement);
-                }
-
-                if (mouvement==0&&puissanceTir>-1){
                     physique.addProjectile(joueur,puissanceTir,angle,type);
-                }
-                else if(mouvement !=0&&puissanceTir<0){
-                    physique.mouvementCatapulte(joueur,mouvement);
                 }
             }
 

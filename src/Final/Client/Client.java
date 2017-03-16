@@ -26,10 +26,14 @@ public class Client extends Application {
         emetteur = new Emetteur();
         recepteur = new Recepteur();
         SceneConnect sceneConnect;
+        socket=null;
 
-        sceneConnect = new SceneConnect(emetteur,primaryStage,socket,sceneMenu.getScene());
+        sceneMenu = new SceneMenu();
+
+        sceneConnect = new SceneConnect(primaryStage,socket,sceneMenu.getScene());
 
         primaryStage.setScene(sceneConnect.getScene());
+        primaryStage.show();
     }
 
     public static void main (String[] args) {
