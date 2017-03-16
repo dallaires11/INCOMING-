@@ -44,18 +44,18 @@ public class Reception extends Thread{
             try {
                 multicastSocket.receive(new DatagramPacket(bytes, bytes.length));
 
-                int nombreCatapulte = buffer.getInt();
+                int nombreDeCatapultes = buffer.getInt();
 
-                for(int i = 0;i<nombreCatapulte;i++){
+                for(int i = 0;i<nombreDeCatapultes;i++){
                     int posCataX = buffer.getInt();
                     int posCataY = buffer.getInt();
                 }
 
-                int nombreProjectile = buffer.getInt();
+                int nombreDeProjectiles = buffer.getInt();
 
-                if (nombreProjectile != 0) {
+                if (nombreDeProjectiles != 0) {
 
-                    for (int z = 0; z < nombreProjectile; z++) {
+                    for (int z = 0; z < nombreDeProjectiles; z++) {
                         int position = z;
                         double x = buffer.getDouble();
                         double y = buffer.getDouble();
