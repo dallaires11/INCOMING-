@@ -22,23 +22,6 @@ public class Reception extends Thread{
 
     }
 
-    public void connect(String adresse){
-
-        try {
-            socket = new Socket(InetAddress.getByName(adresse),9001);
-            multicastSocket = new MulticastSocket();
-            multicastSocket.joinGroup(InetAddress.getByName("224.0.6.0"));
-
-            bytes = new byte[128];
-            buffer = ByteBuffer.wrap(bytes);
-
-            positionClient = buffer.getInt(socket.getInputStream().read());
-
-        } catch (IOException e){
-            System.out.println(e);
-        }
-    }
-
     public void run(){
         while (true) {
             try {
@@ -76,14 +59,6 @@ public class Reception extends Thread{
                 System.out.println(e);
             }
         }
-    }
-
-    public Socket getSocket(){
-        return this.socket;
-    }
-
-    public MulticastSocket getMulticastSocket(){
-        return this.multicastSocket;
     }
 
     public int getPositionClient(){

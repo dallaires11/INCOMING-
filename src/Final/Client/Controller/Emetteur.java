@@ -7,8 +7,8 @@ import java.nio.ByteBuffer;
 
 public class Emetteur {
 
-    Socket socket;
     MulticastSocket multicastSocket;
+    int positionJoueur;
 
     int pLancer;
 
@@ -17,7 +17,7 @@ public class Emetteur {
 
     public Emetteur(){
         pLancer = 0;
-
+        this.positionJoueur = positionJoueur;
         bufferSend = ByteBuffer.wrap(bytes);
     }
 
@@ -29,11 +29,11 @@ public class Emetteur {
             DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, InetAddress.getByName("224.0.6.0"), 9002);
 
             System.out.println("Force lancer : " + pLancer);
-            bufferSend.putInt(0);
-            bufferSend.putInt(pLancer);
-            bufferSend.putInt(45);
-            bufferSend.putInt(1);
-            bufferSend.putInt(-1);
+            bufferSend.putInt(1); //0 = mouvement, 1 = lancer
+            bufferSend.putInt(positionJoueur); //joueur
+            bufferSend.putInt(pLancer);  //puissance
+            bufferSend.putInt(45);  // angle tir
+            bufferSend.putInt(1);  //type
             multicastSocket.send(datagramPacket);
 
             pLancer = 0;
@@ -42,11 +42,17 @@ public class Emetteur {
         }
     }
 
-    public void setSocket(Socket s){
-        this.socket = s;
+    public void mouvement(int direction){
+        bufferSend.putInt(0);
+        bufferSend.putInt(positionJoueur);
+        bufferSend.putInt(direction);
     }
 
     public void setMulticastSocket(MulticastSocket m){
         this.multicastSocket = m;
+    }
+
+    public void setPositionJoueur(int positionJoueur){
+        this.positionJoueur = positionJoueur;
     }
 }

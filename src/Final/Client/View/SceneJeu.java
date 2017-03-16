@@ -1,10 +1,13 @@
 package Final.Client.View;
 
+import Final.Client.Controller.Emetteur;
 import Final.Client.Controller.Passeur;
 
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.util.ArrayList;
 
@@ -16,6 +19,7 @@ public class SceneJeu implements Passeur {
     Group groupeProjectiles;
     ParallelCamera camera;
     ArrayList<ProjectileView> projectiles;
+    Emetteur emetteur;
 
 
     public SceneJeu(int positionClient){
@@ -29,6 +33,30 @@ public class SceneJeu implements Passeur {
         sceneFull = new Scene(root);
         sceneLocal = sceneFull;
         sceneLocal.setCamera(camera);
+
+        sceneFull.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.SPACE){
+                emetteur.chargerLancer();
+            }
+        });
+
+        sceneFull.setOnKeyReleased(e -> {
+            if (e.getCode() == KeyCode.SPACE){
+                emetteur.sendLancer();
+                }
+        });
+
+        sceneFull.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.LEFT){
+                emetteur.mouvement(-1);
+            }
+        });
+
+        sceneFull.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.RIGHT){
+                emetteur.mouvement(1);
+            }
+        });
     }
 
     public void passe(int positionProjectile, double x, double y){
@@ -40,4 +68,6 @@ public class SceneJeu implements Passeur {
 
         projectiles.get(positionProjectile).setPosition(x, y);
     }
+
+
 }
