@@ -2,7 +2,7 @@ package Final.Client.View;
 
 import Final.Client.Controller.Emetteur;
 import Final.Client.Controller.Passeur;
-import Final.Client.Controller.Reception;
+import Final.Client.Controller.Recepteur;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,35 +10,33 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
+
 
 public class SceneConnect {
     Emetteur emetteur;
     Group root;
     Scene scene;
     Passeur passeur;
+    Socket socket;
 
     String adresse;
 
     TextField textField;
 
-    public SceneConnect(Group root, Emetteur emetteur, Reception reception, Stage primaryStage){
-        this.root = root;
+    public SceneConnect(Emetteur emetteur, Stage primaryStage, Socket socket ,Scene menu){
+        root = new Group();
         this.emetteur = emetteur;
-
-        scene = new Scene(root);
+        this.socket = socket;
+        scene = new Scene(root,200,200);
         Button boutonConnect = new Button("Connect");
         textField = new TextField("Adresse");
+
         HBox hbox = new HBox(40, textField, boutonConnect);
 
-        boutonConnect.setOnAction(event -> {
-            adresse = textField.getText();
-            reception.connect(adresse);
-            this.emetteur.setSocket(reception.getSocket());
-            this.emetteur.setMulticastSocket(reception.getMulticastSocket());
-
-            root.getChildren().clear();
-
-        });
+        setAction(boutonConnect,primaryStage,menu);
 
         root.getChildren().add(hbox);
     }
@@ -47,8 +45,18 @@ public class SceneConnect {
         return scene;
     }
 
-    public void clearGroup(){
-        root.getChildren().clear();
+    private void setAction(Button bouton,Stage stage,Scene menu){
+        bouton.setOnAction(event -> {
+            adresse = textField.getText();
+            try {
+                socket = new Socket(InetAddress.getByName(adresse),9000);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            stage.setScene(menu);
+
+        });
     }
 
 }

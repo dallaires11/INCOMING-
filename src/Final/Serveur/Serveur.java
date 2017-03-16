@@ -52,4 +52,8 @@ public class Serveur {
 9000 - serveur
 9001 - donnees projectiles
 9002 - nouveau projectile
+
+0 mouvemnt
+1 lancer
+
  */

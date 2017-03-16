@@ -9,7 +9,7 @@ import java.net.MulticastSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
-public class Reception extends Thread{
+public class Recepteur extends Thread{
     Passeur passeur;
     int positionClient;
     Socket socket;
@@ -18,7 +18,7 @@ public class Reception extends Thread{
     byte[] bytes;
     ByteBuffer buffer;
 
-    public Reception(){
+    public Recepteur(){
 
     }
 
