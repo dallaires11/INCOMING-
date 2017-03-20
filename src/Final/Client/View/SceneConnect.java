@@ -66,9 +66,6 @@ public class SceneConnect {
                     joueurX=socket.getInputStream().read();
                     joueurY=ecran;
 
-                    SceneJeu sceneJeu = new SceneJeu(joueurX, joueurY);
-
-                    this.scene = sceneJeu.createScene();
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -76,7 +73,9 @@ public class SceneConnect {
 
                 stage.setFullScreen(true);
                 System.out.println("J"+joueurX+" "+joueurY);
+
                 stage.setScene(jeu);
+
             }
 
         });

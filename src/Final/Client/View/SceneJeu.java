@@ -3,6 +3,7 @@ package Final.Client.View;
 import Final.Client.Controller.Emetteur;
 import Final.Client.Controller.Passeur;
 
+import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
@@ -17,7 +18,7 @@ public class SceneJeu implements Passeur {
     int positionClientX, positionClientY;
     Scene sceneFull;
     Scene sceneLocal;
-    Group root;
+    Group rootSceneJeu;
     Group groupeProjectiles;
     ParallelCamera camera;
     ArrayList<ProjectileView> projectiles;
@@ -27,12 +28,13 @@ public class SceneJeu implements Passeur {
     public SceneJeu(int positionClientX, int positionClientY){
         this.positionClientX = positionClientX;
         this.positionClientY = positionClientY;
+        rootSceneJeu = new Group();
         groupeProjectiles = new Group();
-        root.getChildren().add(groupeProjectiles);
+        rootSceneJeu.getChildren().add(groupeProjectiles);
 
-        sceneLocal = this.createScene();
+        rootSceneJeu = this.createGroup();
 
-
+        this.createScene(rootSceneJeu);
     }
 
     public void passe(int positionProjectile, double x, double y){
@@ -45,49 +47,59 @@ public class SceneJeu implements Passeur {
         projectiles.get(positionProjectile).setPosition(x, y);
     }
 
-    public Scene createScene(){
-        Scene temp = new Scene(root, 5760, 2160);
+    public Group createGroup(){
 
         Rectangle sol = new Rectangle(0, 1960, 5760, 200);
         Rectangle ciel = new Rectangle(0, 0, 5760, 1960);
         sol.setFill(Color.GREEN);
         ciel.setFill(Color.AZURE);
 
-        root.getChildren().addAll(sol, ciel);
+        rootSceneJeu.getChildren().addAll(sol, ciel);
 
-        temp.getCamera().resize(1920, 1080);
 
-        temp.getCamera().setTranslateX(1080 * positionClientX);
-        temp.getCamera().setTranslateY(1920 * positionClientY);
+
+        return rootSceneJeu;
+    }
+
+    private void createScene(Group root){
+        sceneLocal = new Scene(rootSceneJeu, 5760, 2160);
+        ParallelCamera camera = new ParallelCamera();
+
+        camera.resize(1920, 1080);
+
+        camera.setTranslateX(1080 * positionClientX);
+        camera.setTranslateY(1920 * positionClientY);
+
+        sceneLocal.setCamera(camera);
 
         if ( (positionClientX == 0 || positionClientX == 2 ) && positionClientY != 1){
-            sceneFull.setOnKeyPressed(e -> {
+            sceneLocal.setOnKeyPressed(e -> {
                 if (e.getCode() == KeyCode.SPACE){
                     emetteur.chargerLancer();
                 }
             });
 
-            sceneFull.setOnKeyReleased(e -> {
+            sceneLocal.setOnKeyReleased(e -> {
                 if (e.getCode() == KeyCode.SPACE){
                     emetteur.sendLancer();
                 }
             });
 
-            sceneFull.setOnKeyPressed(e -> {
+            sceneLocal.setOnKeyPressed(e -> {
                 if (e.getCode() == KeyCode.LEFT){
                     emetteur.mouvement(-1);
                 }
             });
 
-            sceneFull.setOnKeyPressed(e -> {
+            sceneLocal.setOnKeyPressed(e -> {
                 if (e.getCode() == KeyCode.RIGHT){
                     emetteur.mouvement(1);
                 }
             });
         }
 
-        return temp;
     }
+
 
 
 }
