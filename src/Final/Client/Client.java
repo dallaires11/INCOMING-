@@ -27,7 +27,7 @@ public class Client extends Application {
 
         scenePerdu =  new ScenePerdu(primaryStage);
         sceneVictoire = new SceneVictoire(primaryStage);
-        //sceneJeu = new SceneJeu();
+        sceneJeu = new SceneJeu();
         sceneControl =  new SceneControl();
         sceneConnect = new SceneConnect(primaryStage,socket,sceneJeu);
 

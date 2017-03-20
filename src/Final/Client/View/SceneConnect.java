@@ -59,32 +59,37 @@ public class SceneConnect {
                            Button boutonConnect,Stage stage, SceneJeu  sceneJeu){
         boutonConnect.setOnAction(event -> {
             adresse = textField.getText();
-            if(ecran==0||ecran==1||ecran==-1) {
+            if(ecran==0||ecran==1||ecran== -1) {
                 try {
+
+                    System.out.println("test");
                     socket = new Socket(InetAddress.getByName(adresse), 9000);
-                    socket.getOutputStream().write(ecran);
+                    System.out.println("test2");
+                    socket.getOutputStream().write(-1);
+                    System.out.println("test3");
                     joueurX=socket.getInputStream().read();
                     joueurY=ecran;
+                    System.out.println("test4");
                     sceneJeu.setPositionClient(joueurX, joueurY);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                stage.setFullScreen(true);
                 System.out.println("J"+joueurX+" "+joueurY);
 
                 sceneJeu.create();
                 stage.setScene(sceneJeu.getScene());
+                stage.setFullScreen(true);
 
             }
 
         });
         boutonChoix1.setOnAction(event->{
-            ecran=0;
+            ecran=1;
         });
         boutonChoix2.setOnAction(event->{
-            ecran=1;
+            ecran=0;
         });
         boutonChoix3.setOnAction(event->{
             ecran=-1;

@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class SceneJeu {
     int positionClientX, positionClientY;
-    static Scene sceneFull;
     Scene sceneLocal;
     Group rootSceneJeu;
     Group groupeProjectiles;
@@ -36,7 +35,7 @@ public class SceneJeu {
 
     public void create(){
         rootSceneJeu = this.createGroup();
-        this.createScene(rootSceneJeu);
+        this.createScene();
     }
 
     public void setPositionClient(int positionClientX, int positionClientY){
@@ -68,44 +67,54 @@ public class SceneJeu {
         return rootSceneJeu;
     }
 
-    private void createScene(Group root){
+    private void createScene(){
         sceneLocal = new Scene(rootSceneJeu, 5760, 2160);
         ParallelCamera camera = new ParallelCamera();
 
-        camera.resize(1920, 1080);
+        if (positionClientY == -1 && positionClientX == -1){
+            camera.resize(1920, 1080);
+            camera.setScaleX((1/3));
+            camera.setScaleY(0.5);
 
-        camera.setTranslateX(1080 * positionClientX);
-        camera.setTranslateY(1920 * positionClientY);
+            sceneLocal.setCamera(camera);
+        } else {
 
-        sceneLocal.setCamera(camera);
+            camera.resize(1920, 1080);
 
-        if ( (positionClientX == 0 || positionClientX == 2 ) && positionClientY != 1){
-            sceneLocal.setOnKeyPressed(e -> {
-                if (e.getCode() == KeyCode.SPACE){
-                    emetteur.chargerLancer();
-                }
-            });
+            camera.setTranslateX(1920 * positionClientX);
+            camera.setTranslateY(1080 * positionClientY);
 
-            sceneLocal.setOnKeyReleased(e -> {
-                if (e.getCode() == KeyCode.SPACE){
-                    emetteur.sendLancer();
-                }
-            });
+            System.out.println(camera.getTranslateX());
+            System.out.println(camera.getTranslateY());
 
-            sceneLocal.setOnKeyPressed(e -> {
-                if (e.getCode() == KeyCode.LEFT){
-                    emetteur.mouvement(-1);
-                }
-            });
+            sceneLocal.setCamera(camera);
 
-            sceneLocal.setOnKeyPressed(e -> {
-                if (e.getCode() == KeyCode.RIGHT){
-                    emetteur.mouvement(1);
-                }
-            });
+            if ((positionClientX == 0 || positionClientX == 2) && positionClientY != 1) {
+                sceneLocal.setOnKeyPressed(e -> {
+                    if (e.getCode() == KeyCode.SPACE) {
+                        emetteur.chargerLancer();
+                    }
+                });
+
+                sceneLocal.setOnKeyReleased(e -> {
+                    if (e.getCode() == KeyCode.SPACE) {
+                        emetteur.sendLancer();
+                    }
+                });
+
+                sceneLocal.setOnKeyPressed(e -> {
+                    if (e.getCode() == KeyCode.LEFT) {
+                        emetteur.mouvement(-1);
+                    }
+                });
+
+                sceneLocal.setOnKeyPressed(e -> {
+                    if (e.getCode() == KeyCode.RIGHT) {
+                        emetteur.mouvement(1);
+                    }
+                });
+            }
         }
-
-        sceneFull = sceneLocal;
 
     }
 

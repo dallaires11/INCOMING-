@@ -38,15 +38,15 @@ public class Serveur {
                 System.out.println(s.getInetAddress());
                 int ecran = s.getInputStream().read();
                 if (ecran==0) {
+                    s.getOutputStream().write(clientsC);
+                    System.out.println("\nUn client ciel s'est connecté: "+clientsC);
+                    clientsC++;
+                }
+                else if(ecran ==1){
                     physique.addCatapulte(clientsJ);
                     s.getOutputStream().write(clientsJ);
                     System.out.println("\nUn client joueur s'est connecté: "+clientsJ);
                     clientsJ++;
-                }
-                else if(ecran ==1){
-                    s.getOutputStream().write(clientsC);
-                    System.out.println("\nUn client ciel s'est connecté: "+clientsC);
-                    clientsC++;
                 }
                 else if(ecran==-1){
                     s.getOutputStream().write(-1);
