@@ -1,6 +1,5 @@
 package Final.Client.View;
 
-import com.sun.org.apache.xerces.internal.impl.xs.SchemaNamespaceSupport;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +17,6 @@ import java.net.Socket;
 public class SceneConnect {
     private Group root;
     private Scene scene;
-    private SceneJeu sceneJeu;
     private Socket socket;
     private String adresse;
     private TextField textField;

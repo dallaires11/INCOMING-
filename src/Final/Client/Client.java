@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import java.net.Socket;
 
 public class Client extends Application {
-<<<<<<< HEAD
     private Emetteur emetteur;
     private Recepteur recepteur;
     private SceneConnect sceneConnect;
