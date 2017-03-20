@@ -1,7 +1,5 @@
 package Final.Client.View;
 
-import Final.Client.Controller.Emetteur;
-import Final.Client.Controller.Passeur;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -76,7 +74,7 @@ public class SceneConnect {
 
                 stage.setFullScreen(true);
                 System.out.println("J"+joueurX+" "+joueurY);
-                //stage.setScene(menu);
+                stage.setScene(menu);
             }
 
         });
@@ -87,8 +85,7 @@ public class SceneConnect {
             ecran=1;
         });
         boutonChoix3.setOnAction(event->{
-            joueurX=-1;
-            joueurX=-1;
+            ecran=-1;
         });
     }
 }
