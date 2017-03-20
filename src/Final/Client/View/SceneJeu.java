@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 public class SceneJeu implements Passeur {
-    int positionClient;
+    int positionClientX, positionClientY;
     Scene sceneFull;
     Scene sceneLocal;
     Group root;
@@ -25,11 +25,12 @@ public class SceneJeu implements Passeur {
 
 
     public SceneJeu(int positionClientX, int positionClientY){
-        this.positionClient = positionClient;
+        this.positionClientX = positionClientX;
+        this.positionClientY = positionClientY;
         groupeProjectiles = new Group();
         root.getChildren().add(groupeProjectiles);
 
-        sceneLocal = this.createScene(positionClientX, positionClientY);
+        sceneLocal = this.createScene();
 
 
     }
@@ -44,7 +45,7 @@ public class SceneJeu implements Passeur {
         projectiles.get(positionProjectile).setPosition(x, y);
     }
 
-    private Scene createScene(int positionClientX, int positionClientY){
+    public Scene createScene(){
         Scene temp = new Scene(root, 5760, 2160);
 
         Rectangle sol = new Rectangle(0, 1960, 5760, 200);
