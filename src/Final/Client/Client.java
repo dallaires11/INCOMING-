@@ -13,7 +13,6 @@ public class Client extends Application {
     Emetteur emetteur;
     Recepteur recepteur;
     SceneConnect sceneConnect;
-    SceneMenu sceneMenu;
     SceneControl sceneControl;
     SceneJeu sceneJeu;
     ScenePerdu scenePerdu;
@@ -28,9 +27,14 @@ public class Client extends Application {
         SceneConnect sceneConnect;
         socket=null;
 
-        sceneMenu = new SceneMenu();
 
-        sceneConnect = new SceneConnect(primaryStage,socket,sceneMenu.getScene());
+
+        scenePerdu =  new ScenePerdu();
+        sceneVictoire = new SceneVictoire();
+        sceneJeu = new SceneJeu();
+        sceneControl =  new SceneControl();
+
+        sceneConnect = new SceneConnect(primaryStage,socket,sceneJeu.getScene());
 
         primaryStage.setScene(sceneConnect.getScene());
         primaryStage.show();

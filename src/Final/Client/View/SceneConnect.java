@@ -21,8 +21,9 @@ public class SceneConnect {
     private String adresse;
     private TextField textField;
     private int joueurX,joueurY,ecran;
+    private Text nomJeu,infoChoix;
 
-    public SceneConnect(Stage primaryStage, Socket socket ,Scene menu){
+    public SceneConnect(Stage primaryStage, Socket socket ,Scene jeu){
         root = new Group();
         this.socket = socket;
         scene = new Scene(root);
@@ -31,7 +32,8 @@ public class SceneConnect {
         joueurY=-1;
         ecran=-2;
 
-        Text infoChoix = new Text("Quel écran souhaitez-vous être?");
+        nomJeu = new Text("INCOMING!!!");
+        infoChoix = new Text("Quel écran souhaitez-vous être?");
 
         Button boutonConnect = new Button("Connect");
         Button boutonJoueur = new Button("Joueur");
@@ -44,7 +46,7 @@ public class SceneConnect {
         HBox hBox2 = new HBox(textField, boutonConnect);
         VBox vBox = new VBox(infoChoix,hBox1,hBox2);
 
-        setAction(boutonJoueur,boutonCiel,boutonObs,boutonConnect,primaryStage,menu);
+        setAction(boutonJoueur,boutonCiel,boutonObs,boutonConnect,primaryStage,jeu);
 
         root.getChildren().add(vBox);
     }
@@ -54,7 +56,7 @@ public class SceneConnect {
     }
 
     private void setAction(Button boutonChoix1,Button boutonChoix2,Button boutonChoix3,
-                           Button boutonConnect,Stage stage,Scene menu){
+                           Button boutonConnect,Stage stage,Scene jeu){
         boutonConnect.setOnAction(event -> {
             adresse = textField.getText();
             if(ecran==0||ecran==1||ecran==-1) {
@@ -74,7 +76,7 @@ public class SceneConnect {
 
                 stage.setFullScreen(true);
                 System.out.println("J"+joueurX+" "+joueurY);
-                stage.setScene(menu);
+                stage.setScene(jeu);
             }
 
         });
