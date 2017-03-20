@@ -1,8 +1,9 @@
 package Final.Client.View;
 
 import Final.Client.Controller.Emetteur;
-import Final.Client.Controller.Passeur;
 
+
+import Final.Client.Controller.Passeur;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class SceneJeu implements Passeur {
     int positionClientX, positionClientY;
-    Scene sceneFull;
+    static Scene sceneFull;
     Scene sceneLocal;
     Group rootSceneJeu;
     Group groupeProjectiles;
@@ -25,16 +26,23 @@ public class SceneJeu implements Passeur {
     Emetteur emetteur;
 
 
-    public SceneJeu(int positionClientX, int positionClientY){
-        this.positionClientX = positionClientX;
-        this.positionClientY = positionClientY;
+    public SceneJeu(){
+
         rootSceneJeu = new Group();
         groupeProjectiles = new Group();
         rootSceneJeu.getChildren().add(groupeProjectiles);
 
-        rootSceneJeu = this.createGroup();
 
+    }
+
+    public void create(){
+        rootSceneJeu = this.createGroup();
         this.createScene(rootSceneJeu);
+    }
+
+    public void setPositionClient(int positionClientX, int positionClientY){
+        this.positionClientX = positionClientX;
+        this.positionClientY = positionClientY;
     }
 
     public void passe(int positionProjectile, double x, double y){
@@ -98,6 +106,12 @@ public class SceneJeu implements Passeur {
             });
         }
 
+        sceneFull = sceneLocal;
+
+    }
+
+    public Scene getScene(){
+        return sceneLocal;
     }
 
 

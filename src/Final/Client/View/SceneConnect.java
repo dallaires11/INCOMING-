@@ -1,5 +1,6 @@
 package Final.Client.View;
 
+import com.sun.org.apache.xerces.internal.impl.xs.SchemaNamespaceSupport;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,13 +18,14 @@ import java.net.Socket;
 public class SceneConnect {
     private Group root;
     private Scene scene;
+    private SceneJeu sceneJeu;
     private Socket socket;
     private String adresse;
     private TextField textField;
     private int joueurX,joueurY,ecran;
     private Text nomJeu,infoChoix;
 
-    public SceneConnect(Stage primaryStage, Socket socket ,Scene jeu){
+    public SceneConnect(Stage primaryStage, Socket socket, SceneJeu sceneJeu){
         root = new Group();
         this.socket = socket;
         scene = new Scene(root);
@@ -46,7 +48,7 @@ public class SceneConnect {
         HBox hBox2 = new HBox(textField, boutonConnect);
         VBox vBox = new VBox(infoChoix,hBox1,hBox2);
 
-        setAction(boutonJoueur,boutonCiel,boutonObs,boutonConnect,primaryStage,jeu);
+        setAction(boutonJoueur,boutonCiel,boutonObs,boutonConnect,primaryStage, sceneJeu);
 
         root.getChildren().add(vBox);
     }
@@ -56,7 +58,7 @@ public class SceneConnect {
     }
 
     private void setAction(Button boutonChoix1,Button boutonChoix2,Button boutonChoix3,
-                           Button boutonConnect,Stage stage,Scene jeu){
+                           Button boutonConnect,Stage stage, SceneJeu  sceneJeu){
         boutonConnect.setOnAction(event -> {
             adresse = textField.getText();
             if(ecran==0||ecran==1||ecran==-1) {
@@ -65,7 +67,7 @@ public class SceneConnect {
                     socket.getOutputStream().write(ecran);
                     joueurX=socket.getInputStream().read();
                     joueurY=ecran;
-
+                    sceneJeu.setPositionClient(joueurX, joueurY);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -74,7 +76,8 @@ public class SceneConnect {
                 stage.setFullScreen(true);
                 System.out.println("J"+joueurX+" "+joueurY);
 
-                stage.setScene(jeu);
+                sceneJeu.create();
+                stage.setScene(sceneJeu.getScene());
 
             }
 
