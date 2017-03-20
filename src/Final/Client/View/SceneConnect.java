@@ -22,32 +22,31 @@ public class SceneConnect {
     private Socket socket;
     private String adresse;
     private TextField textField;
-    private int joueurX,joueurY,nbJoueurX,nbJoueurY;
+    private int joueurX,joueurY,ecran;
 
     public SceneConnect(Stage primaryStage, Socket socket ,Scene menu){
         root = new Group();
         this.socket = socket;
         scene = new Scene(root);
 
-        joueurX=0;
-        joueurY=0;
-        nbJoueurX=0;
-        nbJoueurY=0;
+        joueurX=-1;
+        joueurY=-1;
+        ecran=-2;
 
         Text infoChoix = new Text("Quel écran souhaitez-vous être?");
 
         Button boutonConnect = new Button("Connect");
-        Button boutonJoeur = new Button("Joueur");
+        Button boutonJoueur = new Button("Joueur");
         Button boutonCiel = new Button("Ciel");
         Button boutonObs =  new Button("Observateur");
 
         textField = new TextField("Adresse");
 
-        HBox hBox1 = new HBox(boutonJoeur,boutonCiel,boutonObs);
+        HBox hBox1 = new HBox(boutonJoueur,boutonCiel,boutonObs);
         HBox hBox2 = new HBox(textField, boutonConnect);
         VBox vBox = new VBox(infoChoix,hBox1,hBox2);
 
-        setAction(boutonJoeur,boutonCiel,boutonObs,boutonConnect,primaryStage,menu);
+        setAction(boutonJoueur,boutonCiel,boutonObs,boutonConnect,primaryStage,menu);
 
         root.getChildren().add(vBox);
     }
@@ -60,29 +59,30 @@ public class SceneConnect {
                            Button boutonConnect,Stage stage,Scene menu){
         boutonConnect.setOnAction(event -> {
             adresse = textField.getText();
-            if(joueurY==1)
-                nbJoueurY++;
-            else if(joueurY==0)
-                nbJoueurX++;
-            /*try {
-                socket = new Socket(InetAddress.getByName(adresse),9000);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
+            if(ecran==0||ecran==1||ecran==-1) {
+                try {
+                    socket = new Socket(InetAddress.getByName(adresse), 9000);
+                    socket.getOutputStream().write(ecran);
+                    joueurX=socket.getInputStream().read();
+                    joueurY=ecran;
 
-            stage.setFullScreen(true);
-            //stage.setScene(menu);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                stage.setFullScreen(true);
+                System.out.println("J"+joueurX+" "+joueurY);
+                //stage.setScene(menu);
+            }
 
         });
         boutonChoix1.setOnAction(event->{
-            joueurX=nbJoueurX;
-            joueurY=0;
+            ecran=0;
         });
-        boutonChoix1.setOnAction(event->{
-            joueurX=nbJoueurY;
-            joueurY=1;
+        boutonChoix2.setOnAction(event->{
+            ecran=1;
         });
-        boutonChoix1.setOnAction(event->{
+        boutonChoix3.setOnAction(event->{
             joueurX=-1;
             joueurX=-1;
         });
