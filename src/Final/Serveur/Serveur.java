@@ -35,7 +35,6 @@ public class Serveur {
 
             while (true) {
                 Socket s = serveur.accept();
-                System.out.println("\nUn client s'est connecté: "+clientsJ);
                 System.out.println(s.getInetAddress());
                 int ecran = s.getInputStream().read();
                 if (ecran==0) {

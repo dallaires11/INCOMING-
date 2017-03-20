@@ -23,9 +23,8 @@ public class Physique extends Thread{
 
                 int nbProjectile = tableaux.getProjectiles().size();
                 int nbCatapulte = tableaux.getCatapultes().size();
-                int tailleBuffer = 1 + nbProjectile * 4;
 
-                ByteBuffer b = ByteBuffer.allocate(tailleBuffer * 4);
+                ByteBuffer b = ByteBuffer.allocate(128);
 
                 b.putInt(nbCatapulte);
 
@@ -37,6 +36,7 @@ public class Physique extends Thread{
                     b.putInt(tmp.getX());
                     b.putInt(tmp.getY());
                 }
+
 
                 b.putInt(nbProjectile);
 
@@ -58,6 +58,8 @@ public class Physique extends Thread{
 
                 if(tableaux.getProjectiles().size()!=0)
                     emission.envoyer(aEnvoyer,aEnvoyer.length);
+
+                b.clear();
 
                 sleep(30);
             }
