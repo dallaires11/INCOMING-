@@ -4,13 +4,11 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
-import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
 public class Recepteur extends Thread{
-    Passeur passeur;
     int positionClient;
     Socket socket;
     MulticastSocket multicastSocket;
@@ -47,7 +45,7 @@ public class Recepteur extends Thread{
                         int masse = buffer.getInt();
                         int type = buffer.getInt();
 
-                        Platform.runLater(() -> passeur.passe(position, x, y));
+                        //Platform.runLater(() -> passeur.passe(position, x, y));
                     }
 
                     buffer.clear();

@@ -1,20 +1,18 @@
 package Final.Client.View;
 
 import Final.Client.Controller.Emetteur;
-import Final.Client.Controller.Passeur;
 
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-public class SceneJeu implements Passeur {
+public class SceneJeu {
     int positionClientX, positionClientY;
     Scene sceneFull;
     Scene sceneLocal;

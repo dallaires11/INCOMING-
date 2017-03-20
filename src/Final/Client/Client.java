@@ -10,30 +10,25 @@ import javafx.stage.Stage;
 import java.net.Socket;
 
 public class Client extends Application {
-    Emetteur emetteur;
-    Recepteur recepteur;
-    SceneConnect sceneConnect;
-    SceneControl sceneControl;
-    SceneJeu sceneJeu;
-    ScenePerdu scenePerdu;
-    SceneVictoire sceneVictoire;
-    Socket socket;
-
-
+    private Emetteur emetteur;
+    private Recepteur recepteur;
+    private SceneConnect sceneConnect;
+    private SceneControl sceneControl;
+    private SceneJeu sceneJeu;
+    private ScenePerdu scenePerdu;
+    private SceneVictoire sceneVictoire;
+    private Socket socket;
 
     public void start(Stage primaryStage){
         emetteur = new Emetteur();
         recepteur = new Recepteur();
-        SceneConnect sceneConnect;
         socket=null;
 
 
-
-        scenePerdu =  new ScenePerdu();
-        sceneVictoire = new SceneVictoire();
-        sceneJeu = new SceneJeu();
+        scenePerdu =  new ScenePerdu(primaryStage);
+        sceneVictoire = new SceneVictoire(primaryStage);
+        //sceneJeu = new SceneJeu();
         sceneControl =  new SceneControl();
-
         sceneConnect = new SceneConnect(primaryStage,socket,sceneJeu.getScene());
 
         primaryStage.setScene(sceneConnect.getScene());

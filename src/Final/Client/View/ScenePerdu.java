@@ -1,8 +1,11 @@
 package Final.Client.View;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -13,17 +16,40 @@ public class ScenePerdu {
     private Button continuer;
     private Group rootPerdu;
 
-    public ScenePerdu(Stage stage,Scene control){
+    public ScenePerdu(Stage stage/*,Scene control*/){
         rootPerdu =  new Group();
-        taPerdu = new Text("Perdant");
+        taPerdu = new Text("MORT");
         continuer = new Button("Continuer");
 
-        setAction(continuer,control,stage);
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(taPerdu,continuer);
+
+        setText();
+        setPosition(vbox);
+        //setAction(control,stage);
+
+        rootPerdu.getChildren().add(vbox);
 
         perdu = new Scene(rootPerdu, Color.BLACK);
     }
 
-    private void setAction(Button boutton,Scene control,Stage stage){
-        boutton.setOnAction(event -> stage.setScene(control));
+    private void setAction(Scene control,Stage stage){
+        continuer.setOnAction(event -> stage.setScene(control));
+    }
+
+    private void setText(){
+        taPerdu.setScaleX(15);
+        taPerdu.setScaleY(15);
+        taPerdu.setFill(Color.RED);
+    }
+
+    private void setPosition(VBox vBox){
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(150);
+        vBox.setPadding(new Insets(300,0,0,905));
+    }
+
+    public Scene getScene(){
+        return perdu;
     }
 }

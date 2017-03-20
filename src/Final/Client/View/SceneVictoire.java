@@ -13,12 +13,12 @@ public class SceneVictoire {
     private Button continuer;
     private Group rootGagner;
 
-    public SceneVictoire(Stage stage, Scene control){
+    public SceneVictoire(Stage stage/*, Scene control*/){
         rootGagner =  new Group();
         taGagner = new Text("Perdant");
         continuer = new Button("Continuer");
 
-        setAction(continuer,control,stage);
+        //setAction(continuer/*,control*/,stage);
 
         gagner = new Scene(rootGagner, Color.WHITE);
     }
