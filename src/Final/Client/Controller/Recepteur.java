@@ -49,7 +49,7 @@ public class Recepteur extends Thread{
                         int masse = buffer.getInt();
                         int type = buffer.getInt();
 
-                        //Platform.runLater(() -> passeur.passe(position, x, y));
+                        Platform.runLater(() -> passeur.passe(position, x, y));
                     }
 
                     buffer.clear();

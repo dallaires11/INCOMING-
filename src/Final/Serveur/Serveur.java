@@ -3,6 +3,7 @@ package Final.Serveur;
 import Final.Serveur.Controller.Emission;
 import Final.Serveur.Controller.Physique;
 import Final.Serveur.Controller.Reception;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -16,6 +17,7 @@ public class Serveur {
         int clientsJ=0;
         Thread reception;
         Physique physique;
+        boolean running=false;
 
         Emission emission = new Emission();
         physique = new Physique(emission);
@@ -37,6 +39,7 @@ public class Serveur {
                 Socket s = serveur.accept();
                 System.out.println(s.getInetAddress());
                 int ecran = s.getInputStream().read();
+                System.out.println(ecran);
                 if (ecran==0) {
                     s.getOutputStream().write(clientsC);
                     System.out.println("\nUn client ciel s'est connecté: "+clientsC);
@@ -48,15 +51,26 @@ public class Serveur {
                     System.out.println("\nUn client joueur s'est connecté: "+clientsJ);
                     clientsJ++;
                 }
-                else if(ecran==-1){
-                    s.getOutputStream().write(-1);
+                else if(ecran==10){
+                    s.getOutputStream().write(10);
                     System.out.println("\nUn client observateur s'est connecté");
+                }
+                s.getOutputStream().flush();
+
+                if(clientsJ>=2&& !running){
+                    running=true;
+                    lifeislife(physique);
                 }
             }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static void lifeislife(Physique physique){
+        physique.start();
     }
 }
 
