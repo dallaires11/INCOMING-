@@ -12,6 +12,7 @@ public class Recepteur extends Thread{
     int positionClient;
     Socket socket;
     MulticastSocket multicastSocket;
+    Passeur passeur;
 
     byte[] bytes;
     ByteBuffer buffer;
@@ -30,11 +31,14 @@ public class Recepteur extends Thread{
                 for(int i = 0;i<nombreDeCatapultes;i++){
                     int posCataX = buffer.getInt();
                     int posCataY = buffer.getInt();
+
+                    passeur.mouvement(i, posCataX, posCataY);
                 }
 
                 int nombreDeProjectiles = buffer.getInt();
 
                 if (nombreDeProjectiles != 0) {
+
 
                     for (int z = 0; z < nombreDeProjectiles; z++) {
                         int position = z;

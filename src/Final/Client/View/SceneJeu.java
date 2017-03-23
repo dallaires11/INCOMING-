@@ -4,6 +4,7 @@ import Final.Client.Controller.Emetteur;
 
 
 import Final.Client.Controller.Passeur;
+import Final.Client.Model.Catapulte;
 import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
@@ -14,17 +15,20 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 
-public class SceneJeu {
+public class SceneJeu implements Passeur{
     int positionClientX, positionClientY;
     Scene sceneLocal;
     Group rootSceneJeu;
     Group groupeProjectiles;
     ParallelCamera camera;
     ArrayList<ProjectileView> projectiles;
+    ArrayList<Catapulte> catapultes;
     Emetteur emetteur;
 
 
     public SceneJeu(){
+        catapultes = new ArrayList<>(2);
+        projectiles = new ArrayList<>(10);
 
         rootSceneJeu = new Group();
         groupeProjectiles = new Group();
@@ -51,6 +55,10 @@ public class SceneJeu {
         }
 
         projectiles.get(positionProjectile).setPosition(x, y);
+    }
+
+    public void mouvement(int position, int x, int y){
+        catapultes.get(position).setPosition(x, y);
     }
 
     public Group createGroup(){
@@ -93,7 +101,16 @@ public class SceneJeu {
                 sceneLocal.setOnKeyPressed(e -> {
                     if (e.getCode() == KeyCode.SPACE) {
                         emetteur.chargerLancer();
+                    } else if (e.getCode() == KeyCode.LEFT) {
+                        emetteur.mouvement(-1);
+                    } else if (e.getCode() == KeyCode.RIGHT) {
+                        emetteur.mouvement(1);
+                    } else if (e.getCode() == KeyCode.UP){
+                        catapultes.get(positionClientX).rotation(1);
+                    } else if (e.getCode() == KeyCode.DOWN){
+                        catapultes.get(positionClientX).rotation(-1);
                     }
+
                 });
 
                 sceneLocal.setOnKeyReleased(e -> {
@@ -103,15 +120,14 @@ public class SceneJeu {
                 });
 
                 sceneLocal.setOnKeyPressed(e -> {
-                    if (e.getCode() == KeyCode.LEFT) {
-                        emetteur.mouvement(-1);
-                    }
+
                 });
 
                 sceneLocal.setOnKeyPressed(e -> {
-                    if (e.getCode() == KeyCode.RIGHT) {
-                        emetteur.mouvement(1);
-                    }
+
+                });
+
+                sceneLocal.setOnKeyPressed(e -> {
                 });
             }
         }
