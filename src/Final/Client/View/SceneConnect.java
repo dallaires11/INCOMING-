@@ -23,7 +23,7 @@ public class SceneConnect {
     private int joueurX,joueurY,ecran;
     private Text nomJeu,infoChoix;
 
-    public SceneConnect(Stage primaryStage, Socket socket, SceneJeu sceneJeu){
+    public SceneConnect(Stage primaryStage, Socket socket){
         root = new Group();
         this.socket = socket;
         scene = new Scene(root);
@@ -46,7 +46,7 @@ public class SceneConnect {
         HBox hBox2 = new HBox(textField, boutonConnect);
         VBox vBox = new VBox(infoChoix,hBox1,hBox2);
 
-        setAction(boutonJoueur,boutonCiel,boutonObs,boutonConnect,primaryStage, sceneJeu);
+        setAction(boutonJoueur,boutonCiel,boutonObs,boutonConnect,primaryStage);
 
         root.getChildren().add(vBox);
     }
@@ -56,7 +56,7 @@ public class SceneConnect {
     }
 
     private void setAction(Button boutonChoix1,Button boutonChoix2,Button boutonChoix3,
-                           Button boutonConnect,Stage stage, SceneJeu  sceneJeu){
+                           Button boutonConnect,Stage stage){
         boutonConnect.setOnAction(event -> {
             adresse = textField.getText();
             if(ecran==0||ecran==1||ecran== -1) {
@@ -70,16 +70,14 @@ public class SceneConnect {
                     joueurX=socket.getInputStream().read();
                     joueurY=ecran;
                     System.out.println("test4");
-                    sceneJeu.setPositionClient(joueurX, joueurY);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 System.out.println("J"+joueurX+" "+joueurY);
-
-                sceneJeu.create();
-                stage.setScene(sceneJeu.getScene());
+                sceneJeu.setPositionClient(joueurX, joueurY);
+                stage.setScene(SceneMenu.getSceneMenu());
                 stage.setFullScreen(true);
 
             }
@@ -94,5 +92,13 @@ public class SceneConnect {
         boutonChoix3.setOnAction(event->{
             ecran=-1;
         });
+    }
+
+    public int getJoueurX(){
+        return joueurX;
+    }
+
+    public int getJoueurY(){
+        return joueurY;
     }
 }

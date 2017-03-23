@@ -15,10 +15,10 @@ public class Client extends Application {
     private SceneConnect sceneConnect;
     private SceneControl sceneControl;
     private SceneJeu sceneJeu;
+    private SceneMenu sceneMenu;
     private ScenePerdu scenePerdu;
     private SceneVictoire sceneVictoire;
     private Socket socket;
-
 
     public void start(Stage primaryStage){
         emetteur = new Emetteur();
@@ -29,7 +29,8 @@ public class Client extends Application {
         sceneVictoire = new SceneVictoire(primaryStage);
         sceneJeu = new SceneJeu();
         sceneControl =  new SceneControl();
-        sceneConnect = new SceneConnect(primaryStage,socket,sceneJeu);
+        sceneMenu = new SceneMenu(primaryStage,sceneJeu);
+        sceneConnect = new SceneConnect(primaryStage,socket);
 
         primaryStage.setScene(sceneConnect.getScene());
         primaryStage.show();

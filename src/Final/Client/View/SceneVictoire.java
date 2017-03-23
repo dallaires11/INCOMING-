@@ -18,12 +18,12 @@ public class SceneVictoire {
         taGagner = new Text("Perdant");
         continuer = new Button("Continuer");
 
-        //setAction(continuer/*,control*/,stage);
+        setAction(stage);
 
         gagner = new Scene(rootGagner, Color.WHITE);
     }
 
-    private void setAction(Button boutton,Scene control,Stage stage){
-        boutton.setOnAction(event -> stage.setScene(control));
+    private void setAction(Stage stage){
+        continuer.setOnAction(event -> stage.setScene(SceneMenu.getSceneMenu()));
     }
 }

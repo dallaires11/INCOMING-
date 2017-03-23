@@ -16,7 +16,7 @@ public class ScenePerdu {
     private Button continuer;
     private Group rootPerdu;
 
-    public ScenePerdu(Stage stage/*,Scene control*/){
+    public ScenePerdu(Stage stage){
         rootPerdu =  new Group();
         taPerdu = new Text("MORT");
         continuer = new Button("Continuer");
@@ -26,15 +26,15 @@ public class ScenePerdu {
 
         setText();
         setPosition(vbox);
-        //setAction(control,stage);
+        setAction(stage);
 
         rootPerdu.getChildren().add(vbox);
 
         perdu = new Scene(rootPerdu, Color.BLACK);
     }
 
-    private void setAction(Scene control,Stage stage){
-        continuer.setOnAction(event -> stage.setScene(control));
+    private void setAction(Stage stage){
+        continuer.setOnAction(event -> stage.setScene(SceneMenu.getSceneMenu()));
     }
 
     private void setText(){
