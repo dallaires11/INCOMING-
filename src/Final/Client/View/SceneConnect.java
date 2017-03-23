@@ -1,5 +1,6 @@
 package Final.Client.View;
 
+import Final.Client.Controller.Passeur;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,11 +23,13 @@ public class SceneConnect {
     private TextField textField;
     private int joueurX,joueurY,ecran;
     private Text nomJeu,infoChoix;
+    private Passeur passeur;
 
-    public SceneConnect(Stage primaryStage, Socket socket){
+    public SceneConnect(Stage primaryStage, Socket socket, Passeur passeur){
         root = new Group();
         this.socket = socket;
         scene = new Scene(root);
+        this.passeur=passeur;
 
         joueurX=-1;
         joueurY=-1;
@@ -76,7 +79,7 @@ public class SceneConnect {
                 }
 
                 System.out.println("J"+joueurX+" "+joueurY);
-                sceneJeu.setPositionClient(joueurX, joueurY);
+                passeur.setPositionClient(joueurX, joueurY);
                 stage.setScene(SceneMenu.getSceneMenu());
                 stage.setFullScreen(true);
 

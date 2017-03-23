@@ -8,4 +8,6 @@ public interface Passeur {
     public void passe(int position, double x, double y);
 
     public void mouvement(int joueur, int x, int y);
+
+    public void setPositionClient(int positionClientX, int positionClientY);
 }

@@ -19,7 +19,7 @@ public class Emission{
         }
     }
 
-    public void envoyer(byte[] aEnvoyer,int length) throws IOException {
+    void envoyer(byte[] aEnvoyer, int length) throws IOException {
         DatagramPacket paquet = new DatagramPacket(aEnvoyer, length, adresse, 9001);
 
         envoyeur.send(paquet);

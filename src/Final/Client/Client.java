@@ -30,7 +30,7 @@ public class Client extends Application {
         sceneJeu = new SceneJeu();
         sceneControl =  new SceneControl();
         sceneMenu = new SceneMenu(primaryStage,sceneJeu);
-        sceneConnect = new SceneConnect(primaryStage,socket);
+        sceneConnect = new SceneConnect(primaryStage,socket,sceneJeu);
 
         primaryStage.setScene(sceneConnect.getScene());
         primaryStage.show();
