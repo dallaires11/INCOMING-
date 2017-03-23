@@ -33,7 +33,7 @@ public class SceneConnect {
 
         joueurX=-1;
         joueurY=-1;
-        ecran=-2;
+        ecran= -1;
 
         nomJeu = new Text("INCOMING!!!");
         infoChoix = new Text("Quel écran souhaitez-vous être?");
@@ -62,13 +62,15 @@ public class SceneConnect {
                            Button boutonConnect,Stage stage){
         boutonConnect.setOnAction(event -> {
             adresse = textField.getText();
-            if(ecran==0||ecran==1||ecran== -1) {
+            if(ecran==0||ecran==1||ecran== 10) {
                 try {
 
                     System.out.println("test");
                     socket = new Socket(InetAddress.getByName(adresse), 9000);
                     System.out.println("test2");
-                    socket.getOutputStream().write(-1);
+                    socket.getOutputStream().write(ecran);
+                    socket.getOutputStream().flush();
+                    System.out.println("ecran = " + ecran);
                     System.out.println("test3");
                     joueurX=socket.getInputStream().read();
                     joueurY=ecran;
@@ -87,13 +89,13 @@ public class SceneConnect {
 
         });
         boutonChoix1.setOnAction(event->{
-            ecran=1;
+            ecran = 1;
         });
         boutonChoix2.setOnAction(event->{
-            ecran=0;
+            ecran = 0;
         });
         boutonChoix3.setOnAction(event->{
-            ecran=-1;
+            ecran = 10;
         });
     }
 

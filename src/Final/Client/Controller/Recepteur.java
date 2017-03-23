@@ -39,7 +39,6 @@ public class Recepteur extends Thread{
 
                 if (nombreDeProjectiles != 0) {
 
-
                     for (int z = 0; z < nombreDeProjectiles; z++) {
                         int position = z;
                         double x = buffer.getDouble();
