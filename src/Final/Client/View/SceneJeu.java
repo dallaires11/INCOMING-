@@ -5,7 +5,6 @@ import Final.Client.Controller.Emetteur;
 
 import Final.Client.Controller.Passeur;
 import Final.Client.Model.Catapulte;
-import javafx.scene.Camera;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
@@ -33,8 +32,6 @@ public class SceneJeu implements Passeur{
         rootSceneJeu = new Group();
         groupeProjectiles = new Group();
         rootSceneJeu.getChildren().add(groupeProjectiles);
-
-
     }
 
     public void create(){
@@ -70,8 +67,6 @@ public class SceneJeu implements Passeur{
 
         rootSceneJeu.getChildren().addAll(sol, ciel);
 
-
-
         return rootSceneJeu;
     }
 
@@ -79,10 +74,10 @@ public class SceneJeu implements Passeur{
         sceneLocal = new Scene(rootSceneJeu, 5760, 2160);
         ParallelCamera camera = new ParallelCamera();
 
-        if (positionClientY == -1 && positionClientX == -1){
+        if (positionClientY == 10 && positionClientX == 10){
             camera.resize(1920, 1080);
-            camera.setScaleX((1/3));
-            camera.setScaleY(0.5);
+            camera.setScaleX(3);
+            camera.setScaleY(2);
 
             sceneLocal.setCamera(camera);
         } else {
@@ -110,7 +105,6 @@ public class SceneJeu implements Passeur{
                     } else if (e.getCode() == KeyCode.DOWN){
                         catapultes.get(positionClientX).rotation(-1);
                     }
-
                 });
 
                 sceneLocal.setOnKeyReleased(e -> {

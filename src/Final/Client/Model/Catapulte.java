@@ -37,9 +37,6 @@ public class Catapulte {
             rectangle.setFill(Color.RED);
             view.getChildren().add(rectangle);
         }
-
-
-
     }
 
     public void setPosition(int x, int y){

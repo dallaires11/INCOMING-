@@ -11,10 +11,15 @@ public class SceneMenu {
     private Group root;
 
     public SceneMenu(Stage stage, SceneJeu sceneJeu){
-        setAtction(stage,sceneJeu);
+        root = new Group();
+        menu  = new Scene(root, 100,100);
+        commencer = new Button("Commencer");
+        setAction(stage,sceneJeu);
+
+        root.getChildren().add(commencer);
     }
 
-    private void setAtction(Stage stage,SceneJeu sceneJeu){
+    private void setAction(Stage stage,SceneJeu sceneJeu){
         commencer.setOnAction(event ->{
             sceneJeu.create();
             stage.setScene(sceneJeu.getScene());
