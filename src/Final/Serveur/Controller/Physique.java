@@ -37,7 +37,6 @@ public class Physique extends Thread{
                     b.putInt(tmp.getY());
                 }
 
-
                 b.putInt(nbProjectile);
 
                 for (int nbp = 0; nbp < nbProjectile; nbp++) {

@@ -29,7 +29,7 @@ public class Serveur {
             System.out.println("Mise en place du serveur . . .");
             Thread.sleep(1500);
 
-            physique.start();
+            //physique.start();
             reception.start();
 
             System.out.println(InetAddress.getLocalHost()+" en ligne");
@@ -59,7 +59,7 @@ public class Serveur {
 
                 if(clientsJ>=2&& !running){
                     running=true;
-                    lifeislife(physique);
+                    physique.start();
                 }
             }
 
@@ -68,10 +68,6 @@ public class Serveur {
         }
     }
 
-
-    public static void lifeislife(Physique physique){
-        physique.start();
-    }
 }
 
 /*
