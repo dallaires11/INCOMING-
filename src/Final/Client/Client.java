@@ -13,7 +13,6 @@ public class Client extends Application {
     private Emetteur emetteur;
     private Recepteur recepteur;
     private SceneConnect sceneConnect;
-    private SceneControl sceneControl;
     private SceneJeu sceneJeu;
     private SceneMenu sceneMenu;
     private ScenePerdu scenePerdu;
@@ -29,8 +28,7 @@ public class Client extends Application {
 
         scenePerdu =  new ScenePerdu(primaryStage);
         sceneVictoire = new SceneVictoire(primaryStage);
-        sceneJeu = new SceneJeu(primaryStage,emetteur);
-        sceneControl =  new SceneControl();
+        sceneJeu = new SceneJeu(primaryStage,emetteur,sceneVictoire,scenePerdu);
         sceneMenu = new SceneMenu(primaryStage,sceneJeu);
         sceneConnect = new SceneConnect(primaryStage,socket,sceneJeu);
 

@@ -27,7 +27,7 @@ public class SceneJeu implements Passeur{
     private Emetteur emetteur;
 
 
-    public SceneJeu(Stage stage,Emetteur emetteur){
+    public SceneJeu(Stage stage,Emetteur emetteur,SceneVictoire victoire,ScenePerdu perdu){
         this.emetteur=emetteur;
         catapultes = new ArrayList<>(2);
         projectiles = new ArrayList<>(10);
