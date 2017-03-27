@@ -34,6 +34,9 @@ public class SceneJeu implements Passeur{
         camera = new ParallelCamera();
         this.stage=stage;
 
+        catapultes.add(new Catapulte(1));
+        catapultes.add(new Catapulte(2));
+
         rootSceneJeu = new Group();
         groupeProjectiles = new Group();
     }
@@ -71,11 +74,14 @@ public class SceneJeu implements Passeur{
         ciel.setFill(Color.ROYALBLUE);
 
         rootSceneJeu.getChildren().addAll(sol, ciel);
+        rootSceneJeu.getChildren().add(catapultes.get(0).getView());
+        rootSceneJeu.getChildren().add(catapultes.get(1).getView());
         rootSceneJeu.getChildren().add(groupeProjectiles);
+
     }
 
     private void createScene(){
-        sceneLocal = new Scene(rootSceneJeu/*, 5760, 2160*/);
+        sceneLocal = new Scene(rootSceneJeu);
 
         if (positionClientY == 10 && positionClientX == 10){
             camera.resize(1920, 1080);
@@ -96,30 +102,30 @@ public class SceneJeu implements Passeur{
             sceneLocal.setCamera(camera);
         }
 
-        if ((positionClientX == 0 || positionClientX == 2) && positionClientY != 1)
+        if ((positionClientX == 0 || positionClientX == 2) && positionClientY == 1)
             setAction();
 
         stage.setFullScreen(true);
     }
 
-    private void setAction(){
-    sceneLocal.setOnKeyPressed(e -> {
-        if (e.getCode() == KeyCode.SPACE) {
-            emetteur.chargerLancer();
-        } else if (e.getCode() == KeyCode.LEFT) {
-            emetteur.mouvement(-1);
-        } else if (e.getCode() == KeyCode.RIGHT) {
-            emetteur.mouvement(1);
-        } else if (e.getCode() == KeyCode.UP){
-            catapultes.get(positionClientX).rotation(1);
-        } else if (e.getCode() == KeyCode.DOWN){
-            catapultes.get(positionClientX).rotation(-1);
-        }
-    });
+    private void setAction() {
+
+        sceneLocal.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.SPACE) {
+                emetteur.chargerLancer();
+            } else if (e.getCode() == KeyCode.LEFT) {
+                emetteur.mouvement(-1);
+            } else if (e.getCode() == KeyCode.RIGHT) {
+                emetteur.mouvement(1);
+            } else if (e.getCode() == KeyCode.UP) {
+                catapultes.get(positionClientX / 2).rotation(1);
+            } else if (e.getCode() == KeyCode.DOWN) {
+                catapultes.get(positionClientX / 2).rotation(-1);
+            }});
 
         sceneLocal.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.SPACE) {
-                emetteur.sendLancer();
+                emetteur.sendLancer(catapultes.get(positionClientX / 2).getAngleDeTir());
             }
         });
     }

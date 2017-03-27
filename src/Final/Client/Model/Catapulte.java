@@ -1,6 +1,11 @@
 package Final.Client.Model;
 
+import com.sun.javaws.progress.Progress;
 import javafx.scene.Group;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Skin;
+import javafx.scene.control.SkinBase;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -14,28 +19,41 @@ public class Catapulte {
     int positionY;
     double angleDeTir;
 
+    ProgressBar progressBar;
+
     Group view;
+    VBox vBox;
 
     public Catapulte(int joueur){
         HP = 1000;
+        progressBar = new ProgressBar(1);
+        view = new Group();
+        vBox = new VBox();
 
         if (joueur == 1){
             positionX = 200;
             positionY = 1960;
             angleDeTir = 45;
 
+
             Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
             rectangle.setFill(Color.BLUE);
-            view.getChildren().add(rectangle);
+            vBox.getChildren().addAll(progressBar, rectangle);
+            view.getChildren().add(vBox);
+
+            setPosition(positionX, positionY);
 
         } else if (joueur == 2){
             positionX = 5560;
             positionY = 1960;
-            angleDeTir = 325;
+            angleDeTir = 315;
 
             Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
             rectangle.setFill(Color.RED);
-            view.getChildren().add(rectangle);
+            vBox.getChildren().addAll(progressBar, rectangle);
+            view.getChildren().add(vBox);
+
+            setPosition(positionX, positionY);
         }
     }
 
@@ -43,12 +61,25 @@ public class Catapulte {
         positionX = x;
         positionY = y;
 
-        view.setTranslateX(positionX);
-        view.setTranslateY(positionY);
+        view.setLayoutX(positionX);
+        view.setLayoutY(positionY);
     }
 
     public void rotation(int direction){
         angleDeTir=- (direction * 5);  //Negatif = anti-horaire
                                        //Positif = horaire
+    }
+
+    public Group getView(){
+        return view;
+    }
+
+    public double getAngleDeTir(){
+        return angleDeTir;
+    }
+
+    public void receiveDamage(int damage){
+        HP -= damage;
+        progressBar.setProgress(HP/1000);
     }
 }
