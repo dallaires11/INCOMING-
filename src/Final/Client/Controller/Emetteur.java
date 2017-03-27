@@ -11,6 +11,7 @@ public class Emetteur implements Passeur{
     int positionClientX;
     int positionClientY;
 
+    InetAddress adresse;
     int pLancer;
 
     byte[] bytes = new byte[64];
@@ -21,8 +22,9 @@ public class Emetteur implements Passeur{
         bufferSend = ByteBuffer.wrap(bytes);
 
         try {
+            adresse = InetAddress.getByName("224.0.6.0");
             multicastSocket = new MulticastSocket(9002);
-            multicastSocket.joinGroup(InetAddress.getByName("224.0.6.0"));
+            multicastSocket.joinGroup(adresse);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -47,15 +49,23 @@ public class Emetteur implements Passeur{
             multicastSocket.send(datagramPacket);
 
             pLancer = 0;
+            bufferSend.clear();
         } catch (IOException u){
             System.out.println(u);
         }
     }
 
     public void mouvement(int direction){
+        try {
+        DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, );
         bufferSend.putInt(0);
         bufferSend.putInt(positionClientX);
         bufferSend.putInt(direction);
+
+        multicastSocket.send(datagramPacket);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setMulticastSocket(MulticastSocket m){
@@ -67,7 +77,7 @@ public class Emetteur implements Passeur{
         this.positionClientY = positionClientY;
     }
 
-    public void passe(int position, double x, double y){
+    public void passe(int position, double x, double y, int masse, int type){
     }
 
     public void mouvement(int i, int u, int y){}

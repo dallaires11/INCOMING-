@@ -1,11 +1,11 @@
-package Final.Client.View;
+package Final.Client.Model;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-public class ProjectileView extends Group{
+public class Projectile{
     int masse;
     int type;
     double x;
@@ -13,17 +13,16 @@ public class ProjectileView extends Group{
     double vX;
     double vY;
 
+    Group view;
+
     Line ligneX;
     Line ligneY;
     Line ligneCombinee;
 
-    public ProjectileView(){
-        Circle projectile = new Circle(10);
 
-    }
-
-    public ProjectileView(int masse, int type){
-        Circle projectile = new Circle();
+    public Projectile(int masse, int type){
+        view  = new Group();
+        Circle projectile = new Circle(masse);
         ligneX = new Line();
         ligneY = new Line();
         ligneCombinee = new Line();
@@ -34,19 +33,20 @@ public class ProjectileView extends Group{
             case 1: projectile = new Circle(masse, Color.RED);
                 break;
             case 2: projectile = new Circle(masse, Color.AQUA);
+                break;
         }
-        this.getChildren().add(projectile);
+
     }
 
     public void setPosition(double x, double y){
         double xBefore;
         double yBefore;
 
-        xBefore = this.getTranslateX();
-        yBefore = this.getTranslateY();
+        xBefore = view.getLayoutX();
+        yBefore = view.getLayoutY();
 
-        this.setTranslateX(x);
-        this.setTranslateY(y);
+        view.setLayoutX(x);
+        view.setLayoutY(y);
 
         this.setLabel((x - xBefore), (y - yBefore));
     }
@@ -57,5 +57,9 @@ public class ProjectileView extends Group{
 
         this.ligneCombinee.endYProperty().set((Math.sqrt( Math.pow(vX,2) + Math.pow(vY,2))));
         this.ligneCombinee.setRotate(Math.tan(vY/vX));
+    }
+
+    public Group getView(){
+        return this.view;
     }
 }

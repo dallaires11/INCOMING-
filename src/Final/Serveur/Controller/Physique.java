@@ -47,8 +47,8 @@ public class Physique extends Thread{
 
                     b.putDouble(tmp.getX());
                     b.putDouble(tmp.getY());
-                    b.putFloat(tmp.getVitesseX());
-                    b.putFloat(tmp.getVitesseY());
+                    //b.putFloat(tmp.getVitesseX());
+                    //b.putFloat(tmp.getVitesseY());
                     b.putInt(tmp.getMasse());
                     b.putInt(tmp.getType());
                 }

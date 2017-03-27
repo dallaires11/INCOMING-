@@ -5,6 +5,7 @@ import Final.Client.Controller.Emetteur;
 
 import Final.Client.Controller.Passeur;
 import Final.Client.Model.Catapulte;
+import Final.Client.Model.Projectile;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
@@ -21,7 +22,7 @@ public class SceneJeu implements Passeur{
     private Group rootSceneJeu;
     private Group groupeProjectiles;
     private ParallelCamera camera;
-    private ArrayList<ProjectileView> projectiles;
+    private ArrayList<Projectile> projectiles;
     private ArrayList<Catapulte> catapultes;
     private Stage stage;
     private Emetteur emetteur;
@@ -51,12 +52,12 @@ public class SceneJeu implements Passeur{
         this.positionClientY = positionClientY;
     }
 
-    public void passe(int positionProjectile, double x, double y){
+    public void passe(int positionProjectile, double x, double y, int masse, int type){
         if (positionProjectile >= projectiles.size()){
-            ProjectileView temp = new ProjectileView();
+            Projectile temp = new Projectile(masse, type);
             System.out.println("creationP");
             projectiles.add(temp);
-            groupeProjectiles.getChildren().add(temp);
+            groupeProjectiles.getChildren().add(temp.getView());
         }
 
         projectiles.get(positionProjectile).setPosition(x, y);

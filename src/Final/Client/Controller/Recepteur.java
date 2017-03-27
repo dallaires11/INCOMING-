@@ -40,6 +40,7 @@ public class Recepteur extends Thread{
                 }
 
                 int nombreDeProjectiles = buffer.getInt();
+                System.out.println(nombreDeProjectiles);
 
                 if (nombreDeProjectiles != 0) {
 
@@ -47,12 +48,10 @@ public class Recepteur extends Thread{
                         int position = z;
                         double x = buffer.getDouble();
                         double y = buffer.getDouble();
-                        float vitesseX = buffer.getFloat();
-                        float vitesseY = buffer.getFloat();
                         int masse = buffer.getInt();
                         int type = buffer.getInt();
 
-                        Platform.runLater(() -> passeur.passe(position, x, y));
+                        Platform.runLater(() -> passeur.passe(position, x, y, masse, type));
                     }
 
                     buffer.clear();

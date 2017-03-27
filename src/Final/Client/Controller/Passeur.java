@@ -5,7 +5,7 @@ package Final.Client.Controller;
  */
 public interface Passeur {
 
-    public void passe(int position, double x, double y);
+    public void passe(int position, double x, double y, int masse, int type);
 
     public void mouvement(int joueur, int x, int y);
 
