@@ -3,28 +3,32 @@ package Final.Client.Controller;
 import javafx.application.Platform;
 
 import java.io.IOException;
+
 import java.net.DatagramPacket;
+import java.net.InetAddress;
 import java.net.MulticastSocket;
-import java.net.Socket;
 import java.nio.ByteBuffer;
 
 public class Recepteur extends Thread{
-    int positionClient;
-    Socket socket;
     MulticastSocket multicastSocket;
     Passeur passeur;
-
-    byte[] bytes;
+    byte[] byteReceive;
     ByteBuffer buffer;
+    DatagramPacket dataReceive;
 
     public Recepteur(){
-
+        byteReceive = new byte[1024];
+        buffer = ByteBuffer.wrap(byteReceive);
+        dataReceive = new DatagramPacket(byteReceive, byteReceive.length);
     }
 
     public void run(){
-        while (true) {
-            try {
-                multicastSocket.receive(new DatagramPacket(bytes, bytes.length));
+        try{
+            multicastSocket = new MulticastSocket(9001);
+            multicastSocket.joinGroup(InetAddress.getByName("224.0.6.0"));
+
+            while (true) {
+                multicastSocket.receive(dataReceive);
 
                 int nombreDeCatapultes = buffer.getInt();
 
@@ -56,13 +60,8 @@ public class Recepteur extends Thread{
 
                 sleep(15);
 
-            } catch (IOException | InterruptedException e) {
-                System.out.println(e);
-            }
+                }} catch (IOException | InterruptedException e) {
+            System.out.println(e);
         }
-    }
-
-    public int getPositionClient(){
-        return this.positionClient;
     }
 }
