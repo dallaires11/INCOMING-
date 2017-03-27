@@ -1,7 +1,5 @@
 package Final.Client.View;
 
-
-import Final.Serveur.Model.Projectile;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;

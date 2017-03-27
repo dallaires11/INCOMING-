@@ -51,6 +51,7 @@ public class SceneJeu implements Passeur{
     public void passe(int positionProjectile, double x, double y){
         if (positionProjectile >= projectiles.size()){
             ProjectileView temp = new ProjectileView();
+            System.out.println("creationP");
             projectiles.add(temp);
             groupeProjectiles.getChildren().add(temp);
         }

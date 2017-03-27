@@ -43,6 +43,7 @@ public class Reception implements Runnable{
                     joueur = dechifreur.getInt();
                     mouvement = dechifreur.getInt();
                     physique.mouvementCatapulte(joueur,mouvement);
+                    System.out.println("Mouvement");
                 }
 
                 else  if(typeRecu==1){
@@ -50,6 +51,7 @@ public class Reception implements Runnable{
                     puissanceTir = dechifreur.getInt();
                     angle = dechifreur.getInt();
                     type = dechifreur.getInt();
+                    System.out.println("Tir");
                     physique.addProjectile(joueur,puissanceTir,angle,type);
                 }
             }

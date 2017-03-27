@@ -24,6 +24,8 @@ public class Client extends Application {
         emetteur = new Emetteur();
         recepteur = new Recepteur();
         socket=null;
+        recepteur.start();
+
 
         scenePerdu =  new ScenePerdu(primaryStage);
         sceneVictoire = new SceneVictoire(primaryStage);

@@ -46,6 +46,8 @@ public class Serveur {
                 } else if (ecran == 1) {
                     physique.addCatapulte(clientsJ);
                     s.getOutputStream().write(clientsJ);
+                    if(clientsJ==0||clientsJ==2)
+                        physique.addCatapulte(clientsJ/2);
                     System.out.println("\nUn client joueur s'est connecté: " + clientsJ);
                     clientsJ++;
                 } else if (ecran == 10) {
