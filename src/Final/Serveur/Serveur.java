@@ -13,11 +13,11 @@ import java.net.Socket;
 public class Serveur {
     public static void main(String[] args) {
         ServerSocket serveur;
-        int clientsC=0;
-        int clientsJ=0;
+        int clientsC = 0;
+        int clientsJ = 0;
         Thread reception;
         Physique physique;
-        boolean running=false;
+        boolean running = false;
 
         Emission emission = new Emission();
         physique = new Physique(emission);
@@ -29,10 +29,9 @@ public class Serveur {
             System.out.println("Mise en place du serveur . . .");
             Thread.sleep(1500);
 
-            physique.start();
             reception.start();
 
-            System.out.println(InetAddress.getLocalHost()+" en ligne");
+            System.out.println(InetAddress.getLocalHost() + " en ligne");
 
 
             while (true) {
@@ -40,37 +39,30 @@ public class Serveur {
                 System.out.println(s.getInetAddress());
                 int ecran = s.getInputStream().read();
                 System.out.println(ecran);
-                if (ecran==0) {
+                if (ecran == 0) {
                     s.getOutputStream().write(clientsC);
-                    System.out.println("\nUn client ciel s'est connecté: "+clientsC);
+                    System.out.println("\nUn client ciel s'est connecté: " + clientsC);
                     clientsC++;
-                }
-                else if(ecran ==1){
+                } else if (ecran == 1) {
                     physique.addCatapulte(clientsJ);
                     s.getOutputStream().write(clientsJ);
-                    System.out.println("\nUn client joueur s'est connecté: "+clientsJ);
+                    System.out.println("\nUn client joueur s'est connecté: " + clientsJ);
                     clientsJ++;
-                }
-                else if(ecran==10){
+                } else if (ecran == 10) {
                     s.getOutputStream().write(10);
                     System.out.println("\nUn client observateur s'est connecté");
                 }
                 s.getOutputStream().flush();
 
-                if(clientsJ>=2&& !running){
-                    running=true;
-                    lifeislife(physique);
+                if (clientsJ >= 2 && !running) {
+                    running = true;
+                    physique.start();
                 }
             }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-
-    public static void lifeislife(Physique physique){
-        physique.start();
     }
 }
 
