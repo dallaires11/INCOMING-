@@ -43,7 +43,8 @@ public class SceneConnect {
         Button boutonCiel = new Button("Ciel");
         Button boutonObs =  new Button("Observateur");
 
-        textField = new TextField("Adresse");
+        textField = new TextField();
+        textField.setPromptText("Adresse");
 
         HBox hBox1 = new HBox(boutonJoueur,boutonCiel,boutonObs);
         HBox hBox2 = new HBox(textField, boutonConnect);
@@ -62,6 +63,12 @@ public class SceneConnect {
                            Button boutonConnect,Stage stage){
         boutonConnect.setOnAction(event -> {
             adresse = textField.getText();
+            System.out.println(adresse);
+            if (adresse.compareTo("")==0)
+                adresse="localhost";
+
+            System.out.println("Connection à "+adresse);
+
             if(ecran==0||ecran==1||ecran== 10) {
                 try {
 
