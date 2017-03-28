@@ -15,8 +15,8 @@ public class Tableaux {
         return projectiles;
     }
 
-    public void addProjectile(int puissance,int type,int joueur,int angle){
-        projectiles.add(new Projectile(puissance,type,joueur,angle));
+    public void addProjectile(int joueur, int puissance,int type,int angle){
+        projectiles.add(new Projectile(joueur, puissance,type,angle));
     }
 
     public void addCatapulte(int joueur){

@@ -4,7 +4,7 @@ public class Projectile {
     private int masse,type;
     private float x,y,vitesseX,vitesseY;
 
-    Projectile(int joueur,int puissance,int angle,int type){
+    Projectile(int joueur, int puissance,int angle,int type){
         this.type=type;
         setMasse(type);
         setVitesseInitial(angle,puissance);
@@ -26,12 +26,16 @@ public class Projectile {
     }
 
     private void setPositionInitial(int joueur){
-        if(joueur==1){
+        if(joueur==0){
             System.out.println("re");
+            x = 100;
+            y = 450;
         }
 
         else if(joueur==2){
             System.out.println("re");
+            x = 1900;
+            y = 450;
         }
     }
 

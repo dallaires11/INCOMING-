@@ -12,10 +12,10 @@ public class Catapulte {
 
     private void setPositionInitial (int joueur){
         if (joueur==0){
-            x=1900;
+            x=100;
         }
         else if (joueur==1){
-            x=100;
+            x=1900;
         }
     }
 

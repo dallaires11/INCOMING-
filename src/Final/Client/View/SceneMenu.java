@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class SceneMenu {
+    static int positionClientX, positionClientY;
     private static Scene menu;
     private Button commencer;
     private Group root;
@@ -21,9 +22,14 @@ public class SceneMenu {
 
     private void setAction(Stage stage,SceneJeu sceneJeu){
         commencer.setOnAction(event ->{
-            sceneJeu.create();
+            sceneJeu.create(positionClientX, positionClientY);
             stage.setScene(sceneJeu.getScene());
         });
+    }
+
+    public static void setPositionClient(int x, int y){
+        positionClientX = x;
+        positionClientY = y;
     }
 
 

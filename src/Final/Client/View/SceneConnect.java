@@ -23,13 +23,11 @@ public class SceneConnect {
     private TextField textField;
     private int joueurX,joueurY,ecran;
     private Text nomJeu,infoChoix;
-    private Passeur passeur;
 
-    public SceneConnect(Stage primaryStage, Socket socket, Passeur passeur){
+    public SceneConnect(Stage primaryStage, Socket socket){
         root = new Group();
         this.socket = socket;
         scene = new Scene(root);
-        this.passeur=passeur;
 
         joueurX=-1;
         joueurY=-1;
@@ -88,7 +86,7 @@ public class SceneConnect {
                 }
 
                 System.out.println("J"+joueurX+" "+joueurY);
-                passeur.setPositionClient(joueurX, joueurY);
+                SceneMenu.setPositionClient(joueurX, joueurY);
                 stage.setScene(SceneMenu.getSceneMenu());
                 stage.setFullScreen(true);
 

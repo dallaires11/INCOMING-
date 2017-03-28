@@ -19,14 +19,24 @@ public class Catapulte {
     int positionY;
     double angleDeTir;
 
-    ProgressBar progressBar;
-
     Group view;
+    Group hpBar;
     VBox vBox;
 
     public Catapulte(int joueur){
         HP = 1000;
-        progressBar = new ProgressBar(1);
+        hpBar = new Group();
+
+        Rectangle hpBack = new Rectangle(22, 12);
+        hpBack.setFill(Color.GREY);
+
+        Rectangle hpFront = new Rectangle (20, 10);
+        hpFront.setFill(Color.CRIMSON);
+
+        hpBar.getChildren().addAll(hpBack, hpFront);
+        hpBar.getChildren().get(1).setTranslateX(1);
+        hpBar.getChildren().get(1).setTranslateY(1);
+
         view = new Group();
         vBox = new VBox();
 
@@ -38,7 +48,7 @@ public class Catapulte {
 
             Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
             rectangle.setFill(Color.BLUE);
-            vBox.getChildren().addAll(progressBar, rectangle);
+            vBox.getChildren().addAll(hpBar, rectangle);
             view.getChildren().add(vBox);
 
             setPosition(positionX, positionY);
@@ -50,7 +60,7 @@ public class Catapulte {
 
             Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
             rectangle.setFill(Color.RED);
-            vBox.getChildren().addAll(progressBar, rectangle);
+            vBox.getChildren().addAll(hpBar, rectangle);
             view.getChildren().add(vBox);
 
             setPosition(positionX, positionY);
@@ -80,6 +90,6 @@ public class Catapulte {
 
     public void receiveDamage(int damage){
         HP -= damage;
-        progressBar.setProgress(HP/1000);
+        hpBar.getChildren().get(1).setScaleX(HP/1000);
     }
 }

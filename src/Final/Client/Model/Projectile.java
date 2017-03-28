@@ -27,6 +27,9 @@ public class Projectile{
         ligneY = new Line();
         ligneCombinee = new Line();
 
+        this.masse = masse;
+        this.type = type;
+
         switch (type) {
             case 0: projectile = new Circle(masse, Color.GREY);
                 break;
@@ -36,9 +39,12 @@ public class Projectile{
                 break;
         }
 
+        view.getChildren().addAll(projectile, ligneCombinee, ligneX, ligneY);
     }
 
     public void setPosition(double x, double y){
+        this.x = x;
+        this.y = y;
         double xBefore;
         double yBefore;
 
@@ -57,6 +63,14 @@ public class Projectile{
 
         this.ligneCombinee.endYProperty().set((Math.sqrt( Math.pow(vX,2) + Math.pow(vY,2))));
         this.ligneCombinee.setRotate(Math.tan(vY/vX));
+    }
+
+    public double getX(){
+        return this.x;
+    }
+
+    public double getY(){
+        return this.y;
     }
 
     public Group getView(){

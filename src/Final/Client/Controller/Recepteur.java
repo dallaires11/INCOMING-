@@ -10,11 +10,11 @@ import java.net.MulticastSocket;
 import java.nio.ByteBuffer;
 
 public class Recepteur extends Thread{
-    MulticastSocket multicastSocket;
+    private MulticastSocket multicastSocket;
     Passeur passeur;
-    byte[] byteReceive;
-    ByteBuffer buffer;
-    DatagramPacket dataReceive;
+    private byte[] byteReceive;
+    private ByteBuffer buffer;
+    private DatagramPacket dataReceive;
 
     public Recepteur(){
         byteReceive = new byte[1024];
@@ -32,11 +32,16 @@ public class Recepteur extends Thread{
 
                 int nombreDeCatapultes = buffer.getInt();
 
-                for(int i = 0;i<nombreDeCatapultes;i++){
+                for(int i = 0; i < nombreDeCatapultes; i++){
+                    int position = i;
                     int posCataX = buffer.getInt();
                     int posCataY = buffer.getInt();
 
-                    passeur.mouvement(i, posCataX, posCataY);
+                    System.out.println("position" + i);
+                    System.out.println("X:" + posCataX);
+                    System.out.println("y:" + posCataY);
+
+                    Platform.runLater(() -> passeur.mouvement(position, posCataX, posCataY));
                 }
 
                 int nombreDeProjectiles = buffer.getInt();
@@ -51,16 +56,23 @@ public class Recepteur extends Thread{
                         int masse = buffer.getInt();
                         int type = buffer.getInt();
 
+                        System.out.println("position:" + z + "   x:" + x + "   y:" + y + "   masse:" + masse + "   type:" + type);
+
                         Platform.runLater(() -> passeur.passe(position, x, y, masse, type));
                     }
 
-                    buffer.clear();
                 }
+
+                buffer.clear();
 
                 sleep(15);
 
                 }} catch (IOException | InterruptedException e) {
             System.out.println(e);
         }
+    }
+
+    public void setInterface(Passeur passeur){
+        this.passeur = passeur;
     }
 }

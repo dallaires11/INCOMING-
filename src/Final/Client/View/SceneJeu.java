@@ -42,14 +42,11 @@ public class SceneJeu implements Passeur{
         groupeProjectiles = new Group();
     }
 
-    public void create(){
-        createScene();
-        createGroups();
-    }
-
-    public void setPositionClient(int positionClientX, int positionClientY){
+    public void create(int positionClientX, int positionClientY){
         this.positionClientX = positionClientX;
         this.positionClientY = positionClientY;
+        createScene();
+        createGroups();
     }
 
     public void passe(int positionProjectile, double x, double y, int masse, int type){
@@ -133,5 +130,9 @@ public class SceneJeu implements Passeur{
 
     public Scene getScene(){
         return sceneLocal;
+    }
+
+    public SceneJeu getThis(){
+        return this;
     }
 }

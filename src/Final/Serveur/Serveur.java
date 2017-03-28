@@ -44,10 +44,7 @@ public class Serveur {
                     System.out.println("\nUn client ciel s'est connecté: " + clientsC);
                     clientsC++;
                 } else if (ecran == 1) {
-                    physique.addCatapulte(clientsJ);
                     s.getOutputStream().write(clientsJ);
-                    if(clientsJ==0||clientsJ==2)
-                        physique.addCatapulte(clientsJ/2);
                     System.out.println("\nUn client joueur s'est connecté: " + clientsJ);
                     clientsJ++;
                 } else if (ecran == 10) {
@@ -58,6 +55,8 @@ public class Serveur {
 
                 if (clientsJ >= 2 && !running) {
                     running = true;
+                    physique.addCatapulte(0);
+                    physique.addCatapulte(1);
                     physique.start();
                 }
             }
