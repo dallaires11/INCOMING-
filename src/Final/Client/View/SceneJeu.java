@@ -22,6 +22,7 @@ public class SceneJeu implements Passeur{
     private int joueur;
     private Scene sceneLocal;
     private Group rootSceneJeu;
+    private Group groupeProjectiles;
     private ParallelCamera camera;
     private ArrayList<Projectile> projectiles;
     private ArrayList<Catapulte> catapultes;
@@ -50,8 +51,8 @@ public class SceneJeu implements Passeur{
         }
         this.positionClientX = positionClientX;
         this.positionClientY = positionClientY;
-        createScene();
         createGroups();
+        createScene();
     }
 
     public void passe(int positionProjectile, double x, double y, int masse, int type){
@@ -59,7 +60,7 @@ public class SceneJeu implements Passeur{
             Projectile temp = new Projectile(masse, type);
             System.out.println("creationP");
             projectiles.add(temp);
-            rootSceneJeu.getChildren().add( temp.getView());
+            rootSceneJeu.getChildren().add(temp);
         }
 
         projectiles.get(positionProjectile).setPosition(x, y);
@@ -77,8 +78,8 @@ public class SceneJeu implements Passeur{
         ciel.setFill(Color.ROYALBLUE);
 
         rootSceneJeu.getChildren().addAll(sol, ciel);
-        rootSceneJeu.getChildren().add(catapultes.get(0).getView());
-        rootSceneJeu.getChildren().add(catapultes.get(1).getView());
+        //rootSceneJeu.getChildren().add(catapultes.get(0).getView());
+        //rootSceneJeu.getChildren().add(catapultes.get(1).getView());
 
     }
 
@@ -107,7 +108,7 @@ public class SceneJeu implements Passeur{
         if ((positionClientX == 0 || positionClientX == 2) && positionClientY == 1)
             setAction();
 
-        stage.setFullScreen(true);
+        stage.setFullScreen(false);
     }
 
     private void setAction() {
