@@ -4,7 +4,7 @@ public class Projectile {
     private int masse,type;
     private float x,y,vitesseX,vitesseY;
 
-    Projectile(int joueur, int puissance,int angle,int type){
+    Projectile(int joueur, int puissance,int type, double angle){
         this.type=type;
         setMasse(type);
         setVitesseInitial(angle,puissance);
@@ -18,7 +18,7 @@ public class Projectile {
         }
     }
 
-    private void setVitesseInitial(int angle,int forceLancer){
+    private void setVitesseInitial(double angle,int forceLancer){
         double radian=Math.toRadians(angle);
         vitesseX =(float) (forceLancer/5 * Math.cos(radian));
         vitesseY =(float) (forceLancer/5 * Math.sin(radian));

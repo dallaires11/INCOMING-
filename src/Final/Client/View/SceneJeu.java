@@ -9,6 +9,7 @@ import Final.Client.Model.Projectile;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -18,9 +19,9 @@ import java.util.ArrayList;
 
 public class SceneJeu implements Passeur{
     private int positionClientX, positionClientY;
+    private int joueur;
     private Scene sceneLocal;
     private Group rootSceneJeu;
-    private Group groupeProjectiles;
     private ParallelCamera camera;
     private ArrayList<Projectile> projectiles;
     private ArrayList<Catapulte> catapultes;
@@ -39,10 +40,14 @@ public class SceneJeu implements Passeur{
         catapultes.add(new Catapulte(2));
 
         rootSceneJeu = new Group();
-        groupeProjectiles = new Group();
     }
 
     public void create(int positionClientX, int positionClientY){
+        if (positionClientX == 0){
+            joueur = 0;
+        } else if (positionClientX == 2){
+            joueur = 1;
+        }
         this.positionClientX = positionClientX;
         this.positionClientY = positionClientY;
         createScene();
@@ -54,7 +59,7 @@ public class SceneJeu implements Passeur{
             Projectile temp = new Projectile(masse, type);
             System.out.println("creationP");
             projectiles.add(temp);
-            groupeProjectiles.getChildren().add(temp.getView());
+            rootSceneJeu.getChildren().add( temp.getView());
         }
 
         projectiles.get(positionProjectile).setPosition(x, y);
@@ -74,7 +79,6 @@ public class SceneJeu implements Passeur{
         rootSceneJeu.getChildren().addAll(sol, ciel);
         rootSceneJeu.getChildren().add(catapultes.get(0).getView());
         rootSceneJeu.getChildren().add(catapultes.get(1).getView());
-        rootSceneJeu.getChildren().add(groupeProjectiles);
 
     }
 
@@ -116,14 +120,14 @@ public class SceneJeu implements Passeur{
             } else if (e.getCode() == KeyCode.RIGHT) {
                 emetteur.mouvement(1);
             } else if (e.getCode() == KeyCode.UP) {
-                catapultes.get(positionClientX / 2).rotation(1);
+                catapultes.get(joueur).rotation(1);
             } else if (e.getCode() == KeyCode.DOWN) {
-                catapultes.get(positionClientX / 2).rotation(-1);
+                catapultes.get(joueur).rotation(-1);
             }});
 
         sceneLocal.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.SPACE) {
-                emetteur.sendLancer(catapultes.get(positionClientX / 2).getAngleDeTir());
+                emetteur.sendLancer(catapultes.get(joueur).getAngleDeTir());
             }
         });
     }
@@ -134,5 +138,9 @@ public class SceneJeu implements Passeur{
 
     public SceneJeu getThis(){
         return this;
+    }
+
+    public void setFullscreen(){
+        stage.setFullScreen(true);
     }
 }

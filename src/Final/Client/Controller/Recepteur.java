@@ -37,8 +37,7 @@ public class Recepteur extends Thread{
                     int posCataX = buffer.getInt();
                     int posCataY = buffer.getInt();
 
-                    System.out.println("position" + i);
-                    System.out.println("X:" + posCataX);
+                    System.out.println("x:" + posCataX);
                     System.out.println("y:" + posCataY);
 
                     Platform.runLater(() -> passeur.mouvement(position, posCataX, posCataY));
@@ -55,8 +54,6 @@ public class Recepteur extends Thread{
                         double y = buffer.getDouble();
                         int masse = buffer.getInt();
                         int type = buffer.getInt();
-
-                        System.out.println("position:" + z + "   x:" + x + "   y:" + y + "   masse:" + masse + "   type:" + type);
 
                         Platform.runLater(() -> passeur.passe(position, x, y, masse, type));
                     }

@@ -68,8 +68,8 @@ public class Physique extends Thread{
         }
     }
 
-    void addProjectile (int joueur, int puissanceTir, int angle, int type){
-        tableaux.addProjectile(joueur, puissanceTir,angle,type);
+    void addProjectile (int joueur, int puissanceTir, double angle, int type){
+        tableaux.addProjectile(joueur, puissanceTir,type, angle);
     }
 
     void mouvementCatapulte(int joueur, int mouvement){

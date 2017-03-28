@@ -29,7 +29,7 @@ public class Reception implements Runnable{
                 int puissanceTir;
                 int joueur;
                 int mouvement;
-                int angle;
+                double angle;
                 int type;
                 byte[] buff = new byte[64];
                 DatagramPacket dp = new DatagramPacket(buff,buff.length);
@@ -49,9 +49,10 @@ public class Reception implements Runnable{
                 else  if(typeRecu==1){
                     joueur = dechifreur.getInt();
                     puissanceTir = dechifreur.getInt();
-                    angle = dechifreur.getInt();
+                    angle = dechifreur.getDouble();
                     type = dechifreur.getInt();
                     System.out.println("Tir");
+                    System.out.println("angle : " + angle);
                     physique.addProjectile(joueur, puissanceTir,angle,type);
                 }
             }

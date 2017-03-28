@@ -88,7 +88,6 @@ public class SceneConnect {
                 System.out.println("J"+joueurX+" "+joueurY);
                 SceneMenu.setPositionClient(joueurX, joueurY);
                 stage.setScene(SceneMenu.getSceneMenu());
-                stage.setFullScreen(true);
 
             }
 

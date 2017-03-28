@@ -71,8 +71,8 @@ public class Catapulte {
         positionX = x;
         positionY = y;
 
-        view.setLayoutX(positionX);
-        view.setLayoutY(positionY);
+        view.setTranslateX(positionX);
+        view.setTranslateY(positionY);
     }
 
     public void rotation(int direction){
