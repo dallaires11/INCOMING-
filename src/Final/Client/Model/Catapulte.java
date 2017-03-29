@@ -15,23 +15,22 @@ import javafx.scene.shape.Rectangle;
  */
 public class Catapulte extends Group {
 
-    int HP;
-    int positionX;
-    int positionY;
-    double angleDegres, angleDeTir;
+    private int joueur;
+
+    private int HP;
+    private int positionX;
+    private  int positionY;
+    private double angleRadians, angleDeTir;
 
     private Line visee;
-    Group view;
-    //Group hpBar;
     VBox vBox;
 
     public Catapulte(int joueur) {
+        this.joueur = joueur;
         HP = 1000;
         //hpBar = new Group();
 
         visee = new Line();
-
-        this.visee.endYProperty().set(40);
 
         Rectangle hpBack = new Rectangle(22, 12);
         hpBack.setFill(Color.GREY);
@@ -50,27 +49,33 @@ public class Catapulte extends Group {
         if (joueur == 1) {
             positionX = 100;
             positionY = 1960;
-            angleDeTir = 45;
+            angleDeTir = 315;
+            angleRadians = Math.toRadians(angleDeTir);
 
 
             Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
             rectangle.setFill(Color.BLUE);
-            this.visee.setRotate(angleDeTir);
+
             vBox.getChildren().addAll(rectangle);
             this.getChildren().addAll(vBox, visee);
+            this.visee.endXProperty().set(Math.cos(angleRadians) * 30);
+            this.visee.endYProperty().set(Math.sin(angleRadians) * 30);
 
-            //setPosition(positionX, positionY);
+            setPosition(positionX, positionY);
 
         } else if (joueur == 2) {
             positionX = 5560;
             positionY = 1960;
-            angleDeTir = 315;
+            angleDeTir = 225;
+            angleRadians = Math.toRadians(angleDeTir);
 
             Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
             rectangle.setFill(Color.RED);
-            this.visee.setRotate(angleDeTir);
+
             vBox.getChildren().addAll(rectangle);
             this.getChildren().addAll(vBox, visee);
+            this.visee.endXProperty().set(Math.cos(angleRadians) * 30);
+            this.visee.endYProperty().set(Math.sin(angleRadians) * 30);
 
             setPosition(positionX, positionY);
         }
@@ -85,9 +90,23 @@ public class Catapulte extends Group {
     }
 
     public void rotation(int direction) {
-        angleDegres = -(direction * 5);//Negatif = anti-horaire
-        angleDeTir = Math.toRadians(angleDegres);
-        this.visee.setRotate(angleDeTir);
+        if(joueur == 1) {
+            angleDeTir -= (direction * 5);//Negatif = anti-horaire
+        } else if (joueur == 2){
+            angleDeTir += (direction * 5);
+        }
+
+        if(angleDeTir > 360) {
+            angleDeTir = 0;
+        } else if (angleDeTir < 0){
+            angleDeTir = 360;
+        }
+
+        System.out.println(angleDeTir);
+
+        angleRadians = Math.toRadians(angleDeTir);
+        this.visee.endXProperty().set(Math.cos(angleRadians) * 30);
+        this.visee.endYProperty().set(Math.sin(angleRadians) * 30);
     }
 
     public Group getView() {

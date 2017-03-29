@@ -1,5 +1,7 @@
 package Final.Client.Controller;
 
+import Final.Client.Model.Catapulte;
+
 import java.io.IOException;
 import java.net.*;
 import java.nio.ByteBuffer;
@@ -37,15 +39,15 @@ public class Emetteur {
         pLancer++;
     }
 
-    public void sendLancer(int joueur, double angle) {
+    public void sendLancer(int joueur, Catapulte catapulte) {
         try {
             DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, InetAddress.getByName("224.0.6.0"), 9002);
 
-            System.out.println("Nouveau Lancer -> Joueur " + joueur + " Force lancer : " + pLancer + "Angle : " + angle);
             bufferSend.putInt(1); //0 = mouvement, 1 = lancer
-            bufferSend.putInt(joueur); //joueur
+            bufferSend.putDouble(catapulte.getTranslateX());
+            bufferSend.putDouble(catapulte.getTranslateY());
             bufferSend.putInt(pLancer);  //puissance
-            bufferSend.putDouble(angle);  // angle tir
+            bufferSend.putDouble(catapulte.getAngleDeTir());  // angle tir
             bufferSend.putInt(1);  //type
             multicastSocket.send(datagramPacket);
 
@@ -56,11 +58,11 @@ public class Emetteur {
         }
     }
 
-    public void mouvement(int direction) {
+    public void mouvement(int joueur, int direction) {
         try {
             DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, adresse, 9002);
             bufferSend.putInt(0);
-            bufferSend.putInt(positionClientX);
+            bufferSend.putInt(joueur);
             bufferSend.putInt(direction);
 
             multicastSocket.send(datagramPacket);

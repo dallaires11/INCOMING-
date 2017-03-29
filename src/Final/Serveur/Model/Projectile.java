@@ -4,11 +4,11 @@ public class Projectile {
     private int masse,type;
     private float x,y,vitesseX,vitesseY;
 
-    Projectile(int joueur, int puissance,int type, double angle){
+    Projectile(double x, double y, int puissance,int type, double angle){
         this.type=type;
         setMasse(type);
         setVitesseInitial(angle,puissance);
-        setPositionInitial(joueur);
+        setPositionInitial(x, y);
     }
 
     private void setMasse(int type){
@@ -21,22 +21,14 @@ public class Projectile {
     private void setVitesseInitial(double angle,int forceLancer){
         double radian=Math.toRadians(angle);
         vitesseX =(float) (forceLancer/5 * Math.cos(radian));
-        vitesseY =(float) (forceLancer/5 * Math.sin(radian));
+        System.out.println("angle: " + radian + " VitesseX : " + vitesseX);
+        vitesseY = -((float) (forceLancer/5 * Math.sin(radian)));
 
     }
 
-    private void setPositionInitial(int joueur){
-        if(joueur==0){
-            System.out.println("Lancer joueur 0");
-            x = 100;
-            y = 1945;
-        }
-
-        else if(joueur==1){
-            System.out.println("Lancer Joueur 1");
-            x = 5560;
-            y = 1945;
-        }
+    private void setPositionInitial(double x, double y){
+        this.x = (float) x;
+        this.y = (float) y;
     }
 
     private void bouger(){

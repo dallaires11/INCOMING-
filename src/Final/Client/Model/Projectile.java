@@ -15,15 +15,12 @@ public class Projectile extends Group {
     private double x;
     private double y;
 
-    private Line ligneX;
-    private Line ligneY;
     private Line ligneCombinee;
 
 
     public Projectile(int masse, int type) {
         Circle projectile;
-        ligneX = new Line();
-        ligneY = new Line();
+
         ligneCombinee = new Line();
 
         this.masse = masse;
@@ -46,7 +43,7 @@ public class Projectile extends Group {
                 break;
         }
 
-        this.getChildren().addAll(ligneCombinee, ligneX, ligneY);
+        this.getChildren().addAll(ligneCombinee);
     }
 
     public void setPosition(double x, double y) {
@@ -65,11 +62,8 @@ public class Projectile extends Group {
     }
 
     public void setLabel(double vX, double vY) {
-        this.ligneX.endXProperty().set(vX * 20);
-        this.ligneY.endYProperty().set(vY * 20);
-
-        this.ligneCombinee.endYProperty().set((Math.sqrt(Math.pow(vX, 2) + Math.pow(vY, 2))));
-        this.ligneCombinee.setRotate(Math.tan(vY / vX));
+        this.ligneCombinee.endYProperty().set(vY * 10);
+        this.ligneCombinee.endXProperty().set(vX * 10);
     }
 
     public double getX() {

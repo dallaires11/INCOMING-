@@ -26,8 +26,9 @@ public class Reception implements Runnable{
 
             while(true){
                 int typeRecu;
-                int puissanceTir;
                 int joueur;
+                int puissanceTir;
+                double x, y;
                 int mouvement;
                 double angle;
                 int type;
@@ -47,13 +48,14 @@ public class Reception implements Runnable{
                 }
 
                 else  if(typeRecu==1){
-                    joueur = dechifreur.getInt();
+                    x = dechifreur.getDouble();
+                    y = dechifreur.getDouble();
                     puissanceTir = dechifreur.getInt();
                     angle = dechifreur.getDouble();
                     type = dechifreur.getInt();
                     System.out.println("Tir" + puissanceTir);
                     System.out.println("angle : " + angle);
-                    physique.addProjectile(joueur, puissanceTir,angle,type);
+                    physique.addProjectile(x, y, puissanceTir, angle, type);
                 }
             }
 

@@ -85,6 +85,7 @@ public class SceneJeu implements Passeur {
         rootSceneJeu.getChildren().add(catapultes.get(0).getView());
         rootSceneJeu.getChildren().add(catapultes.get(1).getView());
 
+        rootSceneJeu.setAutoSizeChildren(true);
     }
 
     private void createScene() {
@@ -119,9 +120,9 @@ public class SceneJeu implements Passeur {
             if (e.getCode() == KeyCode.SPACE) {
                 emetteur.chargerLancer();
             } else if (e.getCode() == KeyCode.LEFT) {
-                emetteur.mouvement(-1);
+                emetteur.mouvement(joueur, -1);
             } else if (e.getCode() == KeyCode.RIGHT) {
-                emetteur.mouvement(1);
+                emetteur.mouvement(joueur, 1);
             } else if (e.getCode() == KeyCode.UP) {
                 catapultes.get(joueur).rotation(1);
             } else if (e.getCode() == KeyCode.DOWN) {
@@ -131,8 +132,17 @@ public class SceneJeu implements Passeur {
 
         sceneLocal.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.SPACE) {
-                emetteur.sendLancer(joueur, catapultes.get(joueur).getAngleDeTir());
+                emetteur.sendLancer(joueur, catapultes.get(joueur));
+            } else if (e.getCode() == KeyCode.LEFT) {
+                emetteur.mouvement(joueur, 0);
+            } else if (e.getCode() == KeyCode.RIGHT) {
+                    emetteur.mouvement(joueur, 0);
+            } else if (e.getCode() == KeyCode.UP) {
+                catapultes.get(joueur).rotation(0);
+            } else if (e.getCode() == KeyCode.DOWN) {
+                catapultes.get(joueur).rotation(0);
             }
+
         });
     }
 

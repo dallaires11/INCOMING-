@@ -21,7 +21,7 @@ public class Physique extends Thread{
 
             while (true) {
 
-                byte[] aEnvoyer = new byte[256];
+                byte[] aEnvoyer = new byte[1024];
 
                 int nbProjectile = tableaux.getProjectiles().size();
                 int nbCatapulte = tableaux.getCatapultes().size();
@@ -49,8 +49,6 @@ public class Physique extends Thread{
 
                     b.putDouble(tmp.getX());
                     b.putDouble(tmp.getY());
-                    //b.putFloat(tmp.getVitesseX());
-                    //b.putFloat(tmp.getVitesseY());
                     b.putInt(tmp.getMasse());
                     b.putInt(tmp.getType());
                 }
@@ -60,7 +58,7 @@ public class Physique extends Thread{
 
                 b.clear();
 
-                sleep(30);
+                sleep(15);
             }
 
         } catch (IOException | InterruptedException ioex) {
@@ -68,8 +66,8 @@ public class Physique extends Thread{
         }
     }
 
-    void addProjectile (int joueur, int puissanceTir, double angle, int type){
-        tableaux.addProjectile(joueur, puissanceTir,type, angle);
+    void addProjectile (double x, double y, int puissanceTir, double angle, int type){
+        tableaux.addProjectile(x, y, puissanceTir, type, angle);
     }
 
     void mouvementCatapulte(int joueur, int mouvement){
