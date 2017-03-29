@@ -4,7 +4,7 @@ public class Catapulte {
     private int x,y,mouvement,joueur;
 
     Catapulte(int joueur){
-        y=450;
+        y=1945;
         this.joueur=joueur;
         setPositionInitial(joueur);
         mouvement=0;
@@ -15,7 +15,7 @@ public class Catapulte {
             x=100;
         }
         else if (joueur==1){
-            x=1900;
+            x=5560;
         }
     }
 

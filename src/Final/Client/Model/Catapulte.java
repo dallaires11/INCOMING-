@@ -7,30 +7,36 @@ import javafx.scene.control.Skin;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 /**
  * Created by Vincent on 2017-03-23.
  */
-public class Catapulte {
+public class Catapulte extends Group {
 
     int HP;
     int positionX;
     int positionY;
-    double angleDeTir;
+    double angleDegres, angleDeTir;
 
+    private Line visee;
     Group view;
     //Group hpBar;
     VBox vBox;
 
-    public Catapulte(int joueur){
+    public Catapulte(int joueur) {
         HP = 1000;
         //hpBar = new Group();
+
+        visee = new Line();
+
+        this.visee.endYProperty().set(40);
 
         Rectangle hpBack = new Rectangle(22, 12);
         hpBack.setFill(Color.GREY);
 
-        Rectangle hpFront = new Rectangle (20, 10);
+        Rectangle hpFront = new Rectangle(20, 10);
         hpFront.setFill(Color.CRIMSON);
 
         /*
@@ -38,31 +44,33 @@ public class Catapulte {
         hpBar.getChildren().get(1).setTranslateX(1);
         hpBar.getChildren().get(1).setTranslateY(1);
         */
-        view = new Group();
+
         vBox = new VBox();
 
-        if (joueur == 1){
-            positionX = 200;
+        if (joueur == 1) {
+            positionX = 100;
             positionY = 1960;
             angleDeTir = 45;
 
 
             Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
             rectangle.setFill(Color.BLUE);
+            this.visee.setRotate(angleDeTir);
             vBox.getChildren().addAll(rectangle);
-            view.getChildren().add(vBox);
+            this.getChildren().addAll(vBox, visee);
 
-            setPosition(positionX, positionY);
+            //setPosition(positionX, positionY);
 
-        } else if (joueur == 2){
+        } else if (joueur == 2) {
             positionX = 5560;
             positionY = 1960;
             angleDeTir = 315;
 
             Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
             rectangle.setFill(Color.RED);
+            this.visee.setRotate(angleDeTir);
             vBox.getChildren().addAll(rectangle);
-            view.getChildren().add(vBox);
+            this.getChildren().addAll(vBox, visee);
 
             setPosition(positionX, positionY);
         }
@@ -72,25 +80,26 @@ public class Catapulte {
         positionX = x;
         positionY = y;
 
-        view.setTranslateX(positionX);
-        view.setTranslateY(positionY);
+        this.setTranslateX(positionX);
+        this.setTranslateY(positionY);
     }
 
-    public void rotation(int direction){
-        angleDeTir=- (direction * 5);  //Negatif = anti-horaire
-                                       //Positif = horaire
+    public void rotation(int direction) {
+        angleDegres = -(direction * 5);//Negatif = anti-horaire
+        angleDeTir = Math.toRadians(angleDegres);
+        this.visee.setRotate(angleDeTir);
     }
 
-    public Group getView(){
-        return view;
+    public Group getView() {
+        return this;
     }
 
-    public double getAngleDeTir(){
+    public double getAngleDeTir() {
         return angleDeTir;
     }
 
-    /*public void receiveDamage(int damage){
-        HP -= damage;
-        hpBar.getChildren().get(1).setScaleX(HP/1000);
-    }*/
+    public String toString() {
+        return "X: " + this.getTranslateX() + " | Y: " + this.getTranslateY();
+    }
 }
+

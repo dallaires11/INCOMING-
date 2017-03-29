@@ -13,8 +13,8 @@ public class SceneVictoire {
     private Button continuer;
     private Group rootGagner;
 
-    public SceneVictoire(Stage stage/*, Scene control*/){
-        rootGagner =  new Group();
+    public SceneVictoire(Stage stage/*, Scene control*/) {
+        rootGagner = new Group();
         taGagner = new Text("Perdant");
         continuer = new Button("Continuer");
 
@@ -23,7 +23,7 @@ public class SceneVictoire {
         gagner = new Scene(rootGagner, Color.WHITE);
     }
 
-    private void setAction(Stage stage){
+    private void setAction(Stage stage) {
         continuer.setOnAction(event -> stage.setScene(SceneMenu.getSceneMenu()));
     }
 }

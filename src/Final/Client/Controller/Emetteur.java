@@ -37,13 +37,13 @@ public class Emetteur {
         pLancer++;
     }
 
-    public void sendLancer(double angle) {
+    public void sendLancer(int joueur, double angle) {
         try {
             DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, InetAddress.getByName("224.0.6.0"), 9002);
 
-            System.out.println("Force lancer : " + pLancer);
+            System.out.println("Nouveau Lancer -> Joueur " + joueur + " Force lancer : " + pLancer + "Angle : " + angle);
             bufferSend.putInt(1); //0 = mouvement, 1 = lancer
-            bufferSend.putInt(positionClientX); //joueur
+            bufferSend.putInt(joueur); //joueur
             bufferSend.putInt(pLancer);  //puissance
             bufferSend.putDouble(angle);  // angle tir
             bufferSend.putInt(1);  //type

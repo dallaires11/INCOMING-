@@ -11,30 +11,29 @@ public class SceneMenu {
     private Button commencer;
     private Group root;
 
-    public SceneMenu(Stage stage, SceneJeu sceneJeu){
+    public SceneMenu(Stage stage, SceneJeu sceneJeu) {
         root = new Group();
-        menu  = new Scene(root, 100,100);
+        menu = new Scene(root, 100, 100);
         commencer = new Button("Commencer");
-        setAction(stage,sceneJeu);
+        setAction(stage, sceneJeu);
 
         root.getChildren().add(commencer);
     }
 
-    private void setAction(Stage stage,SceneJeu sceneJeu){
-        commencer.setOnAction(event ->{
+    private void setAction(Stage stage, SceneJeu sceneJeu) {
+        commencer.setOnAction(event -> {
             sceneJeu.create(positionClientX, positionClientY);
             stage.setScene(sceneJeu.getScene());
         });
     }
 
-    public static void setPositionClient(int x, int y){
+    public static void setPositionClient(int x, int y) {
         positionClientX = x;
         positionClientY = y;
     }
 
 
-
-    public static Scene getSceneMenu(){
-        return  menu;
+    public static Scene getSceneMenu() {
+        return menu;
     }
 }

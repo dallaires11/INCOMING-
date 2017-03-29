@@ -16,13 +16,13 @@ public class ScenePerdu {
     private Button continuer;
     private Group rootPerdu;
 
-    public ScenePerdu(Stage stage){
-        rootPerdu =  new Group();
+    public ScenePerdu(Stage stage) {
+        rootPerdu = new Group();
         taPerdu = new Text("MORT");
         continuer = new Button("Continuer");
 
         VBox vbox = new VBox();
-        vbox.getChildren().addAll(taPerdu,continuer);
+        vbox.getChildren().addAll(taPerdu, continuer);
 
         setText();
         setPosition(vbox);
@@ -33,23 +33,23 @@ public class ScenePerdu {
         perdu = new Scene(rootPerdu, Color.BLACK);
     }
 
-    private void setAction(Stage stage){
+    private void setAction(Stage stage) {
         continuer.setOnAction(event -> stage.setScene(SceneMenu.getSceneMenu()));
     }
 
-    private void setText(){
+    private void setText() {
         taPerdu.setScaleX(15);
         taPerdu.setScaleY(15);
         taPerdu.setFill(Color.RED);
     }
 
-    private void setPosition(VBox vBox){
+    private void setPosition(VBox vBox) {
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(150);
-        vBox.setPadding(new Insets(300,0,0,905));
+        vBox.setPadding(new Insets(300, 0, 0, 905));
     }
 
-    public Scene getScene(){
+    public Scene getScene() {
         return perdu;
     }
 }

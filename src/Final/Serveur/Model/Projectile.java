@@ -14,7 +14,7 @@ public class Projectile {
     private void setMasse(int type){
         switch (type){
             default:
-                masse=20;
+                masse=6;
         }
     }
 
@@ -27,15 +27,15 @@ public class Projectile {
 
     private void setPositionInitial(int joueur){
         if(joueur==0){
-            System.out.println("re");
+            System.out.println("Lancer joueur 0");
             x = 100;
-            y = 450;
+            y = 1945;
         }
 
-        else if(joueur==2){
-            System.out.println("re");
-            x = 1900;
-            y = 450;
+        else if(joueur==1){
+            System.out.println("Lancer Joueur 1");
+            x = 5560;
+            y = 1945;
         }
     }
 
@@ -43,8 +43,8 @@ public class Projectile {
         x += vitesseX/2;
         y -= vitesseY/2;
 
-        if(y>=450)
-            y=450;
+        if(y>=1960)
+            y=1960;
     }
 
     public void accelerer(){

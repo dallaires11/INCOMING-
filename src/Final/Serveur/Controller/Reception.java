@@ -51,7 +51,7 @@ public class Reception implements Runnable{
                     puissanceTir = dechifreur.getInt();
                     angle = dechifreur.getDouble();
                     type = dechifreur.getInt();
-                    System.out.println("Tir");
+                    System.out.println("Tir" + puissanceTir);
                     System.out.println("angle : " + angle);
                     physique.addProjectile(joueur, puissanceTir,angle,type);
                 }
