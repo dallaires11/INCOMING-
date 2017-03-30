@@ -133,7 +133,7 @@ public class SceneJeu implements Passeur {
 
         sceneLocal.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.SPACE) {
-                emetteur.sendLancer(joueur, catapultes.get(joueur));
+                emetteur.sendLancer(catapultes.get(joueur));
             } else if (e.getCode() == KeyCode.LEFT) {
                 emetteur.mouvement(joueur, 0);
             } else if (e.getCode() == KeyCode.RIGHT) {
@@ -148,13 +148,13 @@ public class SceneJeu implements Passeur {
     }
 
     private void setTitre(){
-        if (positionClientY==1)
+        if (positionClientY==0)
             stage.setTitle("Ciel "+(positionClientX+1));
         else if (positionClientY==10)
             stage.setTitle("Observateur");
-        else if (positionClientY==0&&(positionClientX==0||positionClientX==2))
+        else if (positionClientY==1&&(positionClientX==0||positionClientX==2))
             stage.setTitle("Joueur "+(joueur+1));
-        else if (positionClientY==0&&positionClientX==1)
+        else if (positionClientY==1&&positionClientX==1)
             stage.setTitle("Champs de bataille");
     }
 

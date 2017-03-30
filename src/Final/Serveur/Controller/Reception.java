@@ -9,12 +9,15 @@ import java.nio.ByteBuffer;
 public class Reception implements Runnable{
     private MulticastSocket recepteur;
     private Physique physique;
+    private InetAddress  adresse;
 
     public Reception(Physique physique){
         this.physique = physique;
         try {
+            adresse = InetAddress.getByName("224.0.6.0");
             recepteur = new MulticastSocket(9002);
-            recepteur.joinGroup(InetAddress.getByName("224.0.6.0"));
+            recepteur.setInterface(InetAddress.getLocalHost());
+            recepteur.joinGroup(adresse);
         } catch (IOException e) {
             e.printStackTrace();
         }

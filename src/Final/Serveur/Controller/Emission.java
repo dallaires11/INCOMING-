@@ -13,6 +13,7 @@ public class Emission{
         try {
             adresse=InetAddress.getByName("224.0.6.0");
             envoyeur = new MulticastSocket(9001);
+            envoyeur.setInterface(InetAddress.getLocalHost());
             envoyeur.joinGroup(InetAddress.getByName("224.0.6.0"));
         } catch (IOException e) {
             e.printStackTrace();

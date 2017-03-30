@@ -25,6 +25,7 @@ public class Recepteur extends Thread {
     public void run() {
         try {
             multicastSocket = new MulticastSocket(9001);
+            multicastSocket.setInterface(InetAddress.getLocalHost());
             multicastSocket.joinGroup(InetAddress.getByName("224.0.6.0"));
 
             while (true) {

@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 
 public class Emetteur {
 
-    MulticastSocket multicastSocket;
+    private MulticastSocket multicastSocket;
     int positionClientX;
     int positionClientY;
 
@@ -26,6 +26,7 @@ public class Emetteur {
         try {
             adresse = InetAddress.getByName("224.0.6.0");
             multicastSocket = new MulticastSocket(9002);
+            multicastSocket.setInterface(InetAddress.getLocalHost());
             multicastSocket.joinGroup(adresse);
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -39,7 +40,7 @@ public class Emetteur {
         pLancer++;
     }
 
-    public void sendLancer(int joueur, Catapulte catapulte) {
+    public void sendLancer(Catapulte catapulte) {
         try {
             DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, InetAddress.getByName("224.0.6.0"), 9002);
 
