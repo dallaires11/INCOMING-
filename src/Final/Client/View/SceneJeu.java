@@ -54,6 +54,7 @@ public class SceneJeu implements Passeur {
         System.out.println(".create Scenejeu -> Position client X : " + positionClientX + " | Position client Y : " + positionClientY + " | Joueur : " + joueur);
         createGroups();
         createScene();
+        setTitre();
 
         stage.show();
     }
@@ -144,6 +145,17 @@ public class SceneJeu implements Passeur {
             }
 
         });
+    }
+
+    private void setTitre(){
+        if (positionClientY==1)
+            stage.setTitle("Ciel "+(positionClientX+1));
+        else if (positionClientY==10)
+            stage.setTitle("Observateur");
+        else if (positionClientY==0&&(positionClientX==0||positionClientX==2))
+            stage.setTitle("Joueur "+(joueur+1));
+        else if (positionClientY==0&&positionClientX==1)
+            stage.setTitle("Champs de bataille");
     }
 
     public Scene getScene() {

@@ -22,7 +22,7 @@ public class SceneConnect {
     private String adresse;
     private TextField textField;
     private int joueurX, joueurY, ecran;
-    private Text nomJeu, infoChoix;
+    private Text infoChoix;
 
     public SceneConnect(Stage primaryStage, Socket socket) {
         root = new Group();
@@ -33,7 +33,6 @@ public class SceneConnect {
         joueurY = -1;
         ecran = -1;
 
-        nomJeu = new Text("INCOMING!!!");
         infoChoix = new Text("Quel écran souhaitez-vous être?");
 
         Button boutonConnect = new Button("Connect");
