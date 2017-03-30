@@ -53,8 +53,7 @@ public class Physique extends Thread{
                     b.putInt(tmp.getType());
                 }
 
-                if(tableaux.getProjectiles().size()!=0)
-                    emission.envoyer(aEnvoyer,aEnvoyer.length);
+                emission.envoyer(aEnvoyer,aEnvoyer.length);
 
                 b.clear();
 
