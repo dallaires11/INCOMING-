@@ -1,10 +1,7 @@
 package Final.Client.Model;
 
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -15,13 +12,23 @@ public class Projectile extends Group {
     private double x;
     private double y;
 
+    private Line ligneX;
+    private Line ligneY;
     private Line ligneCombinee;
+
+    private VBox vBox;
 
 
     public Projectile(int masse, int type) {
         Circle projectile;
 
         ligneCombinee = new Line();
+        ligneX = new Line();
+        ligneY = new Line();
+
+        ligneCombinee.setStroke(Color.PURPLE);
+        ligneX.setStroke(Color.RED);
+        ligneY.setStroke(Color.BLUE);
 
         this.masse = masse;
         this.type = type;
@@ -43,7 +50,7 @@ public class Projectile extends Group {
                 break;
         }
 
-        this.getChildren().addAll(ligneCombinee);
+        this.getChildren().addAll(ligneCombinee, ligneX, ligneY);
     }
 
     public void setPosition(double x, double y) {
@@ -64,6 +71,8 @@ public class Projectile extends Group {
     public void setLabel(double vX, double vY) {
         this.ligneCombinee.endYProperty().set(vY * 10);
         this.ligneCombinee.endXProperty().set(vX * 10);
+        this.ligneX.endXProperty().set(vX * 10);
+        this.ligneY.endYProperty().set(vY * 10);
     }
 
     public double getX() {

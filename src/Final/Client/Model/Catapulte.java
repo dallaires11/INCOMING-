@@ -48,7 +48,7 @@ public class Catapulte extends Group {
 
         if (joueur == 1) {
             positionX = 100;
-            positionY = 1960;
+            positionY = 1945;
             angleDeTir = 315;
             angleRadians = Math.toRadians(angleDeTir);
 
@@ -65,7 +65,7 @@ public class Catapulte extends Group {
 
         } else if (joueur == 2) {
             positionX = 5560;
-            positionY = 1960;
+            positionY = 1945;
             angleDeTir = 225;
             angleRadians = Math.toRadians(angleDeTir);
 
