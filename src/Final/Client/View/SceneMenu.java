@@ -11,19 +11,21 @@ public class SceneMenu {
     private Button commencer;
     private Group root;
 
-    public SceneMenu(Stage stage, SceneJeu sceneJeu) {
+    public SceneMenu(Stage stage, SceneVictoire sceneVictoire /*SceneJeu sceneJeu*/) {
         root = new Group();
         menu = new Scene(root, 100, 100);
         commencer = new Button("Commencer");
-        setAction(stage, sceneJeu);
+        setAction(stage, sceneVictoire);
 
         root.getChildren().add(commencer);
     }
 
-    private void setAction(Stage stage, SceneJeu sceneJeu) {
+    private void setAction(Stage stage, SceneVictoire sceneJeu) {
         commencer.setOnAction(event -> {
-            sceneJeu.create(positionClientX, positionClientY);
+            sceneJeu.debutAnimation();
             stage.setScene(sceneJeu.getScene());
+            //sceneJeu.create(positionClientX, positionClientY);
+            //stage.setScene(sceneJeu.getScene());
         });
     }
 

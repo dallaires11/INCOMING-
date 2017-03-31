@@ -29,12 +29,15 @@ public class Client extends Application {
         scenePerdu = new ScenePerdu(primaryStage);
         sceneVictoire = new SceneVictoire(primaryStage);
         sceneJeu = new SceneJeu(primaryStage, emetteur, sceneVictoire, scenePerdu);
-        sceneMenu = new SceneMenu(primaryStage, sceneJeu);
+        sceneMenu = new SceneMenu(primaryStage, sceneVictoire);
         sceneConnect = new SceneConnect(primaryStage, socket);
 
         recepteur.setInterface(sceneJeu.getThis());
 
-        primaryStage.setScene(sceneConnect.getScene());
+        primaryStage.setScene(scenePerdu.getScene());
+
+        //primaryStage.setScene(sceneConnect.getScene());
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 
