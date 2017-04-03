@@ -24,6 +24,9 @@ public class Projectile extends Group {
 
     public Projectile(int masse, int type) {
         Circle projectile;
+        lignes = new Group();
+        labels = new VBox();
+        hBox = new HBox();
 
         ligneCombinee = new Line();
         ligneX = new Line();
