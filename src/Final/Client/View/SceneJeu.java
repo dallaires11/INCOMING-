@@ -68,7 +68,7 @@ public class SceneJeu implements Passeur {
             Projectile temp = new Projectile(masse, type);
             System.out.println("creationP-> Masse =  " + masse + " type  = " + type);
             projectiles.add(temp);
-            rootSceneJeu.getChildren().add(temp);
+            groupeProjectiles.getChildren().add(temp);
         }
 
         projectiles.get(positionProjectile).setPosition(x, y);
@@ -89,6 +89,7 @@ public class SceneJeu implements Passeur {
         rootSceneJeu.getChildren().addAll(sol, ciel);
         rootSceneJeu.getChildren().add(catapultes.get(0).getView());
         rootSceneJeu.getChildren().add(catapultes.get(1).getView());
+        rootSceneJeu.getChildren().add(groupeProjectiles);
 
         rootSceneJeu.setAutoSizeChildren(true);
     }
@@ -172,6 +173,8 @@ public class SceneJeu implements Passeur {
 
     public void setToBlack(int gagnant){
         sceneLocal.getRoot().setVisible(false);
+        groupeProjectiles.getChildren().clear();
+        projectiles.clear();
         if((positionClientX == 0 || positionClientX == 2) && positionClientY == 1){
             if(joueur==gagnant) {
                 stage.setScene(sceneVictoire.getScene());

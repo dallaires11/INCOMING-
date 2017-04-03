@@ -7,7 +7,7 @@ import Final.Serveur.Model.Tableaux;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-public class Physique extends Thread{
+public class Physique extends Thread implements EmmissionFinDeJeu{
     private Tableaux tableaux;
     private Emission emission;
 
@@ -77,14 +77,14 @@ public class Physique extends Thread{
         tableaux.addCatapulte(joueur);
     }
 
-    private void finJeu(int joueur){
+    public void finJeu(int joueur){
         try {
             byte[] aEnvoyer = new byte[1024];
             ByteBuffer b = ByteBuffer.wrap(aEnvoyer);
             b.putInt(6);
             b.putInt(joueur);
-
             emission.envoyer(aEnvoyer,aEnvoyer.length);
+            tableaux.restart();
             this.wait();
         } catch (InterruptedException | IOException e) {
             e.printStackTrace();

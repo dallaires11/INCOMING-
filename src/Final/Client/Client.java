@@ -36,6 +36,7 @@ public class Client extends Application {
 
         //primaryStage.setScene(sceneConnect.getScene());
         primaryStage.setFullScreen(true);
+        primaryStage.setFullScreenExitHint("");
         primaryStage.show();
     }
 
