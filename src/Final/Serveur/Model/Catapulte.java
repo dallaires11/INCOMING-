@@ -16,9 +16,11 @@ public class Catapulte {
     private void setPositionInitial (int joueur){
         if (joueur==0){
             x=100;
+            y=1945;
         }
         else if (joueur==1){
             x=5560;
+            y=1945;
         }
     }
 
