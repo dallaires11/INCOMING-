@@ -76,4 +76,18 @@ public class Physique extends Thread{
     public void addCatapulte(int joueur){
         tableaux.addCatapulte(joueur);
     }
+
+    private void finJeu(int joueur){
+        try {
+            byte[] aEnvoyer = new byte[1024];
+            ByteBuffer b = ByteBuffer.wrap(aEnvoyer);
+            b.putInt(6);
+            b.putInt(joueur);
+
+            emission.envoyer(aEnvoyer,aEnvoyer.length);
+            this.wait();
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

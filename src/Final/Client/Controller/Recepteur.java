@@ -1,6 +1,5 @@
 package Final.Client.Controller;
 
-import Final.Client.View.SceneJeu;
 import javafx.application.Platform;
 
 import java.io.IOException;
