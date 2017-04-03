@@ -23,10 +23,12 @@ public class SceneConnect {
     private TextField textField;
     private int joueurX, joueurY, ecran;
     private Text infoChoix;
+    private SceneJeu sceneJeu;
 
-    public SceneConnect(Stage primaryStage, Socket socket) {
+    public SceneConnect(Stage primaryStage, Socket socket, SceneJeu sceneJeu) {
         root = new Group();
         this.socket = socket;
+        this.sceneJeu=sceneJeu;
         scene = new Scene(root);
 
         joueurX = -1;
@@ -85,9 +87,9 @@ public class SceneConnect {
                 }
 
                 System.out.println("J" + joueurX + " " + joueurY);
-                SceneMenu.setPositionClient(joueurX, joueurY);
-                stage.setScene(SceneMenu.getSceneMenu());
-
+                sceneJeu.create(joueurX,joueurY);
+                stage.setScene(SceneJeu.getScene());
+                stage.setFullScreen(true);
             }
 
         });

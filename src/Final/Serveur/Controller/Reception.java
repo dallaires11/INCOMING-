@@ -60,6 +60,11 @@ public class Reception implements Runnable{
                     System.out.println("angle : " + angle);
                     physique.addProjectile(x, y, puissanceTir, angle, type);
                 }
+
+                else if(typeRecu==9){
+                    //Remettre les ecran a jeu
+
+                }
             }
 
         }catch (IOException e){

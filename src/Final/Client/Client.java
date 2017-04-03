@@ -14,7 +14,6 @@ public class Client extends Application {
     private Recepteur recepteur;
     private SceneConnect sceneConnect;
     private SceneJeu sceneJeu;
-    private SceneMenu sceneMenu;
     private ScenePerdu scenePerdu;
     private SceneVictoire sceneVictoire;
     private Socket socket;
@@ -27,10 +26,9 @@ public class Client extends Application {
 
 
         scenePerdu = new ScenePerdu(primaryStage);
-        sceneVictoire = new SceneVictoire(primaryStage);
+        sceneVictoire = new SceneVictoire(primaryStage, emetteur);
         sceneJeu = new SceneJeu(primaryStage, emetteur, sceneVictoire, scenePerdu);
-        sceneMenu = new SceneMenu(primaryStage, sceneVictoire);
-        sceneConnect = new SceneConnect(primaryStage, socket);
+        sceneConnect = new SceneConnect(primaryStage, socket, sceneJeu);
 
         recepteur.setInterface(sceneJeu.getThis());
 

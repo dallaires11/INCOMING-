@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class SceneJeu implements Passeur {
     private int positionClientX, positionClientY;
     private int joueur;
-    private Scene sceneLocal;
+    private static Scene sceneLocal;
     private Group rootSceneJeu;
     private Group groupeProjectiles;
     private ParallelCamera camera;
@@ -27,10 +27,14 @@ public class SceneJeu implements Passeur {
     private ArrayList<Catapulte> catapultes;
     private Stage stage;
     private Emetteur emetteur;
+    private SceneVictoire sceneVictoire;
+    private ScenePerdu scenePerdu;
 
 
     public SceneJeu(Stage stage, Emetteur emetteur, SceneVictoire victoire, ScenePerdu perdu) {
         this.emetteur = emetteur;
+        this.sceneVictoire=victoire;
+        this.scenePerdu=perdu;
         catapultes = new ArrayList<>(2);
         projectiles = new ArrayList<>(10);
         camera = new ParallelCamera();
@@ -90,7 +94,7 @@ public class SceneJeu implements Passeur {
     }
 
     private void createScene() {
-        sceneLocal = new Scene(rootSceneJeu);
+        sceneLocal = new Scene(rootSceneJeu,Color.BLACK);
 
         if (positionClientY == 10 && positionClientX == 10) {
             camera.resize(1920, 1080);
@@ -158,7 +162,7 @@ public class SceneJeu implements Passeur {
             stage.setTitle("Champs de bataille");
     }
 
-    public Scene getScene() {
+    public static Scene getScene() {
         return sceneLocal;
     }
 
@@ -166,7 +170,21 @@ public class SceneJeu implements Passeur {
         return this;
     }
 
-    public void setFullscreen() {
-        stage.setFullScreen(true);
+    public void setToBlack(int gagnant){
+        sceneLocal.getRoot().setVisible(false);
+        if((positionClientX == 0 || positionClientX == 2) && positionClientY == 1){
+            if(joueur==gagnant) {
+                stage.setScene(sceneVictoire.getScene());
+                stage.setFullScreen(true);
+            }
+            else{
+                stage.setScene(scenePerdu.getScene());
+                stage.setFullScreen(true);
+            }
+        }
+    }
+
+    public void setToGame(){
+        sceneLocal.getRoot().setVisible(true);
     }
 }

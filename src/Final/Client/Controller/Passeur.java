@@ -6,4 +6,7 @@ public interface Passeur {
 
     void mouvement(int joueur, int x, int y);
 
+    void setToBlack(int gagnant);
+
+    void setToGame();
 }

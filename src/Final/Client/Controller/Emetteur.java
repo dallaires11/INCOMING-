@@ -10,8 +10,6 @@ import java.nio.ByteBuffer;
 public class Emetteur {
 
     private MulticastSocket multicastSocket;
-    int positionClientX;
-    int positionClientY;
 
     InetAddress adresse;
     int pLancer;
@@ -74,12 +72,13 @@ public class Emetteur {
         }
     }
 
-    public void setMulticastSocket(MulticastSocket m) {
-        this.multicastSocket = m;
-    }
-
-    public void setPositionClient(int positionClientX, int positionClientY) {
-        this.positionClientX = positionClientX;
-        this.positionClientY = positionClientY;
+    public void pret(){
+        try {
+            DatagramPacket datagramPacket = new DatagramPacket(bytes , bytes.length, adresse, 9002);
+            bufferSend.putInt(9);
+            multicastSocket.send(datagramPacket);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

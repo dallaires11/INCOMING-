@@ -1,5 +1,6 @@
 package Final.Client.View;
 
+import Final.Client.Controller.Emetteur;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,13 +28,15 @@ public class SceneVictoire {
     private Rectangle fond;
     private FadeTransition ft;
     private MediaPlayer musiqueVictoire;
+    private Emetteur emetteur;
 
-    public SceneVictoire(Stage stage/*, Scene control*/) {
+    public SceneVictoire(Stage stage, Emetteur emetteur) {
         rootGagner = new Group();
         taGagner = new Text("Victoire");
         continuer = new Button("Continuer");
         fond = new Rectangle(6000,6000,Color.WHITE);
         musiqueVictoire =  new MediaPlayer(new Media(new File("src/Son/Victoire.mp3").toURI().toString()));
+        this.emetteur=emetteur;
 
         ft = new FadeTransition(Duration.seconds(10),rootGagner);
         ft.setFromValue(0);
@@ -64,8 +67,10 @@ public class SceneVictoire {
 
     private void setAction(Stage stage) {
         continuer.setOnAction(event -> {
-                musiqueVictoire.stop();
-                stage.setScene(SceneMenu.getSceneMenu());
+            musiqueVictoire.stop();
+            emetteur.pret();
+            stage.setScene(SceneJeu.getScene());
+            stage.setFullScreen(true);
         });
     }
 

@@ -1,5 +1,7 @@
 package Final.Client.View;
 
+import Final.Client.Controller.Passeur;
+import Final.Client.Controller.Stoppeur;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -14,36 +16,28 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-public class ScenePerdu {
+public class ScenePerdu implements Stoppeur{
     private Scene perdu;
     private Text taPerdu;
-    private Button continuer;
     private Group rootPerdu;
     private MediaPlayer musiqueDefaite;
+    private Stage stage;
 
     public ScenePerdu(Stage stage) {
         rootPerdu = new Group();
         taPerdu = new Text("MORT");
-        continuer = new Button("Continuer");
         musiqueDefaite = new MediaPlayer(new Media(new File("src/Son/Defaite.mp3").toURI().toString()));
+        this.stage=stage;
 
         VBox vbox = new VBox();
-        vbox.getChildren().addAll(taPerdu, continuer);
+        vbox.getChildren().addAll(taPerdu);
 
         setText();
         setPosition(vbox);
-        setAction(stage);
 
         rootPerdu.getChildren().add(vbox);
 
         perdu = new Scene(rootPerdu, Color.BLACK);
-    }
-
-    private void setAction(Stage stage) {
-        continuer.setOnAction(event -> {
-            musiqueDefaite.stop();
-            stage.setScene(SceneMenu.getSceneMenu());
-        });
     }
 
     private void setText() {
@@ -54,7 +48,6 @@ public class ScenePerdu {
 
     private void setPosition(VBox vBox) {
         vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(150);
         vBox.setPadding(new Insets(400,980, 0, 825));
     }
 
@@ -63,7 +56,12 @@ public class ScenePerdu {
         return perdu;
     }
 
-    public void debutAnimation(){
+    private void debutAnimation(){
         musiqueDefaite.play();
+    }
+
+    public void stop(){
+        musiqueDefaite.stop();
+        stage.setScene(SceneJeu.getScene());
     }
 }
