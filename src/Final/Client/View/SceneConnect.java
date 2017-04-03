@@ -1,6 +1,5 @@
 package Final.Client.View;
 
-import Final.Client.Controller.Passeur;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -102,13 +101,5 @@ public class SceneConnect {
         boutonChoix3.setOnAction(event -> {
             ecran = 10;
         });
-    }
-
-    public int getJoueurX() {
-        return joueurX;
-    }
-
-    public int getJoueurY() {
-        return joueurY;
     }
 }

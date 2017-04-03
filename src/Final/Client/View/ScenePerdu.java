@@ -1,12 +1,10 @@
 package Final.Client.View;
 
-import Final.Client.Controller.Passeur;
 import Final.Client.Controller.Stoppeur;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

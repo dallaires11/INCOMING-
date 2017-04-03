@@ -1,11 +1,10 @@
 package Final.Client.View;
 
 import Final.Client.Controller.Emetteur;
-
-
 import Final.Client.Controller.Passeur;
 import Final.Client.Model.Catapulte;
 import Final.Client.Model.Projectile;
+
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
@@ -44,6 +43,7 @@ public class SceneJeu implements Passeur {
         catapultes.add(new Catapulte(2));
 
         rootSceneJeu = new Group();
+        groupeProjectiles = new Group();
     }
 
     public void create(int positionClientX, int positionClientY) {
@@ -63,7 +63,7 @@ public class SceneJeu implements Passeur {
         stage.show();
     }
 
-    public void passe(int positionProjectile, double x, double y, int masse, int type) {
+    public void passe(int positionProjectile, double x, double y, float vitX, float vitY, int masse, int type) {
         if (positionProjectile >= projectiles.size()) {
             Projectile temp = new Projectile(masse, type);
             System.out.println("creationP-> Masse =  " + masse + " type  = " + type);
@@ -71,7 +71,7 @@ public class SceneJeu implements Passeur {
             groupeProjectiles.getChildren().add(temp);
         }
 
-        projectiles.get(positionProjectile).setPosition(x, y);
+        projectiles.get(positionProjectile).setPosition(x, y, vitX, vitY, masse);
     }
 
     public void mouvement(int position, int x, int y) {

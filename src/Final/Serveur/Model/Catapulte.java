@@ -44,7 +44,7 @@ public class Catapulte {
         if (pv<=0)
             emmissionFinDeJeu.finJeu(joueur);
     }
-    
+
     void restart(){
         pv=100;
         setPositionInitial(joueur);

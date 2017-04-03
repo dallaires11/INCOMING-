@@ -63,10 +63,12 @@ public class Recepteur extends Thread {
                             int position = z;
                             double x = buffer.getDouble();
                             double y = buffer.getDouble();
+                            float vitX =  buffer.getFloat();
+                            float vitY = buffer.getFloat();
                             int masse = buffer.getInt();
                             int type = buffer.getInt();
 
-                            Platform.runLater(() -> passeur.passe(position, x, y, masse, type));
+                            Platform.runLater(() -> passeur.passe(position, x, y,vitX, vitY,masse, type));
                         }
 
                     }

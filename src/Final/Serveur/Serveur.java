@@ -75,4 +75,8 @@ public class Serveur {
 0 mouvemnt
 1 lancer
 
+6 fin de jeu
+
+8 debut de jeu
+
  */

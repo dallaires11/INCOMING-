@@ -32,9 +32,7 @@ public class Client extends Application {
 
         recepteur.setInterface(sceneJeu.getThis());
 
-        primaryStage.setScene(scenePerdu.getScene());
-
-        //primaryStage.setScene(sceneConnect.getScene());
+        primaryStage.setScene(sceneConnect.getScene());
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
         primaryStage.show();

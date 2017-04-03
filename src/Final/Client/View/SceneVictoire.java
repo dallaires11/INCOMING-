@@ -92,7 +92,7 @@ public class SceneVictoire {
         return gagner;
     }
 
-    public void debutAnimation(){
+    private void debutAnimation(){
         ft.playFromStart();
         musiqueVictoire.play();
     }
