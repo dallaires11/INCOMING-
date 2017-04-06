@@ -27,7 +27,7 @@ public class SceneVictoire {
     private Group rootGagner;
     private Rectangle fond;
     private FadeTransition ft;
-    private MediaPlayer musiqueVictoire;
+    private MediaPlayer musiqueVictoire,restart;
     private Emetteur emetteur;
 
     public SceneVictoire(Stage stage, Emetteur emetteur) {
@@ -36,6 +36,7 @@ public class SceneVictoire {
         continuer = new Button("Continuer");
         fond = new Rectangle(6000,6000,Color.WHITE);
         musiqueVictoire =  new MediaPlayer(new Media(new File("src/Son/Victoire.mp3").toURI().toString()));
+        restart = new MediaPlayer(new Media(new File("src/Son/Restart.mp3").toURI().toString()));
         this.emetteur=emetteur;
 
         ft = new FadeTransition(Duration.seconds(10),rootGagner);
@@ -69,6 +70,7 @@ public class SceneVictoire {
         continuer.setOnAction(event -> {
             musiqueVictoire.stop();
             emetteur.pret();
+            restart.play();
             stage.setScene(SceneJeu.getScene());
             stage.setFullScreen(true);
         });

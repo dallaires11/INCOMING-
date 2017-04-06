@@ -9,10 +9,13 @@ import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class SceneJeu implements Passeur {
@@ -28,6 +31,7 @@ public class SceneJeu implements Passeur {
     private Emetteur emetteur;
     private SceneVictoire sceneVictoire;
     private ScenePerdu scenePerdu;
+    private MediaPlayer lancer;
 
 
     public SceneJeu(Stage stage, Emetteur emetteur, SceneVictoire victoire, ScenePerdu perdu) {
@@ -38,6 +42,7 @@ public class SceneJeu implements Passeur {
         projectiles = new ArrayList<>(10);
         camera = new ParallelCamera();
         this.stage = stage;
+        lancer = new MediaPlayer(new Media(new File("src/Son/Lancer.mp3").toURI().toString()));
 
         catapultes.add(new Catapulte(1));
         catapultes.add(new Catapulte(2));
@@ -125,6 +130,7 @@ public class SceneJeu implements Passeur {
         sceneLocal.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE) {
                 emetteur.chargerLancer();
+                lancer.play();
             } else if (e.getCode() == KeyCode.LEFT) {
                 emetteur.mouvement(joueur, -1);
             } else if (e.getCode() == KeyCode.RIGHT) {
