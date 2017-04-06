@@ -21,7 +21,7 @@ public class Serveur {
 
         Emission emission = new Emission();
         physique = new Physique(emission);
-        reception = new Thread(new Reception(physique));
+        reception = new Thread(new Reception(physique,emission));
 
         try {
             serveur = new ServerSocket(9000);
@@ -74,5 +74,9 @@ public class Serveur {
 
 0 mouvemnt
 1 lancer
+
+6 fin de jeu
+
+8 debut de jeu
 
  */

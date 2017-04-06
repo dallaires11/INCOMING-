@@ -1,18 +1,11 @@
 package Final.Client.Model;
 
-import com.sun.javaws.progress.Progress;
 import javafx.scene.Group;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Skin;
-import javafx.scene.control.SkinBase;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
-/**
- * Created by Vincent on 2017-03-23.
- */
 public class Catapulte extends Group {
 
     private int joueur;
@@ -121,4 +114,3 @@ public class Catapulte extends Group {
         return "X: " + this.getTranslateX() + " | Y: " + this.getTranslateY();
     }
 }
-

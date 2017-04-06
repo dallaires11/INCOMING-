@@ -1,10 +1,13 @@
 package Final.Serveur.Model;
 
+import Final.Serveur.Controller.EmmissionFinDeJeu;
+
 public class Catapulte {
-    private int x,y,mouvement,joueur;
+    private int x,y,mouvement,joueur,pv;
+    private EmmissionFinDeJeu emmissionFinDeJeu;
 
     Catapulte(int joueur){
-        y=1945;
+        pv=100;
         this.joueur=joueur;
         setPositionInitial(joueur);
         mouvement=0;
@@ -13,9 +16,11 @@ public class Catapulte {
     private void setPositionInitial (int joueur){
         if (joueur==0){
             x=100;
+            y=1945;
         }
         else if (joueur==1){
             x=5560;
+            y=1945;
         }
     }
 
@@ -35,4 +40,18 @@ public class Catapulte {
         if((x+mouvement)>(joueur * 1000)&&(x+mouvement)<1000+(joueur*1000))
             x=x+mouvement;
     }
+<<<<<<< HEAD
+=======
+
+    void touche(int degat){
+        pv-=degat;
+        if (pv<=0)
+            emmissionFinDeJeu.finJeu(joueur);
+    }
+
+    void restart(){
+        pv=100;
+        setPositionInitial(joueur);
+    }
+>>>>>>> Perdre/Gagner
 }

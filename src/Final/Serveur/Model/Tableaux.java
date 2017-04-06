@@ -26,4 +26,11 @@ public class Tableaux {
     public ArrayList<Catapulte> getCatapultes(){
         return catapultes;
     }
+
+    public void restart(){
+        projectiles.clear();
+        for(int x=0;x < projectiles.size();x++){
+            catapultes.get(x).restart();
+        }
+    }
 }

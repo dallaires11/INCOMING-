@@ -10,9 +10,11 @@ public class Reception implements Runnable{
     private MulticastSocket recepteur;
     private Physique physique;
     private InetAddress  adresse;
+    private Emission emission;
 
-    public Reception(Physique physique){
+    public Reception(Physique physique,Emission emission){
         this.physique = physique;
+        this.emission = emission;
         try {
             adresse = InetAddress.getByName("224.0.6.0");
             recepteur = new MulticastSocket(9002);
@@ -59,6 +61,14 @@ public class Reception implements Runnable{
                     System.out.println("Tir" + puissanceTir);
                     System.out.println("angle : " + angle);
                     physique.addProjectile(x, y, puissanceTir, angle, type);
+                }
+
+                else if(typeRecu==9){
+                    physique.start();
+                    byte[] aEnvoyer = new byte[1024];
+                    ByteBuffer b = ByteBuffer.wrap(aEnvoyer);
+                    b.putInt(8);
+                    emission.envoyer(aEnvoyer,aEnvoyer.length);
                 }
             }
 
