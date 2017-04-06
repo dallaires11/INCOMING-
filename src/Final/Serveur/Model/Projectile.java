@@ -3,9 +3,11 @@ package Final.Serveur.Model;
 public class Projectile {
     private int masse,type;
     private float x,y,vitesseX,vitesseY;
+    private boolean collision;
 
     Projectile(double x, double y, int puissance,int type, double angle){
         this.type=type;
+        collision=false;
         setMasse(type);
         setVitesseInitial(angle,puissance);
         setPositionInitial(x, y);
@@ -67,5 +69,13 @@ public class Projectile {
 
     public int getType(){
         return type;
+    }
+
+    public  boolean getCollision(){
+        return collision;
+    }
+
+    public void setCollision(){
+        collision=true;
     }
 }

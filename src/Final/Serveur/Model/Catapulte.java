@@ -40,10 +40,8 @@ public class Catapulte {
         if((x+mouvement)>(joueur * 1000)&&(x+mouvement)<1000+(joueur*1000))
             x=x+mouvement;
     }
-<<<<<<< HEAD
-=======
 
-    void touche(int degat){
+    public void touche(int degat){
         pv-=degat;
         if (pv<=0)
             emmissionFinDeJeu.finJeu(joueur);
@@ -53,5 +51,4 @@ public class Catapulte {
         pv=100;
         setPositionInitial(joueur);
     }
->>>>>>> Perdre/Gagner
 }

@@ -46,6 +46,8 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
                     tableaux.getProjectiles().get(nbp).accelerer();
 
                     Projectile tmp = tableaux.getProjectiles().get(nbp);
+                    if(!tmp.getCollision())
+                        collision(tmp);
 
                     b.putDouble(tmp.getX());
                     b.putDouble(tmp.getY());
@@ -92,4 +94,19 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
             e.printStackTrace();
         }
     }
+
+    private void collision(Projectile projectile) {
+        Catapulte zero = tableaux.getCatapultes().get(0);
+        Catapulte un = tableaux.getCatapultes().get(1);
+        if (zero.getX() < projectile.getX() && (zero.getX() + 5) >= projectile.getX() &&projectile.getY()>=1910){
+            zero.touche(20);
+            projectile.setCollision();
+        }
+
+        else if (un.getX() < projectile.getX() && (un.getX() + 5) >= projectile.getX() &&projectile.getY()>=1910){
+            un.touche(20);
+            projectile.setCollision();
+        }
+    }
+
 }
