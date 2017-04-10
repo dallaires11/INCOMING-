@@ -49,17 +49,17 @@ public class Projectile extends Group {
 
         switch (type) {
             case 0:
-                projectile = new Circle(masse, Color.GREEN);
+                projectile = new Circle(6, Color.GREEN);
                 this.getChildren().add(projectile);
                 break;
 
             case 1:
-                projectile = new Circle(masse, Color.BLACK);
+                projectile = new Circle(6, Color.BLACK);
                 this.getChildren().add(projectile);
                 break;
 
             case 2:
-                projectile = new Circle(masse, Color.RED);
+                projectile = new Circle(6, Color.RED);
                 this.getChildren().add(projectile);
                 break;
         }
