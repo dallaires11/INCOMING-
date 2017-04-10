@@ -18,7 +18,7 @@ public class Emetteur {
     ByteBuffer bufferSend;
 
     public Emetteur() {
-        pLancer = 0;
+        pLancer = 50;
         bufferSend = ByteBuffer.wrap(bytes);
 
         try {
@@ -35,7 +35,7 @@ public class Emetteur {
 
     public void chargerLancer() {
         System.out.println(pLancer);
-        pLancer++;
+        pLancer+=3;
     }
 
     public void sendLancer(Catapulte catapulte) {
@@ -50,7 +50,7 @@ public class Emetteur {
             bufferSend.putInt(1);  //type
             multicastSocket.send(datagramPacket);
 
-            pLancer = 0;
+            pLancer = 50;
             bufferSend.clear();
         } catch (IOException u) {
             System.out.println(u);

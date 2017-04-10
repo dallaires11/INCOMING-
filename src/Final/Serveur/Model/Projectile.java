@@ -3,6 +3,7 @@ package Final.Serveur.Model;
 public class Projectile {
     private int masse,type;
     private float x,y,vitesseX,vitesseY;
+    private double aeroX, aeroY;
     private boolean collision;
 
     Projectile(double x, double y, int puissance,int type, double angle){
@@ -42,7 +43,15 @@ public class Projectile {
     }
 
     public void accelerer(){
-        vitesseY -= 0.147/*masse*/;
+        double vitXtemp = (double) vitesseX;
+        double vitYtemp = (double) vitesseY;
+        aeroX = 0.5*1.225*Math.pow(vitXtemp,2)*4*Math.PI*Math.pow(0.25,2)*0.47;
+        aeroY = 0.5*1.225*Math.pow(vitYtemp,2)*4*Math.PI*Math.pow(0.25,2)*0.47;
+        //Aero = 1/2*Masse volumique air 15 degre C*Vitesse^2*Aire objet (Sphere)*Coeffiscient surfacique
+        System.out.println("Aero "+aeroX+"  "+aeroY);
+
+        vitesseX += (aeroX/masse)/60;
+        vitesseY -= (9.8*(aeroY/masse))/60;
 
         bouger();
     }
