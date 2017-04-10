@@ -1,5 +1,7 @@
 package Final.Serveur.Model;
 
+import Final.Serveur.Controller.EmmissionFinDeJeu;
+
 import java.util.ArrayList;
 
 public class Tableaux {
@@ -31,6 +33,12 @@ public class Tableaux {
         projectiles.clear();
         for(int x=0;x < projectiles.size();x++){
             catapultes.get(x).restart();
+        }
+    }
+
+    public void setInterface(EmmissionFinDeJeu emmissionFinDeJeu){
+        for(int p=1;p<catapultes.size();p++){
+            catapultes.get(p).setInterface(emmissionFinDeJeu);
         }
     }
 }

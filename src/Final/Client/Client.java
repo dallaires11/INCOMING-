@@ -30,7 +30,7 @@ public class Client extends Application {
         sceneJeu = new SceneJeu(primaryStage, emetteur, sceneVictoire, scenePerdu);
         sceneConnect = new SceneConnect(primaryStage, socket, sceneJeu);
 
-        recepteur.setInterface(sceneJeu.getThis());
+        recepteur.setInterface(sceneJeu,scenePerdu);
 
         primaryStage.setScene(sceneConnect.getScene());
         primaryStage.setFullScreen(true);

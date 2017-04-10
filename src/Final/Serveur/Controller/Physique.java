@@ -109,4 +109,8 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
         }
     }
 
+    public void setInterface(){
+        tableaux.setInterface(this);
+    }
+
 }

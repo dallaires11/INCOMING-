@@ -57,6 +57,7 @@ public class Serveur {
                     running = true;
                     physique.addCatapulte(0);
                     physique.addCatapulte(1);
+                    physique.setInterface();
                     physique.start();
                 }
             }

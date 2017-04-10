@@ -51,4 +51,8 @@ public class Catapulte {
         pv=100;
         setPositionInitial(joueur);
     }
+
+    public void setInterface(EmmissionFinDeJeu emmissionFinDeJeu){
+        this.emmissionFinDeJeu=emmissionFinDeJeu;
+    }
 }

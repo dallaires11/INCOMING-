@@ -84,7 +84,8 @@ public class Recepteur extends Thread {
         }
     }
 
-    public void setInterface(Passeur passeur) {
+    public void setInterface(Passeur passeur,Stoppeur stoppeur) {
         this.passeur = passeur;
+        this.stoppeur = stoppeur;
     }
 }

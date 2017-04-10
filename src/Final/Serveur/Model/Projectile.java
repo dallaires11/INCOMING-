@@ -51,7 +51,7 @@ public class Projectile {
         //Aero = 1/2*Masse volumique air 15 degre C*Vitesse^2*Aire objet (Sphere)*Coeffiscient surfacique
 
         vitesseX -= (aeroX/masse)/60;
-        vitesseY -= (-9.8+(aeroY/masse))/60;
+        vitesseY -= (9.8+(aeroY/masse))/60;
 
         bouger();
     }
