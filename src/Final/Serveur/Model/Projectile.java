@@ -1,9 +1,9 @@
 package Final.Serveur.Model;
 
 public class Projectile {
-    private int masse,type;
+    private int type;
     private float x,y,vitesseX,vitesseY;
-    private double aeroX, aeroY;
+    private double aeroX,aeroY,masse,taille;
     private boolean collision;
 
     Projectile(double x, double y, int puissance,int type, double angle){
@@ -17,7 +17,8 @@ public class Projectile {
     private void setMasse(int type){
         switch (type){
             default:
-                masse=6;
+                taille=0.25;
+                masse=2600*4*Math.PI*Math.pow(taille,2);
         }
     }
 
@@ -48,10 +49,9 @@ public class Projectile {
         aeroX = 0.5*1.225*Math.pow(vitXtemp,2)*4*Math.PI*Math.pow(0.25,2)*0.47;
         aeroY = 0.5*1.225*Math.pow(vitYtemp,2)*4*Math.PI*Math.pow(0.25,2)*0.47;
         //Aero = 1/2*Masse volumique air 15 degre C*Vitesse^2*Aire objet (Sphere)*Coeffiscient surfacique
-        System.out.println("Aero "+aeroX+"  "+aeroY);
 
-        vitesseX += (aeroX/masse)/60;
-        vitesseY -= (9.8*(aeroY/masse))/60;
+        vitesseX -= (aeroX/masse)/60;
+        vitesseY -= (-9.8+(aeroY/masse))/60;
 
         bouger();
     }
@@ -72,7 +72,7 @@ public class Projectile {
         return vitesseY;
     }
 
-    public int getMasse(){
+    public double getMasse(){
         return masse;
     }
 

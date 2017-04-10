@@ -68,7 +68,7 @@ public class SceneJeu implements Passeur {
         stage.show();
     }
 
-    public void passe(int positionProjectile, double x, double y, float vitX, float vitY, int masse, int type) {
+    public void passe(int positionProjectile, double x, double y, float vitX, float vitY, double masse, int type) {
         if (positionProjectile >= projectiles.size()) {
             Projectile temp = new Projectile(masse, type);
             System.out.println("creationP-> Masse =  " + masse + " type  = " + type);

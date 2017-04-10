@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 public class Projectile extends Group {
-    private int masse;
+    private double masse;
     private int type;
     private double x;
     private double y;
@@ -22,7 +22,7 @@ public class Projectile extends Group {
     private VBox labels;
 
 
-    public Projectile(int masse, int type) {
+    public Projectile(double masse, int type) {
         Circle projectile;
         lignes = new Group();
         labels = new VBox();
@@ -69,7 +69,7 @@ public class Projectile extends Group {
         this.getChildren().add(hBox);
     }
 
-    public void setPosition(double x, double y, float vitX, float vitY, int masse) {
+    public void setPosition(double x, double y, float vitX, float vitY, double masse) {
         this.x = x;
         this.y = y;
         double xBefore;
@@ -91,7 +91,7 @@ public class Projectile extends Group {
         this.ligneY.endYProperty().set(vY * 10);
     }
 
-    private void setLabels(double x,double y, float vitX, float vitY, int masse){
+    private void setLabels(double x,double y, float vitX, float vitY, double masse){
         posX.setText("Position X: "+x);
         posY.setText("Position Y: ");
         this.vitX.setText("Vitesse  X: "+vitX);

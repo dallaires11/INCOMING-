@@ -65,7 +65,7 @@ public class Recepteur extends Thread {
                             double y = buffer.getDouble();
                             float vitX =  buffer.getFloat();
                             float vitY = buffer.getFloat();
-                            int masse = buffer.getInt();
+                            double masse = buffer.getDouble();
                             int type = buffer.getInt();
 
                             Platform.runLater(() -> passeur.passe(position, x, y,vitX, vitY,masse, type));

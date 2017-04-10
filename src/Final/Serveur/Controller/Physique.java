@@ -53,7 +53,7 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
                     b.putDouble(tmp.getY());
                     b.putFloat(tmp.getVitesseX());
                     b.putFloat(tmp.getVitesseY());
-                    b.putInt(tmp.getMasse());
+                    b.putDouble(tmp.getMasse());
                     b.putInt(tmp.getType());
                 }
 
