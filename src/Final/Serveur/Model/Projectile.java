@@ -1,24 +1,23 @@
 package Final.Serveur.Model;
 
 public class Projectile {
-    private int type;
+    private int taille;
     private float x,y,vitesseX,vitesseY;
-    private double aeroX,aeroY,masse,taille;
+    private double aeroX,aeroY,masse;
     private boolean collision;
 
-    Projectile(double x, double y, int puissance,int type, double angle){
-        this.type=type;
+    Projectile(double x, double y, int puissance,int taille, double angle){
+        this.taille=taille;
         collision=false;
-        setMasse(type);
+        setMasse(taille);
         setVitesseInitial(angle,puissance);
         setPositionInitial(x, y);
     }
 
-    private void setMasse(int type){
-        switch (type){
+    private void setMasse(int taille){
+        switch (taille){
             default:
-                taille=0.25;
-                masse=2600*4*Math.PI*Math.pow(taille,2);
+                masse=2600*4*Math.PI*Math.pow((taille / 24) ,2);
         }
     }
 
@@ -46,9 +45,9 @@ public class Projectile {
     public void accelerer(){
         double vitXtemp = (double) vitesseX;
         double vitYtemp = (double) vitesseY;
-        aeroX = 0.5*1.225*Math.pow(vitXtemp,2)*4*Math.PI*Math.pow(0.25,2)*0.47;
-        aeroY = 0.5*1.225*Math.pow(vitYtemp,2)*4*Math.PI*Math.pow(0.25,2)*0.47;
-        //Aero = 1/2*Masse volumique air 15 degre C*Vitesse^2*Aire objet (Sphere)*Coeffiscient surfacique
+        aeroX = 0.5*1.225*Math.pow(vitXtemp,2)*2*Math.PI*Math.pow(0.25,2)*0.47;
+        aeroY = 0.5*1.225*Math.pow(vitYtemp,2)*2*Math.PI*Math.pow(0.25,2)*0.47;
+        //Aero = 1/2*Masse volumique air 15 degre C*Vitesse^2*Aire objet (Demi-Sphere)*Coeffiscient surfacique
 
         vitesseX -= (aeroX/masse)/60;
         vitesseY -= (9.8+(aeroY/masse))/60;
@@ -76,8 +75,8 @@ public class Projectile {
         return masse;
     }
 
-    public int getType(){
-        return type;
+    public int getTaille(){
+        return taille;
     }
 
     public  boolean getCollision(){

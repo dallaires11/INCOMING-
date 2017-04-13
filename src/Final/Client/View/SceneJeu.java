@@ -76,7 +76,7 @@ public class SceneJeu implements Passeur {
             groupeProjectiles.getChildren().add(temp);
         }
 
-        projectiles.get(positionProjectile).setPosition(x, y, vitX, vitY, masse);
+        projectiles.get(positionProjectile).setPosition(x, y, vitX, vitY);
     }
 
     public void mouvement(int position, int x, int y) {

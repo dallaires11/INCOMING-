@@ -9,8 +9,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 public class Projectile extends Group {
+    private int taille;
     private double masse;
-    private int type;
     private double x;
     private double y;
 
@@ -22,7 +22,7 @@ public class Projectile extends Group {
     private VBox labels;
 
 
-    public Projectile(double masse, int type) {
+    public Projectile(double masse, int taille) {
         Circle projectile;
         lignes = new Group();
         labels = new VBox();
@@ -44,32 +44,18 @@ public class Projectile extends Group {
 
         labels.getChildren().addAll(posX,posY,vitX,vitY,masselab);
 
+        this.taille = taille;
         this.masse = masse;
-        this.type = type;
 
-        switch (type) {
-            case 0:
-                projectile = new Circle(6, Color.GREEN);
-                this.getChildren().add(projectile);
-                break;
-
-            case 1:
-                projectile = new Circle(6, Color.BLACK);
-                this.getChildren().add(projectile);
-                break;
-
-            case 2:
-                projectile = new Circle(6, Color.RED);
-                this.getChildren().add(projectile);
-                break;
-        }
+        projectile = new Circle(taille, Color.BLACK);
+        this.getChildren().add(projectile);
 
         lignes.getChildren().addAll(ligneCombinee, ligneX, ligneY);
         hBox.getChildren().addAll(lignes,labels);
         this.getChildren().add(hBox);
     }
 
-    public void setPosition(double x, double y, float vitX, float vitY, double masse) {
+    public void setPosition(double x, double y, float vitX, float vitY) {
         this.x = x;
         this.y = y;
         double xBefore;
@@ -108,6 +94,6 @@ public class Projectile extends Group {
     }
 
     public String toString() {
-        return "X: " + this.getTranslateX() + " | Y: " + this.getTranslateY() + " | type: " + this.type;
+        return "X: " + this.getTranslateX() + " | Y: " + this.getTranslateY() + " | Taille : " + taille;
     }
 }
