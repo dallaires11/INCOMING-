@@ -68,10 +68,10 @@ public class SceneJeu implements Passeur {
         stage.show();
     }
 
-    public void passe(int positionProjectile, double x, double y, float vitX, float vitY, double masse, int type) {
+    public void passe(int positionProjectile, double x, double y, float vitX, float vitY, double masse, double taille) {
         if (positionProjectile >= projectiles.size()) {
-            Projectile temp = new Projectile(masse, type);
-            System.out.println("creationP-> Masse =  " + masse + " type  = " + type);
+            Projectile temp = new Projectile(masse, taille);
+            System.out.println("creationP-> Masse =  " + masse + " type  = " + taille);
             projectiles.add(temp);
             groupeProjectiles.getChildren().add(temp);
         }
@@ -130,7 +130,6 @@ public class SceneJeu implements Passeur {
         sceneLocal.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE) {
                 emetteur.chargerLancer();
-                lancer.play();
             } else if (e.getCode() == KeyCode.LEFT) {
                 emetteur.mouvement(joueur, -1);
             } else if (e.getCode() == KeyCode.RIGHT) {
@@ -145,6 +144,7 @@ public class SceneJeu implements Passeur {
         sceneLocal.setOnKeyReleased(e -> {
             if (e.getCode() == KeyCode.SPACE) {
                 emetteur.sendLancer(catapultes.get(joueur));
+                lancer.play();
             } else if (e.getCode() == KeyCode.LEFT) {
                 emetteur.mouvement(joueur, 0);
             } else if (e.getCode() == KeyCode.RIGHT) {

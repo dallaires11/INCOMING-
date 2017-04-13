@@ -47,7 +47,7 @@ public class Emetteur {
             bufferSend.putDouble(catapulte.getTranslateY());
             bufferSend.putInt(pLancer);  //puissance
             bufferSend.putDouble(catapulte.getAngleDeTir());  // angle tir
-            bufferSend.putInt(1);  //type
+            bufferSend.putInt(6);  //type
             multicastSocket.send(datagramPacket);
 
             pLancer = 50;

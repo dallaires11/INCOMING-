@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 public class Projectile extends Group {
-    private int taille;
+    private double taille;
     private double masse;
     private double x;
     private double y;
@@ -21,8 +21,7 @@ public class Projectile extends Group {
     private HBox hBox;
     private VBox labels;
 
-
-    public Projectile(double masse, int taille) {
+    public Projectile(double masse, double taille) {
         Circle projectile;
         lignes = new Group();
         labels = new VBox();

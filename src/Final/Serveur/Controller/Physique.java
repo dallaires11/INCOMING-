@@ -54,7 +54,7 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
                     b.putFloat(tmp.getVitesseX());
                     b.putFloat(tmp.getVitesseY());
                     b.putDouble(tmp.getMasse());
-                    b.putInt(tmp.getTaille());
+                    b.putDouble(tmp.getTaille());
                 }
 
                 emission.envoyer(aEnvoyer,aEnvoyer.length);
@@ -69,8 +69,8 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
         }
     }
 
-    void addProjectile (double x, double y, int puissanceTir, double angle, int type){
-        tableaux.addProjectile(x, y, puissanceTir, type, angle);
+    void addProjectile (double x, double y, int puissanceTir, double angle, int taille){
+        tableaux.addProjectile(x, y, puissanceTir, taille, angle);
     }
 
     void mouvementCatapulte(int joueur, int mouvement){
