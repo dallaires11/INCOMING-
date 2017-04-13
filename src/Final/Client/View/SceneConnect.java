@@ -4,18 +4,26 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
 
 public class SceneConnect {
-    private Group root;
+    private Group root,boutons;
     private Scene scene;
     private Socket socket;
     private String adresse;
@@ -23,12 +31,22 @@ public class SceneConnect {
     private int joueurX, joueurY, ecran;
     private Text infoChoix;
     private SceneJeu sceneJeu;
+    private MediaPlayer intromusicL,introMusicC;
+    private ImageView fond;
+    private Rectangle effetSpecial;
 
     public SceneConnect(Stage primaryStage, Socket socket, SceneJeu sceneJeu) {
         root = new Group();
+        boutons = new Group();
         this.socket = socket;
         this.sceneJeu=sceneJeu;
+        effetSpecial = new Rectangle(2000,2000, Color.TAN);
         scene = new Scene(root);
+
+        fond = new ImageView(new Image("src/Image/sunset.png"));
+
+        introMusicC = new MediaPlayer(new Media(new File("src/Son/Introcourt.mp3").toURI().toString()));
+        intromusicL = new MediaPlayer(new Media(new File("src/Son/Introlong.mp3").toURI().toString()));
 
         joueurX = -1;
         joueurY = -1;
@@ -50,7 +68,8 @@ public class SceneConnect {
 
         setAction(boutonJoueur, boutonCiel, boutonObs, boutonConnect, primaryStage);
 
-        root.getChildren().add(vBox);
+        boutons.getChildren().add(vBox);
+        root.getChildren().addAll(fond,effetSpecial,boutons);
     }
 
     public Scene getScene() {
@@ -100,6 +119,12 @@ public class SceneConnect {
         });
         boutonChoix3.setOnAction(event -> {
             ecran = 10;
+        });
+
+        scene.setOnKeyPressed(event ->{
+            if(event.getCode() == KeyCode.SPACE){
+
+            }
         });
     }
 }
