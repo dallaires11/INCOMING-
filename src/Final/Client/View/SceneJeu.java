@@ -3,6 +3,7 @@ package Final.Client.View;
 import Final.Client.Controller.Emetteur;
 import Final.Client.Controller.Passeur;
 import Final.Client.Model.Catapulte;
+import Final.Client.Model.Infos;
 import Final.Client.Model.Projectile;
 
 import javafx.scene.Group;
@@ -24,9 +25,11 @@ public class SceneJeu implements Passeur {
     private static Scene sceneLocal;
     private Group rootSceneJeu;
     private Group groupeProjectiles;
+    private Group groupeLabels;
     private ParallelCamera camera;
     private ArrayList<Projectile> projectiles;
     private ArrayList<Catapulte> catapultes;
+    private ArrayList<Infos> infos;
     private Stage stage;
     private Emetteur emetteur;
     private SceneVictoire sceneVictoire;
@@ -39,7 +42,8 @@ public class SceneJeu implements Passeur {
         this.sceneVictoire=victoire;
         this.scenePerdu=perdu;
         catapultes = new ArrayList<>(2);
-        projectiles = new ArrayList<>(10);
+        projectiles = new ArrayList<>(20);
+        infos = new ArrayList<>(20);
         camera = new ParallelCamera();
         this.stage = stage;
         lancer = new MediaPlayer(new Media(new File("src/Son/Lancer.mp3").toURI().toString()));
@@ -49,6 +53,7 @@ public class SceneJeu implements Passeur {
 
         rootSceneJeu = new Group();
         groupeProjectiles = new Group();
+        groupeLabels = new Group();
     }
 
     public void create(int positionClientX, int positionClientY) {
@@ -71,12 +76,17 @@ public class SceneJeu implements Passeur {
     public void passe(int positionProjectile, double x, double y, float vitX, float vitY, double masse, double taille) {
         if (positionProjectile >= projectiles.size()) {
             Projectile temp = new Projectile(masse, taille);
+            Infos label = new Infos(masse);
             System.out.println("creationP-> Masse =  " + masse + " type  = " + taille);
+
+            infos.add(label);
+            groupeLabels.getChildren().add(label);
             projectiles.add(temp);
             groupeProjectiles.getChildren().add(temp);
         }
 
         projectiles.get(positionProjectile).setPosition(x, y, vitX, vitY);
+        infos.get(positionProjectile).setLabels(x, y, vitX, vitY);
     }
 
     public void mouvement(int position, int x, int y) {
@@ -95,6 +105,7 @@ public class SceneJeu implements Passeur {
         rootSceneJeu.getChildren().add(catapultes.get(0).getView());
         rootSceneJeu.getChildren().add(catapultes.get(1).getView());
         rootSceneJeu.getChildren().add(groupeProjectiles);
+        rootSceneJeu.getChildren().add(groupeLabels);
 
         rootSceneJeu.setAutoSizeChildren(true);
     }

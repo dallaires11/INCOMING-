@@ -43,10 +43,11 @@ public class SceneConnect {
         effetSpecial = new Rectangle(2000,2000, Color.TAN);
         scene = new Scene(root);
 
-        fond = new ImageView(new Image("src/Image/sunset.png"));
+        /*fond = new ImageView(new Image("src/Image/sunset.png"));
 
         introMusicC = new MediaPlayer(new Media(new File("src/Son/Introcourt.mp3").toURI().toString()));
         intromusicL = new MediaPlayer(new Media(new File("src/Son/Introlong.mp3").toURI().toString()));
+        */
 
         joueurX = -1;
         joueurY = -1;
@@ -69,7 +70,7 @@ public class SceneConnect {
         setAction(boutonJoueur, boutonCiel, boutonObs, boutonConnect, primaryStage);
 
         boutons.getChildren().add(vBox);
-        root.getChildren().addAll(fond,effetSpecial,boutons);
+        root.getChildren().addAll(/*fond,effetSpecial,*/boutons);
     }
 
     public Scene getScene() {
