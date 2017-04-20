@@ -189,7 +189,6 @@ public class SceneJeu implements Passeur {
     }
 
     public void setToBlack(int gagnant){
-        sceneLocal.getRoot().setVisible(false);
         groupeProjectiles.getChildren().clear();
         projectiles.clear();
         if((positionClientX == 0 || positionClientX == 2) && positionClientY == 1){
@@ -205,6 +204,7 @@ public class SceneJeu implements Passeur {
     }
 
     public void setToGame(){
-        sceneLocal.getRoot().setVisible(true);
+        this.create(positionClientX, positionClientY);
+        stage.setScene(sceneLocal);
     }
 }
