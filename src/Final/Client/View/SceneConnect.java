@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -32,7 +33,7 @@ public class SceneConnect {
     private Text infoChoix;
     private SceneJeu sceneJeu;
     private MediaPlayer intromusicL,introMusicC;
-    private ImageView fond;
+    private ImageView fond,homme,titre;
     private Rectangle effetSpecial;
 
     public SceneConnect(Stage primaryStage, Socket socket, SceneJeu sceneJeu) {
@@ -43,11 +44,12 @@ public class SceneConnect {
         effetSpecial = new Rectangle(2000,2000, Color.TAN);
         scene = new Scene(root);
 
-        /*fond = new ImageView(new Image("src/Image/sunset.png"));
+        fond = new ImageView("Image/sunset.png");
+        homme =  new ImageView("Image/Homme.png");
+        titre = new ImageView("Image/Titre.png");
 
         introMusicC = new MediaPlayer(new Media(new File("src/Son/Introcourt.mp3").toURI().toString()));
         intromusicL = new MediaPlayer(new Media(new File("src/Son/Introlong.mp3").toURI().toString()));
-        */
 
         joueurX = -1;
         joueurY = -1;
@@ -67,14 +69,31 @@ public class SceneConnect {
         HBox hBox2 = new HBox(textField, boutonConnect);
         VBox vBox = new VBox(infoChoix, hBox1, hBox2);
 
+        setImages();
         setAction(boutonJoueur, boutonCiel, boutonObs, boutonConnect, primaryStage);
 
         boutons.getChildren().add(vBox);
-        root.getChildren().addAll(/*fond,effetSpecial,*/boutons);
+
+        root.getChildren().addAll(fond,homme,effetSpecial,titre,boutons);
     }
 
     public Scene getScene() {
         return scene;
+    }
+
+    private void setImages(){
+        effetSpecial.setOpacity(0.30);
+        homme.setScaleX(0.4);
+        homme.setScaleY(0.4);
+        homme.setTranslateX(1400);
+        homme.setTranslateY(570);
+        titre.setScaleX(3);
+        titre.setScaleY(3);
+        titre.setTranslateX(750);
+        titre.setTranslateY(400);
+        titre.setRotate(30);
+        boutons.setTranslateX(600);
+        boutons.setTranslateY(700);
     }
 
     private void setAction(Button boutonChoix1, Button boutonChoix2, Button boutonChoix3,
@@ -124,6 +143,8 @@ public class SceneConnect {
 
         scene.setOnKeyPressed(event ->{
             if(event.getCode() == KeyCode.SPACE){
+                intromusicL.stop();
+                introMusicC.play();
 
             }
         });
