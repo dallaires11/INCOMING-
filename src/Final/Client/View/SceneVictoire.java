@@ -47,11 +47,8 @@ public class SceneVictoire {
         view.setMinSize(500, 400);
         view.setPrefSize(500, 400);
         final WebEngine eng = view.getEngine();
-        eng.load("file:///C:\\Users\\Chroon\\Desktop\\OUTCOMING!!!\\src\\Image\\WalkingManSpriteSheet.svg");
-                /*getClass()
-                .getResource("/src/Image/WalkingManSpriteSheet.svg")
-                .toExternalForm());*/
-        //eng.load("https://openclipart.org/download/188969/WalkingMan.svg");
+        final String dir = System.getProperty("user.dir");
+        eng.load("file:"+ dir + "\\src\\Image\\WalkingManSpriteSheet.svg");
 
         setAction(stage);
         setText();
