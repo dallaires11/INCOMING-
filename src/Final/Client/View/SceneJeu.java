@@ -197,11 +197,11 @@ public class SceneJeu implements Passeur {
             projectiles.clear();
             if((positionClientX == 0 || positionClientX == 2) && positionClientY == 1){
                 if(joueur==perdant) {
-                    stage.setScene(sceneVictoire.getScene());
+                    stage.setScene(scenePerdu.getScene());
                     stage.setFullScreen(true);
                 }
                 else{
-                    stage.setScene(scenePerdu.getScene());
+                    stage.setScene(sceneVictoire.getScene());
                     stage.setFullScreen(true);
                 }
             }
