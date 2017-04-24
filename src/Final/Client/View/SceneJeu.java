@@ -6,6 +6,7 @@ import Final.Client.Model.Catapulte;
 import Final.Client.Model.Infos;
 import Final.Client.Model.Projectile;
 
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
@@ -24,19 +25,14 @@ import java.util.ArrayList;
 public class SceneJeu implements Passeur {
     private int positionClientX, positionClientY;
     private int joueur;
-
-    private ArrayList<Projectile> projectiles;
-    private ArrayList<Catapulte> catapultes;
-    private ArrayList<Infos> infos;
-
     private static Scene sceneLocal;
     private Group rootSceneJeu;
     private Group groupeProjectiles;
-    private Group groupeLabels;
-    private HBox hBoxLabels;
-
+    private HBox groupeLabels;
     private ParallelCamera camera;
-
+    private ArrayList<Projectile> projectiles;
+    private ArrayList<Catapulte> catapultes;
+    private ArrayList<Infos> infos;
     private Stage stage;
     private Emetteur emetteur;
     private SceneVictoire sceneVictoire;
@@ -50,7 +46,7 @@ public class SceneJeu implements Passeur {
         this.scenePerdu=perdu;
         catapultes = new ArrayList<>(2);
         projectiles = new ArrayList<>(20);
-        infos = new ArrayList<>(20);
+        //infos = new ArrayList<>(20);
         camera = new ParallelCamera();
         this.stage = stage;
         lancer = new MediaPlayer(new Media(new File("src/Son/Lancer.mp3").toURI().toString()));
@@ -60,10 +56,7 @@ public class SceneJeu implements Passeur {
 
         rootSceneJeu = new Group();
         groupeProjectiles = new Group();
-        groupeLabels = new Group();
-        hBoxLabels = new HBox();
-
-        groupeLabels.getChildren().add(hBoxLabels);
+        groupeLabels = new HBox();
     }
 
     public void create(int positionClientX, int positionClientY) {
@@ -86,18 +79,17 @@ public class SceneJeu implements Passeur {
     public void passe(int positionProjectile, double x, double y, float vitX, float vitY, double masse, double taille) {
         if (positionProjectile >= projectiles.size()) {
             Projectile temp = new Projectile(masse, taille);
-            Infos label = new Infos(masse);
+            //Infos label = new Infos(masse);
             System.out.println("creationP-> Masse =  " + masse + " type  = " + taille);
 
-            infos.add(label);
+            //infos.add(label);
+            //groupeLabels.getChildren().add(label);
             projectiles.add(temp);
             groupeProjectiles.getChildren().add(temp);
-
-            this.boxUpdate(temp, label);
         }
 
         projectiles.get(positionProjectile).setPosition(x, y, vitX, vitY);
-        infos.get(positionProjectile).setLabels(x, y, vitX, vitY);
+        //infos.get(positionProjectile).setLabels(x, y, vitX, vitY);
     }
 
     public void mouvement(int position, int x, int y) {
@@ -144,16 +136,7 @@ public class SceneJeu implements Passeur {
 
         if ((positionClientX == 0 || positionClientX == 2) && positionClientY == 1)
             setAction();
-        else if (positionClientX == 1 && positionClientY == 0){
 
-        }
-
-
-
-    }
-
-    private void boxUpdate(Projectile projectile, Infos infos){
-        hBoxLabels.getChildren().addAll(new VBox(projectile.getChildren().get(0), infos));
     }
 
     private void setAction() {
@@ -209,18 +192,20 @@ public class SceneJeu implements Passeur {
     }
 
     public void setToBlack(int gagnant){
-        groupeProjectiles.getChildren().clear();
-        projectiles.clear();
-        if((positionClientX == 0 || positionClientX == 2) && positionClientY == 1){
-            if(joueur==gagnant) {
-                stage.setScene(sceneVictoire.getScene());
-                stage.setFullScreen(true);
+        Platform.runLater(()->{
+            groupeProjectiles.getChildren().clear();
+            projectiles.clear();
+            if((positionClientX == 0 || positionClientX == 2) && positionClientY == 1){
+                if(joueur==gagnant) {
+                    stage.setScene(sceneVictoire.getScene());
+                    stage.setFullScreen(true);
+                }
+                else{
+                    stage.setScene(scenePerdu.getScene());
+                    stage.setFullScreen(true);
+                }
             }
-            else{
-                stage.setScene(scenePerdu.getScene());
-                stage.setFullScreen(true);
-            }
-        }
+        });
     }
 
     public void setToGame(){

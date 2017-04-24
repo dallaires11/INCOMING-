@@ -36,31 +36,32 @@ public class Projectile {
     }
 
     private void bouger(){
-        x += vitesseX/2;
+        x += vitesseX;
         if(!sol) {
-            y -= vitesseY / 2;
+            y -= vitesseY;
 
             if (y >= 1960) {
                 y = 1960;
                 sol = true;
-
-                resistanceMouvTerreDur=-8;
-                if (vitesseX<0)
-                    resistanceMouvTerreDur = resistanceMouvTerreDur*-1;
             }
         }
+
+        resistanceMouvTerreDur=8;
+        if (vitesseX<0)
+            resistanceMouvTerreDur =-8;
+
     }
 
     public void accelerer(){
         double vitXtemp = (double) vitesseX;
-        double vitYtemp = (double) vitesseY;
 
         aeroX = 0.5*1.225*Math.pow(vitXtemp,2)*4*Math.PI*Math.pow((taille/24),2)*0.47;
-        aeroY = 0.5*1.225*Math.pow(vitYtemp,2)*4*Math.PI*Math.pow((taille/24),2)*0.47;
 
-
-        vitesseX -= ((aeroX/masse)+resistanceMouvTerreDur)/60;
-        vitesseY -= (9.8+(aeroY/masse))/60;
+        //vitesseX -= ((aeroX)+resistanceMouvTerreDur)/60;
+        if (!sol)
+            vitesseY -= (9.8/60);
+        else
+            vitesseY = 0;
 
         bouger();
     }

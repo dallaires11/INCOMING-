@@ -37,7 +37,7 @@ public class Tableaux {
     }
 
     public void setInterface(EmmissionFinDeJeu emmissionFinDeJeu){
-        for(int p=1;p<catapultes.size();p++){
+        for(int p=0;p<catapultes.size();p++){
             catapultes.get(p).setInterface(emmissionFinDeJeu);
         }
     }

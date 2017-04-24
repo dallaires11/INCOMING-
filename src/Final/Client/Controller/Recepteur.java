@@ -36,12 +36,15 @@ public class Recepteur extends Thread {
 
                 if (nombreDeCatapultes==6){
                     int gagnant = buffer.getInt();
-                    passeur.setToBlack(gagnant);
+                    Platform.runLater(() -> passeur.setToBlack(gagnant));
                 }
 
                 else if (nombreDeCatapultes==8){
-                    passeur.setToGame();
-                    stoppeur.stop();
+                    Platform.runLater(() -> {
+                        passeur.setToGame();
+                        stoppeur.stop();
+                    });
+
                 }
 
                 else {

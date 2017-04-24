@@ -21,7 +21,7 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
 
             while (true) {
 
-                byte[] aEnvoyer = new byte[1024];
+                byte[] aEnvoyer = new byte[2024];
 
                 int nbProjectile = tableaux.getProjectiles().size();
                 int nbCatapulte = tableaux.getCatapultes().size();
@@ -98,14 +98,16 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
     private void collision(Projectile projectile) {
         Catapulte zero = tableaux.getCatapultes().get(0);
         Catapulte un = tableaux.getCatapultes().get(1);
-        if (zero.getX() < projectile.getX() && (zero.getX() + 5) >= projectile.getX() &&projectile.getY()>=1910){
+        if (zero.getX() <= projectile.getX() && (zero.getX() + 5) >= projectile.getX() &&projectile.getY()>=1960){
             zero.touche(20);
             projectile.setCollision();
+            System.out.println("Collision");
         }
 
-        else if (un.getX() < projectile.getX() && (un.getX() + 5) >= projectile.getX() &&projectile.getY()>=1910){
+        else if (un.getX() < projectile.getX() && (un.getX() + 5) >= projectile.getX() &&projectile.getY()>=1960){
             un.touche(20);
             projectile.setCollision();
+            System.out.println("Collision");
         }
     }
 

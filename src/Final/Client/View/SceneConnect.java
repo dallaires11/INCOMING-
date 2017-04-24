@@ -92,7 +92,7 @@ public class SceneConnect {
     }
 
     private void setAnimation(){
-        PauseTransition pt = new PauseTransition(Duration.seconds(11));
+        PauseTransition pt = new PauseTransition(Duration.seconds(11 ));
 
         TranslateTransition tt = new TranslateTransition(Duration.seconds(0.3),titre);
         tt.setFromX(-1000);
