@@ -18,7 +18,7 @@ public class Recepteur extends Thread {
     private DatagramPacket dataReceive;
 
     public Recepteur() {
-        byteReceive = new byte[1024];
+        byteReceive = new byte[2024];
         buffer = ByteBuffer.wrap(byteReceive);
         dataReceive = new DatagramPacket(byteReceive, byteReceive.length);
     }
@@ -35,8 +35,8 @@ public class Recepteur extends Thread {
                 int nombreDeCatapultes = buffer.getInt();
 
                 if (nombreDeCatapultes==6){
-                    int gagnant = buffer.getInt();
-                    Platform.runLater(() -> passeur.setToBlack(gagnant));
+                    int perdant = buffer.getInt();
+                    Platform.runLater(() -> passeur.setToBlack(perdant));
                 }
 
                 else if (nombreDeCatapultes==8){

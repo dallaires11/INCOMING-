@@ -191,12 +191,12 @@ public class SceneJeu implements Passeur {
         return this;
     }
 
-    public void setToBlack(int gagnant){
+    public void setToBlack(int perdant){
         Platform.runLater(()->{
             groupeProjectiles.getChildren().clear();
             projectiles.clear();
             if((positionClientX == 0 || positionClientX == 2) && positionClientY == 1){
-                if(joueur==gagnant) {
+                if(joueur==perdant) {
                     stage.setScene(sceneVictoire.getScene());
                     stage.setFullScreen(true);
                 }
