@@ -46,7 +46,7 @@ public class Catapulte extends Group {
             angleRadians = Math.toRadians(angleDeTir);
 
 
-            Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
+            Rectangle rectangle = new Rectangle(positionX, positionY, 50, 50);
             rectangle.setFill(Color.BLUE);
 
             vBox.getChildren().addAll(rectangle);
@@ -62,13 +62,13 @@ public class Catapulte extends Group {
             angleDeTir = 225;
             angleRadians = Math.toRadians(angleDeTir);
 
-            Rectangle rectangle = new Rectangle(positionX, positionY, 20, 20);
+            Rectangle rectangle = new Rectangle(positionX, positionY, 50, 50);
             rectangle.setFill(Color.RED);
 
             vBox.getChildren().addAll(rectangle);
             this.getChildren().addAll(vBox, visee);
-            this.visee.endXProperty().set(Math.cos(angleRadians) * 30);
-            this.visee.endYProperty().set(Math.sin(angleRadians) * 30);
+            this.visee.endXProperty().set(Math.cos(angleRadians) * 60);
+            this.visee.endYProperty().set(Math.sin(angleRadians) * 60);
 
             setPosition(positionX, positionY);
         }

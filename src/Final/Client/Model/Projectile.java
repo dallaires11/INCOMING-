@@ -28,8 +28,11 @@ public class Projectile extends Group {
         ligneY = new Line();
 
         ligneCombinee.setStroke(Color.PURPLE);
+        ligneCombinee.setStrokeWidth(3);
         ligneX.setStroke(Color.RED);
+        ligneX.setStrokeWidth(2);
         ligneY.setStroke(Color.BLUE);
+        ligneY.setStrokeWidth(2);
 
 
         this.taille = taille;
@@ -41,7 +44,7 @@ public class Projectile extends Group {
         lignes.getChildren().addAll(ligneCombinee, ligneX, ligneY);
         this.getChildren().addAll(lignes, labels);
 
-        this.getChildren().get(2).setTranslateX(taille + 5);
+        this.getChildren().get(2).setTranslateX (taille + 5);
     }
 
     public void setPosition(double x, double y, float vitX, float vitY) {
@@ -54,10 +57,10 @@ public class Projectile extends Group {
     }
 
     private void setLignes(double vX, double vY) {
-        this.ligneCombinee.endYProperty().set(vY * 10);
-        this.ligneCombinee.endXProperty().set(vX * 10);
-        this.ligneX.endXProperty().set(vX * 10);
-        this.ligneY.endYProperty().set(vY * 10);
+        this.ligneCombinee.endYProperty().set(vY);
+        this.ligneCombinee.endXProperty().set(vX);
+        this.ligneX.endXProperty().set(vX );
+        this.ligneY.endYProperty().set(vY);
     }
 
 

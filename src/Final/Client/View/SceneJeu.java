@@ -10,6 +10,8 @@ import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -22,14 +24,19 @@ import java.util.ArrayList;
 public class SceneJeu implements Passeur {
     private int positionClientX, positionClientY;
     private int joueur;
+
+    private ArrayList<Projectile> projectiles;
+    private ArrayList<Catapulte> catapultes;
+    private ArrayList<Infos> infos;
+
     private static Scene sceneLocal;
     private Group rootSceneJeu;
     private Group groupeProjectiles;
     private Group groupeLabels;
+    private HBox hBoxLabels;
+
     private ParallelCamera camera;
-    private ArrayList<Projectile> projectiles;
-    private ArrayList<Catapulte> catapultes;
-    private ArrayList<Infos> infos;
+
     private Stage stage;
     private Emetteur emetteur;
     private SceneVictoire sceneVictoire;
@@ -54,6 +61,9 @@ public class SceneJeu implements Passeur {
         rootSceneJeu = new Group();
         groupeProjectiles = new Group();
         groupeLabels = new Group();
+        hBoxLabels = new HBox();
+
+        groupeLabels.getChildren().add(hBoxLabels);
     }
 
     public void create(int positionClientX, int positionClientY) {
@@ -80,9 +90,10 @@ public class SceneJeu implements Passeur {
             System.out.println("creationP-> Masse =  " + masse + " type  = " + taille);
 
             infos.add(label);
-            groupeLabels.getChildren().add(label);
             projectiles.add(temp);
             groupeProjectiles.getChildren().add(temp);
+
+            this.boxUpdate(temp, label);
         }
 
         projectiles.get(positionProjectile).setPosition(x, y, vitX, vitY);
@@ -133,7 +144,16 @@ public class SceneJeu implements Passeur {
 
         if ((positionClientX == 0 || positionClientX == 2) && positionClientY == 1)
             setAction();
+        else if (positionClientX == 1 && positionClientY == 0){
 
+        }
+
+
+
+    }
+
+    private void boxUpdate(Projectile projectile, Infos infos){
+        hBoxLabels.getChildren().addAll(new VBox(projectile.getChildren().get(0), infos));
     }
 
     private void setAction() {

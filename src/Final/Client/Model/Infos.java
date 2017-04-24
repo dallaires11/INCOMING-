@@ -31,8 +31,5 @@ public class Infos extends VBox {
         posY.setText("Position Y: " + y);
         this.vitX.setText("Vitesse  X: "+vitX);
         this.vitY.setText("Vitesse  Y: "+vitY);
-
-        this.setTranslateX((x + 30));
-        this.setTranslateY(y);
     }
 }
