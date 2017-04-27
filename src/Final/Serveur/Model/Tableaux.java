@@ -31,6 +31,7 @@ public class Tableaux {
 
     public void restart(){
         projectiles.clear();
+        System.out.println(projectiles.size());
         for(int x=0;x < projectiles.size();x++){
             catapultes.get(x).restart();
         }

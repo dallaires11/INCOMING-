@@ -42,6 +42,7 @@ public class Recepteur extends Thread {
                 else if (nombreDeCatapultes==8){
                     Platform.runLater(() -> {
                         passeur.setToGame();
+                        System.out.println("Regarde moi");
                         stoppeur.stop();
                     });
 

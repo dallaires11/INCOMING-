@@ -1,27 +1,35 @@
 package Final.Serveur;
 
 import Final.Serveur.Controller.Emission;
+import Final.Serveur.Controller.GestionnnaireThread;
 import Final.Serveur.Controller.Physique;
 import Final.Serveur.Controller.Reception;
-import javafx.application.Platform;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Serveur {
+public class Serveur implements GestionnnaireThread{
+    Physique physique;
+    Thread reception;
     public static void main(String[] args) {
+
+        Serveur s = new Serveur();
+        s.start();
+
+    }
+
+    public void start(){
         ServerSocket serveur;
         int clientsC = 0;
         int clientsJ = 0;
-        Thread reception;
-        Physique physique;
+
         boolean running = false;
 
         Emission emission = new Emission();
-        physique = new Physique(emission);
-        reception = new Thread(new Reception(physique,emission));
+        physique = new Physique(emission,this);
+        reception = new Thread(new Reception(physique,emission,this));
 
         try {
             serveur = new ServerSocket(9000);
@@ -65,6 +73,19 @@ public class Serveur {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void finJeu(){
+        try {
+            physique.wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void recommencer(){
+        physique.recommencer();
+        //physique.notify();
     }
 }
 

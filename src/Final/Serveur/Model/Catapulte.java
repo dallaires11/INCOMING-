@@ -41,10 +41,13 @@ public class Catapulte {
             x=x+mouvement;
     }
 
-    public void touche(int degat){
+    public boolean touche(int degat){
         pv-=degat;
-        if (pv<=0)
+        if (pv<=0) {
             emmissionFinDeJeu.finJeu(joueur);
+            return  false;
+        }
+        return  true;
     }
 
     void restart(){

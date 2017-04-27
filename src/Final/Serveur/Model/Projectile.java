@@ -36,6 +36,10 @@ public class Projectile {
     }
 
     private void bouger(){
+        if (vitesseX>5&&sol)
+            vitesseX=5;
+        else if (vitesseX<-5&&sol)
+            vitesseX=-5;
         x += vitesseX;
         if(!sol) {
             y -= vitesseY;
@@ -60,8 +64,9 @@ public class Projectile {
         //vitesseX -= ((aeroX)+resistanceMouvTerreDur)/60;
         if (!sol)
             vitesseY -= (9.8/60);
-        else
-            vitesseY = 0;
+        else{
+            vitesseY=0;
+        }
 
         bouger();
     }

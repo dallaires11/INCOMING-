@@ -76,7 +76,9 @@ public class Emetteur {
         try {
             DatagramPacket datagramPacket = new DatagramPacket(bytes , bytes.length, adresse, 9002);
             bufferSend.putInt(9);
+
             multicastSocket.send(datagramPacket);
+            bufferSend.clear();
         } catch (IOException e) {
             e.printStackTrace();
         }

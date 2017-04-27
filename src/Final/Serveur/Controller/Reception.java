@@ -11,8 +11,10 @@ public class Reception implements Runnable{
     private Physique physique;
     private InetAddress  adresse;
     private Emission emission;
+    private GestionnnaireThread gestionnnaireThread;
 
-    public Reception(Physique physique,Emission emission){
+    public Reception(Physique physique,Emission emission,GestionnnaireThread gestion){
+        gestionnnaireThread=gestion;
         this.physique = physique;
         this.emission = emission;
         try {
@@ -64,10 +66,11 @@ public class Reception implements Runnable{
                 }
 
                 else if(typeRecu==9){
-                    physique.start();
+                    gestionnnaireThread.recommencer();
                     byte[] aEnvoyer = new byte[1024];
                     ByteBuffer b = ByteBuffer.wrap(aEnvoyer);
                     b.putInt(8);
+                    System.out.println("Regarde serveur");
                     emission.envoyer(aEnvoyer,aEnvoyer.length);
                 }
             }
