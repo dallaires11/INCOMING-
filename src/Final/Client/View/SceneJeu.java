@@ -12,11 +12,10 @@ import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -103,15 +102,37 @@ public class SceneJeu implements Passeur {
         Rectangle sol = new Rectangle(0, 1960, 5760, 200);
         Rectangle ciel = new Rectangle(0, 0, 5760, 1960);
         sol.setFill(Color.GREEN);
-        ciel.setFill(Color.AZURE);
+        ciel.setFill(Color.CORNFLOWERBLUE);
+
+        Path montagnes = new Path();
+        montagnes.getElements().addAll(new MoveTo(0.0, 500.0),
+                new LineTo(400.0, 100.0),
+                new LineTo(600.0, 400.0),
+                new LineTo(900.0, 600.0),
+                new LineTo(1500.0, 800.0),
+                new LineTo(1600.0, 400.0),
+                new LineTo(2000.0, 600.0),
+                new LineTo(2300.0, 800.0),
+                new LineTo(2600.0, 930.0),
+                new LineTo(3000.0, 300.0),
+                new LineTo(3200.0, 400.0),
+                new LineTo(3500.0, 700.0),
+                new LineTo(3700.0, 600.0),
+                new LineTo(5760.0, 400.0),
+                new LineTo(5760.0, 960.0),
+                new LineTo(0.0, 960.0),
+                new LineTo(0.0, 500.0));
+
+        montagnes.setFill(Color.RED);
+        montagnes.setStroke(Color.BLUE);
 
         rootDynamique.getChildren().add(catapultes.get(0).getView());
         rootDynamique.getChildren().add(catapultes.get(1).getView());
         rootDynamique.getChildren().add(groupeProjectiles);
         rootDynamique.getChildren().add(groupeLabels);
-        rootSceneJeu.getChildren().addAll(sol, ciel, rootDynamique);
+        rootSceneJeu.getChildren().addAll(sol, ciel, montagnes, rootDynamique);
 
-        rootSceneJeu.setAutoSizeChildren(true);
+
     }
 
     private void createScene() {

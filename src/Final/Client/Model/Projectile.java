@@ -13,13 +13,13 @@ public class Projectile extends Group {
     private double x;
     private double y;
 
+    private Circle projectile;
     private Group lignes;
     private Line ligneX,ligneY,ligneCombinee;
 
     private VBox labels;
 
     public Projectile(double masse, double taille) {
-        Circle projectile;
         lignes = new Group();
         labels = new VBox();
 
@@ -63,6 +63,9 @@ public class Projectile extends Group {
         this.ligneY.endYProperty().set(vY);
     }
 
+    public Group getImage(){
+        return new Group(this);
+    }
 
     public double getX() {
         return this.x;
