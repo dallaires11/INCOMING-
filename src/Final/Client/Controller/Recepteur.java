@@ -39,7 +39,7 @@ public class Recepteur extends Thread {
                     Platform.runLater(() -> passeur.setToBlack(perdant));
                 }
 
-                else if (nombreDeCatapultes==8){
+                else if (nombreDeCatapultes==7){
                     Platform.runLater(() -> {
                         passeur.setToGame();
                         System.out.println("Regarde moi");
@@ -49,7 +49,6 @@ public class Recepteur extends Thread {
                 }
 
                 else {
-
                     for (int i = 0; i < nombreDeCatapultes; i++) {
                         int position = i;
                         int posCataX = buffer.getInt();

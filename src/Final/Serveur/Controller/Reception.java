@@ -59,20 +59,21 @@ public class Reception implements Runnable{
                     y = dechifreur.getDouble();
                     puissanceTir = dechifreur.getInt();
                     angle = dechifreur.getDouble();
-                    taille = dechifreur.getInt();
                     System.out.println("Tir" + puissanceTir);
                     System.out.println("angle : " + angle);
+                    taille = dechifreur.getInt();
                     physique.addProjectile(x, y, puissanceTir, angle, taille);
                 }
 
                 else if(typeRecu==9){
-                    gestionnnaireThread.recommencer();
-                    byte[] aEnvoyer = new byte[1024];
-                    ByteBuffer b = ByteBuffer.wrap(aEnvoyer);
-                    b.putInt(8);
+                    //byte[] aEnvoyer = new byte[1024];
+                    //ByteBuffer b = ByteBuffer.wrap(aEnvoyer);
+                    //b.putInt(7);
                     System.out.println("Regarde serveur");
-                    emission.envoyer(aEnvoyer,aEnvoyer.length);
+                    //emission.envoyer(aEnvoyer,aEnvoyer.length);
+                    gestionnnaireThread.recommencer();
                 }
+
             }
 
         }catch (IOException e){

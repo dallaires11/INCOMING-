@@ -95,10 +95,10 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
     }
 
     public void finJeu(int joueur){
-            byte[] aEnvoyer = new byte[1024];
-            ByteBuffer b = ByteBuffer.wrap(aEnvoyer);
-            b.putInt(6);
-            b.putInt(joueur);
+        byte[] aEnvoyer = new byte[1024];
+        ByteBuffer b = ByteBuffer.wrap(aEnvoyer);
+        b.putInt(6);
+        b.putInt(joueur);
         try {
             emission.envoyer(aEnvoyer,aEnvoyer.length);
         } catch (IOException e) {
@@ -106,6 +106,7 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
         }
         tableaux.restart();
         playing=false;
+        b.clear();
         //gestionnnaireThread.finJeu();
 
     }
@@ -130,6 +131,15 @@ public class Physique extends Thread implements EmmissionFinDeJeu{
     }
 
     public void recommencer(){
+        byte[] aEnvoyer = new byte[1024];
+        ByteBuffer b = ByteBuffer.wrap(aEnvoyer);
+        b.putInt(7);
+        try {
+            emission.envoyer(aEnvoyer,aEnvoyer.length);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        b.clear();
         playing=true;
     }
 

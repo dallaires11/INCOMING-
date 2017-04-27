@@ -128,7 +128,7 @@ public class SceneConnect {
             adresse = textField.getText();
             System.out.println(adresse);
             if (adresse.compareTo("") == 0)
-                adresse = "192.168.1.50";
+                adresse = "localhost";
 
             System.out.println("Connection à " + adresse);
 

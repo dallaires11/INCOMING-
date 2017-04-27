@@ -26,7 +26,7 @@ public class SceneJeu implements Passeur {
     private int positionClientX, positionClientY;
     private int joueur;
     private static Scene sceneLocal;
-    private Group rootSceneJeu;
+    private Group rootSceneJeu,rootDynamique;
     private Group groupeProjectiles;
     private HBox groupeLabels;
     private ParallelCamera camera;
@@ -55,6 +55,7 @@ public class SceneJeu implements Passeur {
         catapultes.add(new Catapulte(2));
 
         rootSceneJeu = new Group();
+        rootDynamique = new Group();
         groupeProjectiles = new Group();
         groupeLabels = new HBox();
     }
@@ -104,11 +105,11 @@ public class SceneJeu implements Passeur {
         sol.setFill(Color.GREEN);
         ciel.setFill(Color.AZURE);
 
-        rootSceneJeu.getChildren().addAll(sol, ciel);
-        rootSceneJeu.getChildren().add(catapultes.get(0).getView());
-        rootSceneJeu.getChildren().add(catapultes.get(1).getView());
-        rootSceneJeu.getChildren().add(groupeProjectiles);
-        rootSceneJeu.getChildren().add(groupeLabels);
+        rootDynamique.getChildren().add(catapultes.get(0).getView());
+        rootDynamique.getChildren().add(catapultes.get(1).getView());
+        rootDynamique.getChildren().add(groupeProjectiles);
+        rootDynamique.getChildren().add(groupeLabels);
+        rootSceneJeu.getChildren().addAll(sol, ciel, rootDynamique);
 
         rootSceneJeu.setAutoSizeChildren(true);
     }
@@ -195,6 +196,8 @@ public class SceneJeu implements Passeur {
         Platform.runLater(()->{
             groupeProjectiles.getChildren().clear();
             projectiles.clear();
+            rootDynamique.getChildren().clear();
+
             if((positionClientX == 0 || positionClientX == 2) && positionClientY == 1){
                 if(joueur==perdant) {
                     stage.setScene(scenePerdu.getScene());
@@ -205,11 +208,14 @@ public class SceneJeu implements Passeur {
                     stage.setFullScreen(true);
                 }
             }
+            else {
+                rootSceneJeu.setVisible(false);
+            }
         });
     }
 
     public void setToGame(){
         this.create(positionClientX, positionClientY);
-        stage.setScene(sceneLocal);
+        rootSceneJeu.setVisible(true);
     }
 }
