@@ -75,12 +75,10 @@ public class Recepteur extends Thread {
                         }
 
                     }
-
                     buffer.clear();
 
                     sleep(10);
                 }
-
             }
         } catch (IOException | InterruptedException e) {
             System.out.println(e);

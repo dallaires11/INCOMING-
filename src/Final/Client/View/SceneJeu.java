@@ -2,9 +2,7 @@ package Final.Client.View;
 
 import Final.Client.Controller.Emetteur;
 import Final.Client.Controller.Passeur;
-import Final.Client.Model.Catapulte;
-import Final.Client.Model.Infos;
-import Final.Client.Model.Projectile;
+import Final.Client.Model.*;
 
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -41,8 +39,8 @@ public class SceneJeu implements Passeur {
 
     public SceneJeu(Stage stage, Emetteur emetteur, SceneVictoire victoire, ScenePerdu perdu) {
         this.emetteur = emetteur;
-        this.sceneVictoire=victoire;
-        this.scenePerdu=perdu;
+        this.sceneVictoire = victoire;
+        this.scenePerdu = perdu;
         catapultes = new ArrayList<>(2);
         projectiles = new ArrayList<>(20);
         //infos = new ArrayList<>(20);
@@ -59,7 +57,7 @@ public class SceneJeu implements Passeur {
         groupeLabels = new HBox();
     }
 
-    public void create(int positionClientX, int positionClientY) {
+    void create(int positionClientX, int positionClientY) {
         if (positionClientX == 0) {
             joueur = 0;
         } else if (positionClientX == 2) {
@@ -131,8 +129,6 @@ public class SceneJeu implements Passeur {
         rootDynamique.getChildren().add(groupeProjectiles);
         rootDynamique.getChildren().add(groupeLabels);
         rootSceneJeu.getChildren().addAll(sol, ciel, montagnes, rootDynamique);
-
-
     }
 
     private void createScene() {
@@ -158,11 +154,9 @@ public class SceneJeu implements Passeur {
 
         if ((positionClientX == 0 || positionClientX == 2) && positionClientY == 1)
             setAction();
-
     }
 
     private void setAction() {
-
         sceneLocal.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE) {
                 emetteur.chargerLancer();
@@ -190,7 +184,6 @@ public class SceneJeu implements Passeur {
             } else if (e.getCode() == KeyCode.DOWN) {
                 catapultes.get(joueur).rotation(0);
             }
-
         });
     }
 
@@ -205,7 +198,7 @@ public class SceneJeu implements Passeur {
             stage.setTitle("Champs de bataille");
     }
 
-    public static Scene getScene() {
+    static Scene getScene() {
         return sceneLocal;
     }
 

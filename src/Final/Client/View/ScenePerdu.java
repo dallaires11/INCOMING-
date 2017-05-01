@@ -25,7 +25,7 @@ public class ScenePerdu implements Stoppeur{
         rootPerdu = new Group();
         taPerdu = new Text("MORT");
         musiqueDefaite = new MediaPlayer(new Media(new File("src/Son/Defaite.mp3").toURI().toString()));
-        this.stage=stage;
+        this.stage = stage;
 
         VBox vbox = new VBox();
         vbox.getChildren().addAll(taPerdu);
@@ -49,7 +49,7 @@ public class ScenePerdu implements Stoppeur{
         vBox.setPadding(new Insets(400,980, 0, 825));
     }
 
-    public Scene getScene() {
+    Scene getScene() {
         debutAnimation();
         return perdu;
     }

@@ -37,7 +37,7 @@ public class SceneVictoire {
         fond = new Rectangle(6000,6000,Color.WHITE);
         musiqueVictoire =  new MediaPlayer(new Media(new File("src/Son/Victoire.mp3").toURI().toString()));
         restart = new MediaPlayer(new Media(new File("src/Son/Restart.mp3").toURI().toString()));
-        this.emetteur=emetteur;
+        this.emetteur = emetteur;
 
         ft = new FadeTransition(Duration.seconds(10),rootGagner);
         ft.setFromValue(0);
@@ -83,10 +83,9 @@ public class SceneVictoire {
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(135);
         vbox.setPadding(new Insets(100,600,0,600));
-
     }
 
-    public Scene getScene(){
+    Scene getScene(){
         debutAnimation();
         return gagner;
     }

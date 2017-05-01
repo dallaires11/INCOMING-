@@ -37,7 +37,7 @@ public class SceneConnect {
     private Text infoChoix;
     private SceneJeu sceneJeu;
     private MediaPlayer intromusicL,introMusicC,scream;
-    private ImageView fond,homme,titre;
+    private ImageView fond,homme,titre,controle;
     private Rectangle effetSpecial;
     private SequentialTransition st;
     private PauseTransition pt2;
@@ -46,13 +46,14 @@ public class SceneConnect {
         root = new Group();
         boutons = new Group();
         this.socket = socket;
-        this.sceneJeu=sceneJeu;
+        this.sceneJeu = sceneJeu;
         effetSpecial = new Rectangle(2000,2000, Color.TAN);
         scene = new Scene(root,Color.BLACK);
 
         fond = new ImageView("Image/sunset.png");
         homme =  new ImageView("Image/Homme.png");
         titre = new ImageView("Image/Titre.png");
+        controle = new ImageView("Image/Controle.JPG");
 
         introMusicC = new MediaPlayer(new Media(new File("src/Son/Introcourt.mp3").toURI().toString()));
         intromusicL = new MediaPlayer(new Media(new File("src/Son/Introlong.mp3").toURI().toString()));
@@ -82,7 +83,7 @@ public class SceneConnect {
 
         boutons.getChildren().add(vBox);
 
-        root.getChildren().addAll(fond,homme,effetSpecial,titre,boutons);
+        root.getChildren().addAll(fond,homme,effetSpecial,titre,controle,boutons);
     }
 
     public Scene getScene() {
@@ -104,7 +105,8 @@ public class SceneConnect {
 
         st.setOnFinished(event->{
             effetSpecial.setOpacity(0.3);
-            boutons.setOpacity(1);
+            boutons.setVisible(true);
+            controle.setVisible(true);
         });
     }
 
@@ -117,9 +119,12 @@ public class SceneConnect {
         titre.setScaleX(3);
         titre.setScaleY(3);
         titre.setRotate(30);
-        boutons.setTranslateX(600);
+        controle.setTranslateX(200);
+        controle.setTranslateY(650);
+        boutons.setTranslateX(725);
         boutons.setTranslateY(700);
-        boutons.setOpacity(0);
+        boutons.setVisible(false);
+        controle.setVisible(false);
     }
 
     private void setAction(Button boutonChoix1, Button boutonChoix2, Button boutonChoix3,
@@ -164,8 +169,8 @@ public class SceneConnect {
                     stage.setFullScreen(true);
                 });
             }
-
         });
+
         boutonChoix1.setOnAction(event -> {
             ecran = 1;
         });
@@ -178,7 +183,6 @@ public class SceneConnect {
 
         scene.setOnKeyPressed(event ->{
             if(event.getCode() == KeyCode.DOWN){
-                System.out.println("test");
                 intromusicL.stop();
                 st.jumpTo(st.getTotalDuration());
                 introMusicC.play();

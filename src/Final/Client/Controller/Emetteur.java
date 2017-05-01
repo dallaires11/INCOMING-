@@ -8,14 +8,11 @@ import java.nio.ByteBuffer;
 
 
 public class Emetteur {
-
     private MulticastSocket multicastSocket;
-
-    InetAddress adresse;
-    int pLancer;
-
-    byte[] bytes = new byte[128];
-    ByteBuffer bufferSend;
+    private InetAddress adresse;
+    private int pLancer;
+    private byte[] bytes = new byte[128];
+    private ByteBuffer bufferSend;
 
     public Emetteur() {
         pLancer = 50;
@@ -26,8 +23,6 @@ public class Emetteur {
             multicastSocket = new MulticastSocket(9002);
             multicastSocket.setInterface(InetAddress.getLocalHost());
             multicastSocket.joinGroup(adresse);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

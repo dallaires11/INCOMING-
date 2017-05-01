@@ -9,20 +9,17 @@ import javafx.scene.shape.Rectangle;
 public class Catapulte extends Group {
 
     private int joueur;
-
     private int HP;
     private int positionX;
     private  int positionY;
     private double angleRadians, angleDeTir;
-
     private Line visee;
-    VBox vBox;
+    private VBox vBox;
 
     public Catapulte(int joueur) {
         this.joueur = joueur;
         HP = 1000;
         //hpBar = new Group();
-
         visee = new Line();
 
         Rectangle hpBack = new Rectangle(22, 12);
@@ -74,7 +71,7 @@ public class Catapulte extends Group {
         }
     }
 
-    public void setPosition(int x, int y){
+    private void setPosition(int x, int y){
         positionX = x;
         positionY = y;
 

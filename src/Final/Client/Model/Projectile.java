@@ -63,10 +63,6 @@ public class Projectile extends Group {
         this.ligneY.endYProperty().set(vY);
     }
 
-    public Group getImage(){
-        return new Group(this);
-    }
-
     public double getX() {
         return this.x;
     }

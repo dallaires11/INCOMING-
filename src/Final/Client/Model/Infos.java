@@ -2,10 +2,6 @@ package Final.Client.Model;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-
-/**
- * Created by Vincent on 2017-04-20.
- */
 public class Infos extends VBox {
 
     Label posX;
