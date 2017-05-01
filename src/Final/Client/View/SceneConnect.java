@@ -37,7 +37,7 @@ public class SceneConnect {
     private Text infoChoix;
     private SceneJeu sceneJeu;
     private MediaPlayer intromusicL,introMusicC,scream;
-    private ImageView fond,homme,titre,controle;
+    private ImageView fond,homme,titre;
     private Rectangle effetSpecial;
     private SequentialTransition st;
     private PauseTransition pt2;
@@ -53,7 +53,6 @@ public class SceneConnect {
         fond = new ImageView("Image/sunset.png");
         homme =  new ImageView("Image/Homme.png");
         titre = new ImageView("Image/Titre.png");
-        controle = new ImageView("Image/Controle.JPG");
 
         introMusicC = new MediaPlayer(new Media(new File("src/Son/Introcourt.mp3").toURI().toString()));
         intromusicL = new MediaPlayer(new Media(new File("src/Son/Introlong.mp3").toURI().toString()));
@@ -83,7 +82,7 @@ public class SceneConnect {
 
         boutons.getChildren().add(vBox);
 
-        root.getChildren().addAll(fond,homme,effetSpecial,titre,controle,boutons);
+        root.getChildren().addAll(fond,homme,effetSpecial,titre,boutons);
     }
 
     public Scene getScene() {
@@ -106,7 +105,6 @@ public class SceneConnect {
         st.setOnFinished(event->{
             effetSpecial.setOpacity(0.3);
             boutons.setVisible(true);
-            controle.setVisible(true);
         });
     }
 
@@ -119,12 +117,9 @@ public class SceneConnect {
         titre.setScaleX(3);
         titre.setScaleY(3);
         titre.setRotate(30);
-        controle.setTranslateX(200);
-        controle.setTranslateY(650);
         boutons.setTranslateX(725);
         boutons.setTranslateY(700);
         boutons.setVisible(false);
-        controle.setVisible(false);
     }
 
     private void setAction(Button boutonChoix1, Button boutonChoix2, Button boutonChoix3,

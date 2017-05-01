@@ -160,6 +160,7 @@ public class SceneJeu implements Passeur {
         sceneLocal.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.SPACE) {
                 emetteur.chargerLancer();
+                lancer.stop();
             } else if (e.getCode() == KeyCode.LEFT) {
                 emetteur.mouvement(joueur, -1);
             } else if (e.getCode() == KeyCode.RIGHT) {
